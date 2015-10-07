@@ -1,0 +1,8 @@
+{
+  "name": "PROJECT_NAME",
+  "version": "1.0.0",
+  "dependencies": {
+    "foundation": "~5.5.3",
+    "normalize-css": "normalize.css#~3.0.3"
+  }
+}

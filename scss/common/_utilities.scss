@@ -1,0 +1,151 @@
+/* ====================================
+   Utilities
+   ==================================== */
+/*
+    Layout
+    ==================================== */
+.u-cf:before,
+.u-cf:after {
+    content: " ";
+    display: table;
+}
+
+.u-cf:after { clear: both; }
+.u-nbfc { overflow: hidden; }
+.u-nbfcAlt {
+    display: table-cell;
+    width: 10000px;
+}
+
+.u-pullLeft {
+    float: left !important;
+}
+
+.u-pullRight {
+    float: right !important;
+}
+
+.u-alignTop { vertical-align: top !important; }
+.u-alignMiddle { vertical-align: middle !important; }
+.u-alignBaseline { vertical-align: baseline !important; }
+.u-alignBottom { vertical-align: bottom !important; }
+
+/*
+    State
+    ==================================== */
+.u-isHidden {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+.u-isHiddenVisually {
+    width: 1px;
+    height: 1px;
+    border: 0;
+    padding: 0;
+    position: absolute !important;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+}
+
+.u-isVisible { visibility: visible; }
+.u-isInvisible { visibility: hidden; }
+.u-isActionable { cursor: pointer; }
+
+.u-isDraggable {
+    cursor: move;
+    cursor: -webkit-grab;
+    cursor: grab;
+
+    &:active {
+        cursor: -webkit-grabbing;
+        cursor: grabbing;
+    }
+}
+
+.u-isDisabled { cursor: default; }
+.u-isLoading { opacity: .6; }
+html.js .js-isHidden { display: none; }
+
+/*
+    Text and Fonts
+    ==================================== */
+.u-textTruncate             {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+}
+
+.u-textBreak {
+    word-break: break-word;
+    word-wrap: break-word;
+}
+
+.u-fontStrong { font-weight: 700 !important; }
+.u-fontItalic { font-style: italic !important; }
+
+.u-fontDefault {
+    font-weight: normal !important;
+    font-style: normal !important;
+    text-transform: none !important;
+}
+
+.u-textUppercase { text-transform: uppercase !important; }
+.u-textLowercase { text-transform: lowercase !important; }
+.u-textUnderline { text-decoration: underline !important; }
+
+.u-textReplace {
+    text-align: left;
+    text-indent: -100%;
+    white-space: nowrap;
+    overflow: hidden;
+    font: 0/0 a;
+}
+
+.u-keepSize { max-width: none; }
+
+/*
+    Loader
+    ==================================== */
+.Loading {
+    position: relative;
+
+    > *:not(.Loading-icon) {
+        @include opacity(0.3);
+
+        transition: opacity 0.1s ease-in 0;
+    }
+
+    &.Loading--done > *:not(.Loading-icon) {
+        @include opacity(1);
+    }
+
+    .fa-spin {
+        display: block;
+    }
+}
+
+/*
+    Text replacement between mobile and desktop screens
+    ==================================== */
+.TextSwitch {
+    &-desktop {
+        display: none;
+        @include bp($bp-gamma) {
+            display: inline-block;
+        }
+    }
+    &:after {
+        display: inline-block;
+
+        content: attr(data-mobile-text);
+
+        @include bp($bp-gamma) {
+            display: none;
+
+            content: '';
+        }
+    }
+}

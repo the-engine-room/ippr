@@ -1,0 +1,17 @@
+
+.Bars .Bars-item {
+	background-color: #ed1b2e;
+}
+
+.Branding {
+    background: url(/images/framework/branding.png) -5px -5px / 85px 42px;
+    height: 32px;
+    margin-top: -6px;
+    width: 75px;
+}
+
+.Branding--large {
+    background: url(/images/framework/branding-large.png) 0 0 / 223px 102px;
+    height: 102px;
+    width: 223px;
+}

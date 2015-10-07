@@ -1,0 +1,4 @@
+default:
+  - 'watch'
+build:
+  - 'concurrent:build'

@@ -1,0 +1,41 @@
+/* ====================================
+   Core
+   ==================================== */
+html,
+body {
+    height: 100%;
+}
+* {
+    box-sizing: border-box;
+}
+body {
+}
+h1 {
+    margin: 0.7em 0;
+}
+a {
+    text-decoration: none;
+
+    &:focus {
+        outline: 0;
+    }
+}
+ul, ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+figure {
+    margin: 0;
+}
+label[for] {
+    cursor: pointer;
+}
+input[type="radio"], input[type="checkbox"] {
+    margin: 0;
+    vertical-align: middle;
+}
+iframe[src*="//player.vimeo.com"], iframe[src*="//www.youtube.com"], object[data*="//www.youtube.com"], object[data*="//player.vimeo.com"], video {
+    max-width: 100%;
+    height: auto;
+}

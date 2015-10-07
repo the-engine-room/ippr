@@ -1,0 +1,17 @@
+/**
+ * Always convert pixel values to em values with 16px as em base.
+ * Useful when you've defined different em base for the whole project
+ * but want your media queries in ems (since they *always* take 16px as base).
+ */
+@function mq-em($pxval) {
+    @return em($pxval, 16);
+}
+
+/**
+ * Return value in pixels.
+ * Useful when you have numbers as variables and don’t want to bother with
+ * concatenation of strings.
+ */
+@function x-px($pxval) {
+    @return $pxval + px;
+}
