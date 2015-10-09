@@ -98,7 +98,7 @@ module.exports = function (grunt) {
             }
         },
 
-        // Uglify JS
+        // Uglify js
         uglify: {
             dist: {
                 src: [],
@@ -116,15 +116,18 @@ module.exports = function (grunt) {
 
         // SVG Icons https://github.com/filamentgroup/grunticon
         grunticon: {
-            files: [{
-                expand: true,
-                cwd: 'images/svg/',
-                src: ['*.svg'],
-                dest: 'css'
-            }],
-            options: {
-                pngfolder: 'images/svg-fallback',
-                cssprefix: '.Icon--'
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: 'images/svg/',
+                    src: ['*.svg'],
+                    dest: 'css'
+                }],
+                options: {
+                    pngfolder: 'images/svg-fallback',
+                    cssprefix: '.Icon--',
+                    preview: false
+                }
             }
         }
 
