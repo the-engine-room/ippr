@@ -9,7 +9,7 @@
     "grunt-contrib-jshint": "^0.11.3",
     "grunt-contrib-uglify": "^0.5.1",
     "grunt-contrib-watch": "^0.6.1",
-    "grunt-grunticon": "^2.1.6",
+    "grunt-grunticon": "^2.2.2",
     "grunt-newer": "^0.7.0",
     "grunt-notify": "~0.2.17",
     "grunt-sass": "^1.0.0",

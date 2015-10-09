@@ -15,7 +15,7 @@ module.exports = function (grunt) {
         // Watches files for changes and runs tasks based on the changed files
         watch: {
             options: {
-                event: ['added', 'deleted', 'changed'],
+                event: ['changed', 'added', 'deleted']
             },
             js: {
                 files: ['js/{,*/}*.js'],
@@ -34,11 +34,11 @@ module.exports = function (grunt) {
                 tasks: ['newer:jshint:all']
             },
             grunticon: {
-                files: 'images/*.svg',
+                files: 'images/svg/*.svg',
                 tasks: ['grunticon']
             },
             images: {
-                files: ['images/**/*.{png,jpg,gif,svg}', '!images/dist/**/*.{png,jpg,gif,svg}'],
+                files: ['images/**/*.{png,jpg,gif,svg}', '!images/dist/**/*.{png,jpg,gif,svg}', '!images/svg/**/*.{png,jpg,gif,svg}', '!images/svg-fallback/**/*.{png,jpg,gif,svg}'],
                 tasks: ['newer:imagemin:dist']
             }
         },
@@ -92,7 +92,7 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     cwd: 'images/',
-                    src: ['**/*.{png,jpg,gif,svg}', '!dist/**'],
+                    src: ['**/*.{png,jpg,gif,svg}', '!dist/**', '!svg/**', '!svg-fallback/**'],
                     dest: 'images/dist/'
                 }]
             }
