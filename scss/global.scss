@@ -1,6 +1,12 @@
 /* ====================================
    Globals
    ==================================== */
+/*  foundation
+    ==================================== */
+@import "foundation/settings";
+@import "foundation";
+
+
 /*  library
     ==================================== */
 @import "library/functions";
@@ -18,7 +24,7 @@
     ==================================== */
 @import "common/utilities";
 @import "common/fonts";
-@import "common/typeography";
+@import "common/typography";
 @import "common/forms";
 
 /*  components

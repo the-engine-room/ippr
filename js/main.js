@@ -1,3 +1,4 @@
+'use strict';
 (function($,sr){
 
   // debouncing function from John Hann
@@ -8,25 +9,28 @@
       return function debounced () {
           var obj = this, args = arguments;
           function delayed () {
-              if (!execAsap)
+              if (!execAsap){
                   func.apply(obj, args);
+              }
               timeout = null;
-          };
+          }
 
-          if (timeout)
-              clearTimeout(timeout);
-          else if (execAsap)
+          if (timeout){
+            clearTimeout(timeout);
+          }
+          else if (execAsap){
               func.apply(obj, args);
+          }
 
           timeout = setTimeout(delayed, threshold || 300);
       };
-  }
+  };
   // smartresize
   jQuery.fn[sr] = function(fn){  return fn ? this.bind('resize orientationchange', debounce(fn)) : this.trigger(sr); };
 
 })(jQuery,'smartresize');
 
 $(function() {
-    var win = $(window),
+    //var win = $(window);
 
 });
