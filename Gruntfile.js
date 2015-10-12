@@ -27,7 +27,7 @@ module.exports = function (grunt) {
             },
             css: {
                 files: 'scss/**/*.scss',
-                tasks: ['sass:dist']
+                tasks: ['sass:dist', 'autoprefixer']
             },
             gruntfile: {
                 files: ['Gruntfile.js'],
@@ -61,8 +61,9 @@ module.exports = function (grunt) {
         sass: {
             dist: {
                 options: {
-                  outputStyle: 'expanded',
-                  includePaths: ['bower_components/foundation/scss']
+                    sourceMap: true,
+                    outputStyle: 'expanded',
+                    includePaths: ['bower_components/foundation/scss']
                 },
                 files: {
                     'css/global.css': 'scss/global.scss' // 'destination': 'source'
@@ -129,7 +130,34 @@ module.exports = function (grunt) {
                     preview: false
                 }
             }
-        }
+        },
+
+        // The actual grunt server settings
+        connect: {
+            server: {
+                options: {
+                    port: 9000,
+                    // Change this to '0.0.0.0' to access the server from outside.
+                    hostname: 'localhost'
+                }
+            }
+        },
+
+        // Add vendor prefixed styles
+        autoprefixer: {
+            options: {
+                browsers: ['last 3 versions', 'ie 8', 'ie 9'],
+                map: true
+            },
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: 'css',
+                    src: '{,*/}*.css',
+                    dest: 'css'
+                }]
+            }
+        },
 
     });
 
@@ -140,7 +168,7 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('default', [
-        'watch'
+        'connect:server', 'watch'
     ]);
 
 
