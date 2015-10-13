@@ -132,17 +132,6 @@ module.exports = function (grunt) {
             }
         },
 
-        // The actual grunt server settings
-        connect: {
-            server: {
-                options: {
-                    port: 9000,
-                    // Change this to '0.0.0.0' to access the server from outside.
-                    hostname: 'localhost'
-                }
-            }
-        },
-
         // Add vendor prefixed styles
         autoprefixer: {
             options: {
@@ -168,7 +157,7 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('default', [
-        'connect:server', 'watch'
+        'watch'
     ]);
 
 
