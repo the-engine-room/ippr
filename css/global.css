@@ -9176,4 +9176,8 @@ html.js .js-isHidden {
 /* ====================================
    Widgets
    ==================================== */
+.columns {
+  background: #e1e1e1;
+  border: red 1px solid;
+}
 /*# sourceMappingURL=global.css.map */
