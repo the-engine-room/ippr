@@ -159,14 +159,14 @@ module.exports = function (grunt) {
         },
 
         useminPrepare: {
-            html: 'index.html',
+            html: 'index.php',
             options: {
                 dest: 'production'
             }
         },
 
         usemin:{
-            html: ['index.html']
+            html: ['index.php']
         },
 
         critical: {
