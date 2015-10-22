@@ -52,7 +52,9 @@ module.exports = function (grunt) {
             all: {
                 src: [
                     'Gruntfile.js',
-                    'js/{,*/}*.js'
+                    'js/{,*/}*.js',
+                    '!js/production.js',
+                    '!js/production.min.js'
                 ]
             }
         },
@@ -99,22 +101,6 @@ module.exports = function (grunt) {
             }
         },
 
-        // Uglify js
-        uglify: {
-            dist: {
-                src: [],
-                dest: ''
-            }
-        },
-
-        // Combine files
-        concat: {
-            dist: {
-                src: ['css/global.css'],
-                dest: 'css/production.css'
-            }
-        },
-
         // SVG Icons https://github.com/filamentgroup/grunticon
         grunticon: {
             dist: {
@@ -148,16 +134,70 @@ module.exports = function (grunt) {
             }
         },
 
+        php: {
+            devel: {
+                options: {
+                    hostname: '0.0.0.0',
+                    base: '',
+                    port: 9000
+                }
+            }
+        },
+
+        browserSync: {
+            dev: {
+                bsFiles: {
+                    src: ['*.html', 'css/**/*.css', 'js/**/*.js']
+                },
+                options: {
+                    proxy: '0.0.0.0:9000', //our PHP server
+                    port: 9011, // our new port
+                    open: true,
+                    watchTask: true
+                }
+            }
+        },
+
+        useminPrepare: {
+            html: 'index.html',
+            options: {
+                dest: 'production'
+            }
+        },
+
+        usemin:{
+            html: ['index.html']
+        },
+
+        critical: {
+            test: {
+                options: {
+                    base: './',
+                    css: [
+                        'css/normalize.css',
+                        'css/global.css'
+                    ],
+                    width: 3000,
+                    height: 10000,
+                    minify: true
+                },
+                src: 'critical.html',
+                dest: 'css/critical.css'
+            }
+        }
+
     });
 
 
     grunt.registerTask('build', [
+        'useminPrepare',
         'concat',
+        'uglify',
         'cssmin'
     ]);
 
     grunt.registerTask('default', [
-        'watch'
+        'php:devel', 'browserSync', 'watch'
     ]);
 
 
