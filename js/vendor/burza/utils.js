@@ -1,3 +1,4 @@
+/*global ActiveXObject: false */
 'use strict';
 (function (window, scope) {
 
@@ -48,7 +49,7 @@
             element['on' + event] = callback;
         }
         return;
-    }
+    };
 
     _self.removeEvent = function (element, event, callback) {
         if (_config.eventType === 1) {
@@ -59,7 +60,7 @@
             element['on' + event] = null;
         }
         return;
-    }
+    };
 
     _self.hasClass = function (element, className) {
         if (element.classList) {
@@ -84,7 +85,8 @@
         if (element.classList) {
             return element.classList.remove(className);
         }
-        return element.className = element.className.replace(new RegExp('(^|\\b)' + className + '(\\b|$)', 'g'), ' ');
+        element.className = element.className.replace(new RegExp('(^|\\b)' + className + '(\\b|$)', 'g'), ' ');
+        return element.className;
     };
 
     _self.toggleClass = function (element, className, turnOn) {
@@ -142,9 +144,11 @@
             return typeof value === 'function';
         },
         date: function (value) {
+            var toString = Object.prototype.toString;
             return toString.call(value) === '[object Date]';
         },
         regExp: function (value) {
+            var toString = Object.prototype.toString;
             return toString.call(value) === '[object RegExp]';
         }
     };
@@ -193,10 +197,10 @@
             }
         }
         return destination;
-    };
+    }
 
     _self.debounce = function (fn, delay) {
-        delay || (delay = 250);
+        delay = delay || 250;
         var timer = null;
         return function () {
             var context = this, args = arguments;
@@ -208,11 +212,11 @@
     };
 
     _self.throttle = function (fn, threshhold, scope) {
-        threshhold || (threshhold = 250);
+        threshhold = threshhold || 250;
         var last, deferTimer;
         return function () {
             var context = scope || this;
-            var now = +new Date,
+            var now = +new Date(),
                 args = arguments;
             if (last && now < last + threshhold) {
                 window.clearTimeout(deferTimer);
@@ -238,10 +242,10 @@
         return window.pageYOffset || window.document.body.scrollTop || window.document.documentElement.scrollTop || 0;
     };
     _self.vw = function () {
-        return window.innerWidth || window.document.documentElement.clientWidth || window.document.body.clientWidth || 0
+        return window.innerWidth || window.document.documentElement.clientWidth || window.document.body.clientWidth || 0;
     };
     _self.vh = function () {
-        return window.innerHeight || window.document.documentElement.clientHeight || window.document.body.clientHeight || 0
+        return window.innerHeight || window.document.documentElement.clientHeight || window.document.body.clientHeight || 0;
     };
 
 
@@ -261,18 +265,19 @@
 
     _self.serialize = function (form) {
         var field, s = [];
-        if (typeof form == 'object' && form.nodeName == "FORM") {
+        if (typeof form === 'object' && form.nodeName === 'FORM') {
             var len = form.elements.length;
             for (var i=0; i<len; i++) {
                 field = form.elements[i];
-                if (field.name && !field.disabled && field.type != 'file' && field.type != 'reset' && field.type != 'submit' && field.type != 'button') {
-                    if (field.type == 'select-multiple') {
-                        for (j=form.elements[i].options.length-1; j>=0; j--) {
-                            if(field.options[j].selected)
-                                s[s.length] = encodeURIComponent(field.name) + "=" + encodeURIComponent(field.options[j].value);
+                if (field.name && !field.disabled && field.type !== 'file' && field.type !== 'reset' && field.type !== 'submit' && field.type !== 'button') {
+                    if (field.type === 'select-multiple') {
+                        for (var j=form.elements[i].options.length-1; j>=0; j--) {
+                            if(field.options[j].selected) {
+                                s[s.length] = encodeURIComponent(field.name) + '=' + encodeURIComponent(field.options[j].value);
+                            }
                         }
-                    } else if ((field.type != 'checkbox' && field.type != 'radio') || field.checked) {
-                        s[s.length] = encodeURIComponent(field.name) + "=" + encodeURIComponent(field.value);
+                    } else if ((field.type !== 'checkbox' && field.type !== 'radio') || field.checked) {
+                        s[s.length] = encodeURIComponent(field.name) + '=' + encodeURIComponent(field.value);
                     }
                 }
             }
@@ -283,8 +288,8 @@
 
     _self.ajax = function (url, method, data, callback) {
 
-        var method = typeof(method) !== 'undefined' ? method : 'GET',
-            httpRequest;
+        method = typeof(method) !== 'undefined' ? method : 'GET';
+        var httpRequest;
 
         if (window.XMLHttpRequest) {
             httpRequest = new XMLHttpRequest();
@@ -307,7 +312,7 @@
         httpRequest.open(method, url, true);
         httpRequest.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
-        if (method == 'POST') {
+        if (method === 'POST') {
 
             httpRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
             httpRequest.send(data);
