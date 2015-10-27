@@ -21,10 +21,6 @@ module.exports = function (grunt) {
                 files: ['js/{,*/}*.js'],
                 tasks: ['newer:jshint:all']
             },
-            icons: {
-                files: ['images/svg/*.svg'],
-                tasks: ['grunticon']
-            },
             css: {
                 files: 'scss/**/*.scss',
                 tasks: ['sass:dist', 'autoprefixer']
@@ -127,6 +123,7 @@ module.exports = function (grunt) {
             }
         },
 
+        // PHP server for local development
         php: {
             devel: {
                 options: {
@@ -137,6 +134,7 @@ module.exports = function (grunt) {
             }
         },
 
+        // Live reload
         browserSync: {
             dev: {
                 bsFiles: {
@@ -151,6 +149,7 @@ module.exports = function (grunt) {
             }
         },
 
+        // Minification, contcat, uglify
         useminPrepare: {
             html: 'index.php',
             options: {
@@ -162,6 +161,8 @@ module.exports = function (grunt) {
             html: ['index.php']
         },
 
+
+        // Parse html and generates above the fold css
         critical: {
             test: {
                 options: {
@@ -179,6 +180,8 @@ module.exports = function (grunt) {
             }
         },
 
+
+        // Copy stuff
         copy: {
 
             grunticonspng: {
