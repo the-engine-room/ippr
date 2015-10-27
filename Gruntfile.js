@@ -77,17 +77,6 @@ module.exports = function (grunt) {
             }
         },
 
-        // Minify CSS
-        cssmin: {
-            dist: {
-                expand: true,
-                cwd: 'css/',
-                src: ['production.css', '!*.min.css'],
-                dest: 'css/',
-                ext: '.min.css'
-            }
-        },
-
         // Minify images
         imagemin: {
             dist: {
