@@ -40,6 +40,10 @@ module.exports = function (grunt) {
             images: {
                 files: ['images/**/*.{png,jpg,gif,svg}', '!images/dist/**/*.{png,jpg,gif,svg}', '!images/svg/**/*.{png,jpg,gif,svg}', '!images/svg-fallback/**/*.{png,jpg,gif,svg}'],
                 tasks: ['newer:imagemin:dist']
+            },
+            copygrunticon: {
+                files: ['.tmp/grunticon/*'],
+                tasks: ['copy']
             }
         },
 
@@ -108,10 +112,10 @@ module.exports = function (grunt) {
                     expand: true,
                     cwd: 'images/svg/',
                     src: ['*.svg'],
-                    dest: 'css'
+                    dest: '.tmp/grunticon/'
                 }],
                 options: {
-                    pngfolder: 'images/svg-fallback',
+                    pngpath: 'images/svg-fallback',
                     cssprefix: '.Icon--',
                     preview: false
                 }
@@ -184,6 +188,23 @@ module.exports = function (grunt) {
                 src: 'critical.html',
                 dest: 'css/critical.css'
             }
+        },
+
+        copy: {
+
+            grunticonspng: {
+                expand: true,
+                flatten: true,
+                src: '.tmp/grunticon/png/*.png',
+                dest: 'images/svg-fallback/',
+            },
+            grunticonscss: {
+                expand: true,
+                flatten: true,
+                src: '.tmp/grunticon/*.css',
+                dest: 'css/',
+            }
+
         }
 
     });
