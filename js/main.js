@@ -2,7 +2,7 @@
 (function (U) {
 
     U.forEach(U.getElements('.large'), function(button){
-        U.addClass(button, 'small');
+        U.addClass(button, 'medium');
     });
 
 })(window.burza.utils);
