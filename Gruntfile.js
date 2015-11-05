@@ -23,7 +23,7 @@ module.exports = function (grunt) {
             },
             css: {
                 files: 'scss/**/*.scss',
-                tasks: ['sass:dist', 'autoprefixer']
+                tasks: ['scsslint', 'sass:dist', 'autoprefixer']
             },
             gruntfile: {
                 files: ['Gruntfile.js'],
@@ -57,6 +57,18 @@ module.exports = function (grunt) {
                     '!js/production.min.js'
                 ]
             }
+        },
+
+        scsslint: {
+            allFiles: [
+                'scss/**/*.scss',
+            ],
+            options: {
+                config: '.scss-lint.yml',
+                reporterOutput: 'scss-lint-report.xml',
+                colorizeOutput: true,
+                force: true
+            },
         },
 
         // Compiles Sass to CSS and generates necessary files if requested
