@@ -1,8 +1,7 @@
 {
-  "name": "PROJECT_NAME",
+  "name": "lino.eu",
   "version": "1.0.0",
   "dependencies": {
-    "normalize-css": "normalize.css#~3.0.3",
-    "foundation": "~5.5.3"
+    "foundation-sites": "~6.0.5"
   }
 }

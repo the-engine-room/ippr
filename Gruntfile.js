@@ -77,7 +77,7 @@ module.exports = function (grunt) {
                 options: {
                     sourceMap: true,
                     outputStyle: 'expanded',
-                    includePaths: ['bower_components/foundation/scss']
+                    includePaths: ['bower_components/foundation-sites/scss']
                 },
                 files: {
                     'css/global.css': 'scss/global.scss' // 'destination': 'source'
@@ -150,7 +150,7 @@ module.exports = function (grunt) {
         browserSync: {
             dev: {
                 bsFiles: {
-                    src: ['*.html', 'css/**/*.css', 'js/**/*.js']
+                    src: ['*.html', 'css/**/*.css', 'js/**/*.js', '*.php']
                 },
                 options: {
                     proxy: '0.0.0.0:9000', //our PHP server

@@ -1,33 +1,29 @@
 /* ====================================
-   Globals
-   ==================================== */
-/*  foundation
+    Foundation
     ==================================== */
-@import "foundation/settings";
+@import "foundation-settings";
 @import "foundation";
 
 
-/*  library
-    ==================================== */
-@import "library/functions";
-@import "library/mixins";
+@include foundation-everything;
 
-/*  variables
-    ==================================== */
-@import "variables";
 
-/*  core
+/* ====================================
+    Core
     ==================================== */
 @import "core";
 
-/*  common
+
+/* ====================================
+    Common
     ==================================== */
 @import "common/utilities";
 @import "common/fonts";
 @import "common/typography";
 @import "common/forms";
 
-/*  components
+/* ====================================
+    Components
     ==================================== */
 @import "components/header";
 @import "components/footer";
@@ -35,7 +31,3 @@
 @import "components/article";
 @import "components/widgets";
 
-.button {
-    background: red;
-    border: red 1px solid;
-}

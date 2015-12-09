@@ -113,13 +113,13 @@ html.js .js-isHidden { display: none; }
     position: relative;
 
     > *:not(.Loading-icon) {
-        @include opacity(0.3);
+        opacity: 0.3;
 
         transition: opacity 0.1s ease-in 0;
     }
 
     &.Loading--done > *:not(.Loading-icon) {
-        @include opacity(1);
+        opacity: 1;
     }
 
     .fa-spin {
@@ -127,25 +127,3 @@ html.js .js-isHidden { display: none; }
     }
 }
 
-/*
-    Text replacement between mobile and desktop screens
-    ==================================== */
-.TextSwitch {
-    &-desktop {
-        display: none;
-        @include bp($bp-gamma) {
-            display: inline-block;
-        }
-    }
-    &:after {
-        display: inline-block;
-
-        content: attr(data-mobile-text);
-
-        @include bp($bp-gamma) {
-            display: none;
-
-            content: '';
-        }
-    }
-}
