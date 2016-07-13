@@ -153,12 +153,33 @@ module.exports = function (grunt) {
         useminPrepare: {
             html: 'index.php',
             options: {
-                dest: 'production'
+                dest: 'dist'
             }
         },
 
         usemin:{
-            html: ['index.php']
+            html: ['dist/index.php'],
+            // css: ['dist/css/**/*.css'],
+            // js: ['dist/js/**/*.js'],
+            options: {
+                assetsDirs: [
+                    'dist'
+                ]
+            }
+        },
+
+        filerev: {
+            options: {
+                algorithm: 'md5',
+                length: 8
+            },
+            dist: {
+                src: [
+                    'dist/images/dist/**/*',
+                    'dist/js/**/*.js',
+                    'dist/css/**/*.css'
+                ]
+            }
         },
 
 
@@ -194,6 +215,20 @@ module.exports = function (grunt) {
                 flatten: true,
                 src: '.tmp/grunticon/*.css',
                 dest: 'css/',
+            },
+            build: {
+                files: [
+                    {
+                        src: 'index.php',
+                        dest: 'dist/',
+                    },
+                    {
+                        expand: true,
+                        cwd: 'images/',
+                        src: ['**'],
+                        dest: 'dist/images/',
+                    }
+                ]
             }
 
         }
@@ -203,9 +238,12 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build', [
         'useminPrepare',
-        'concat',
-        'uglify',
-        'cssmin'
+        'concat:generated',
+        'cssmin:generated',
+        'uglify:generated',
+        'copy:build',
+        'filerev',
+        'usemin'
     ]);
 
     grunt.registerTask('default', [
