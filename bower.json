@@ -1,7 +1,0 @@
-{
-  "name": "lino.eu",
-  "version": "1.0.0",
-  "dependencies": {
-    "foundation-sites": "~6.0.5"
-  }
-}

@@ -1,11 +1,9 @@
 /* ====================================
-    Foundation
+    Materialize CSS
     ==================================== */
-@import "foundation-settings";
-@import "foundation";
-
-
-@include foundation-everything;
+@import "colors";
+@import "variables";
+@import "materialize";
 
 
 /* ====================================

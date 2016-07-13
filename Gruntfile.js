@@ -23,7 +23,7 @@ module.exports = function (grunt) {
             },
             css: {
                 files: 'scss/**/*.scss',
-                tasks: ['scsslint', 'sass:dist', 'autoprefixer']
+                tasks: ['sass:dist', 'autoprefixer']
             },
             gruntfile: {
                 files: ['Gruntfile.js'],
@@ -59,25 +59,13 @@ module.exports = function (grunt) {
             }
         },
 
-        scsslint: {
-            allFiles: [
-                'scss/**/*.scss',
-            ],
-            options: {
-                config: '.scss-lint.yml',
-                reporterOutput: 'scss-lint-report.xml',
-                colorizeOutput: true,
-                force: true
-            },
-        },
-
         // Compiles Sass to CSS and generates necessary files if requested
         sass: {
             dist: {
                 options: {
                     sourceMap: true,
                     outputStyle: 'expanded',
-                    includePaths: ['bower_components/foundation-sites/scss']
+                    includePaths: ['node_modules/materialize-css/sass']
                 },
                 files: {
                     'css/global.css': 'scss/global.scss' // 'destination': 'source'
@@ -180,7 +168,6 @@ module.exports = function (grunt) {
                 options: {
                     base: './',
                     css: [
-                        'css/normalize.css',
                         'css/global.css'
                     ],
                     width: 3000,

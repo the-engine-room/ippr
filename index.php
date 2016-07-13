@@ -1,12 +1,15 @@
+<?php
+    $URL = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+?>
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="hr"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang="hr"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9" lang="hr"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="hr"> <!--<![endif]-->
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Starterkit</title>
+    <title>Transparent Oil Namibia</title>
     <meta name="description" content="CHANGEME">
 
     <script>
@@ -50,10 +53,20 @@
         }());
     </script>
 
+    <meta property="og:site_name" content="Transparent Oil Namibia" />
+    <meta property="og:title" content="Transparent Oil Namibia" />
+    <meta property="og:description" content="CHANGEME" />
+    <meta property="og:url" content="<?php echo $URL ?>" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-
+    <link rel="dns-prefetch" href="//maps.gstatic.com">
+    <link rel="dns-prefetch" href="//code.jquery.com">
+    <link rel="dns-prefetch" href="//www.googletagmanager.com">
+    <link rel="dns-prefetch" href="//maps.googleapis.com">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
 
     <!-- build:css min.css -->
     <link rel="stylesheet" href="/css/global.css" />
@@ -65,17 +78,48 @@
         <p class="Browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
+    <div class="container">
 
-    <h1 class="text-center">.. Starter kit ..</h1>
+        <h1>Ippr</h1>
 
-    <a href="#" class="button large">Default Button</a>
-    <a href="#" class="button large">Default Button</a>
-    <a href="#" class="button large">Default Button</a>
-    <a href="#" class="button large">Default Button</a>
-    <a href="#" class="button large">Default Button</a>
+        <a class="waves-effect waves-light btn">button</a>
+
+        <div class="row">
+            <div class="col s1">1</div>
+            <div class="col s1">2</div>
+            <div class="col s1">3</div>
+            <div class="col s1">4</div>
+            <div class="col s1">5</div>
+            <div class="col s1">6</div>
+            <div class="col s1">7</div>
+            <div class="col s1">8</div>
+            <div class="col s1">9</div>
+            <div class="col s1">10</div>
+            <div class="col s1">11</div>
+            <div class="col s1">12</div>
+        </div>
+
+    </div>
+
+        <div class="row">
+            <div class="col s1">1</div>
+            <div class="col s1">2</div>
+            <div class="col s1">3</div>
+            <div class="col s1">4</div>
+            <div class="col s1">5</div>
+            <div class="col s1">6</div>
+            <div class="col s1">7</div>
+            <div class="col s1">8</div>
+            <div class="col s1">9</div>
+            <div class="col s1">10</div>
+            <div class="col s1">11</div>
+            <div class="col s1">12</div>
+        </div>
 
 
     <!-- build:js min.js -->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
     <script src="/js/vendor/burza/utils.js"></script>
     <script src="/js/main.js"></script>
     <!-- endbuild -->
