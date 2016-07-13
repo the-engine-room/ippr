@@ -74,10 +74,6 @@
 
 </head>
 <body>
-    <!--[if lt IE 8]>
-        <p class="Browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
-
     <div class="container">
 
         <h1>Ippr</h1>
@@ -101,20 +97,22 @@
 
     </div>
 
-        <div class="row">
-            <div class="col s1">1</div>
-            <div class="col s1">2</div>
-            <div class="col s1">3</div>
-            <div class="col s1">4</div>
-            <div class="col s1">5</div>
-            <div class="col s1">6</div>
-            <div class="col s1">7</div>
-            <div class="col s1">8</div>
-            <div class="col s1">9</div>
-            <div class="col s1">10</div>
-            <div class="col s1">11</div>
-            <div class="col s1">12</div>
-        </div>
+    <div class="row">
+        <div class="col s1">1</div>
+        <div class="col s1">2</div>
+        <div class="col s1">3</div>
+        <div class="col s1">4</div>
+        <div class="col s1">5</div>
+        <div class="col s1">6</div>
+        <div class="col s1">7</div>
+        <div class="col s1">8</div>
+        <div class="col s1">9</div>
+        <div class="col s1">10</div>
+        <div class="col s1">11</div>
+        <div class="col s1">12</div>
+    </div>
+
+
 
 
     <!-- build:js min.js -->
@@ -123,6 +121,8 @@
     <script src="/js/vendor/burza/utils.js"></script>
     <script src="/js/main.js"></script>
     <!-- endbuild -->
+
+
 
     <script>
         (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
