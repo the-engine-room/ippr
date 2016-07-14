@@ -9,6 +9,7 @@
 /* ====================================
     Core
     ==================================== */
+@import "mixins";
 @import "core";
 
 
@@ -24,8 +25,8 @@
     Components
     ==================================== */
 @import "components/header";
-@import "components/footer";
-@import "components/listings";
-@import "components/article";
-@import "components/widgets";
+@import "components/tabs";
+@import "components/lists";
+@import "components/map";
+@import "components/table";
 

@@ -2,4 +2,28 @@
    Header
    ==================================== */
 .Header {
+    background-image: url(#{$assetsPath}header.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+
+    &-inner {
+        backface-visibility: hidden;
+        transition: padding 0.3s ease;
+        padding: 5% 0;
+        color: #fff;
+        background-color: rgba(0,0,0,0.2);
+        position: relative;
+    }
+
+    &-title {
+        @include fluid-type(font-size, 320px, 1900px, 26px, 60px);
+    }
+
+    &-about {
+        text-transform: uppercase;
+        color: #fff;
+        font-size: 20px;
+    }
+
 }

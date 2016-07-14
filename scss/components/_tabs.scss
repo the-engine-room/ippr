@@ -1,0 +1,48 @@
+/* ====================================
+   Tabs
+   ==================================== */
+
+.TabsHolder {
+    margin-bottom: 0;
+}
+
+
+.tabs .indicator { display: none; }
+.tabs {
+
+    margin-top: 20px;
+    height: auto;
+
+    .tab {
+
+        text-transform: inherit;
+        height: auto;
+        line-height: 1;
+        margin: 0 10px;
+        backface-visibility: hidden;
+
+        a {
+            background: #B6DBC7;
+            border-top-left-radius: 2px;
+            border-top-right-radius: 2px;
+            color: #000;
+            padding: 20px;
+            @include fluid-type(font-size, 320px, 1900px, 15px, 30px);
+
+            backface-visibility: hidden;
+            transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+
+            &.active {
+                background: #003580;
+                color: #fff;
+                &:hover {
+                    color: #fff;
+                }
+            }
+
+            &:hover {
+                color: inherit;
+            }
+        }
+    }
+}

@@ -71,45 +71,50 @@
 </head>
 <body>
 
-    <img src="/images/dist/dummy.jpg" />
-    <div id="sankey_basic"></div>
-    <div class="container">
+    <header class="Header center-align">
+        <div class="Header-inner">
+            <div class="container">
 
-        <h1>Ippr</h1>
+                <div class="row">
+                    <div class="col s12">
+                        <h1 class="Header-title">Transparent Oil Namibia</h1>
+                    </div>
+                    <div class="col s12 m8 offset-m2 left-align">
+                        <p class="light Header-description">The Transparent Oil Namibia platform maps the details, trends and connections in the allocation of Petroleum Exploration Licences in Namibia. The page lets you search through a collection of information about which companies hold these licenses, who owns and manages them, where are these companies registered and how has license ownership changed over time.</p>
+                    </div>
+                </div>
 
-        <a class="waves-effect waves-light btn">button</a>
 
-        <div class="row">
-            <div class="col s1">1</div>
-            <div class="col s1">2</div>
-            <div class="col s1">3</div>
-            <div class="col s1">4</div>
-            <div class="col s1">5</div>
-            <div class="col s1">6</div>
-            <div class="col s1">7</div>
-            <div class="col s1">8</div>
-            <div class="col s1">9</div>
-            <div class="col s1">10</div>
-            <div class="col s1">11</div>
-            <div class="col s1">12</div>
+                <a href="about.php" class="Header-about">About us</a>
+            </div>
+        </div>
+    </header>
+
+
+
+    <div class="Content">
+
+        <div class="row TabsHolder">
+            <div class="col s12">
+                <ul class="tabs">
+                    <li class="tab col"><a class="active" href="#licenses">Licenses</a></li>
+                    <li class="tab col"><a href="#companies">Companies</a></li>
+                </ul>
+            </div>
         </div>
 
+        <div id="licenses" class="col s12">
+
+            <div style="background: red">asdasd</div>
+
+
+        </div>
+        <div id="companies" class="">Test 2</div>
+
     </div>
 
-    <div class="row">
-        <div class="col s1">1</div>
-        <div class="col s1">2</div>
-        <div class="col s1">3</div>
-        <div class="col s1">4</div>
-        <div class="col s1">5</div>
-        <div class="col s1">6</div>
-        <div class="col s1">7</div>
-        <div class="col s1">8</div>
-        <div class="col s1">9</div>
-        <div class="col s1">10</div>
-        <div class="col s1">11</div>
-        <div class="col s1">12</div>
-    </div>
+
+
 
 
 

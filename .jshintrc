@@ -21,6 +21,7 @@
     "angular": false,
     "jQuery": true,
     "google": true,
+    "Materialize": true,
     "$": true
   }
 }
