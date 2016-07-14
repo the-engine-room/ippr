@@ -68,7 +68,7 @@
     <link rel="dns-prefetch" href="//maps.googleapis.com">
     <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
 
-    <!-- build:css css/min.css -->
+    <!-- build:css /css/min.css -->
     <link rel="stylesheet" href="/css/global.css" />
     <!-- endbuild -->
 
@@ -118,7 +118,7 @@
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
 
-    <!-- build:js js/min.js -->
+    <!-- build:js /js/min.js -->
     <script src="/js/vendor/burza/utils.js"></script>
     <script src="/js/main.js"></script>
     <!-- endbuild -->

@@ -29,10 +29,10 @@ module.exports = function (grunt) {
                 files: ['Gruntfile.js'],
                 tasks: ['newer:jshint:all']
             },
-            grunticon: {
-                files: 'images/svg/*.svg',
-                tasks: ['grunticon']
-            },
+            // grunticon: {
+            //     files: 'images/svg/*.svg',
+            //     tasks: ['grunticon']
+            // },
             images: {
                 files: ['images/**/*.{png,jpg,gif,svg}', '!images/dist/**/*.{png,jpg,gif,svg}', '!images/svg/**/*.{png,jpg,gif,svg}', '!images/svg-fallback/**/*.{png,jpg,gif,svg}'],
                 tasks: ['newer:imagemin:dist']
@@ -164,7 +164,12 @@ module.exports = function (grunt) {
             options: {
                 assetsDirs: [
                     'dist'
-                ]
+                ],
+                // patterns: {
+                //     js: [
+                //         [/(\/css\/icons.+?(?=.css))/gm, 'Replacing reference to image.png']
+                //     ]
+                // }
             }
         },
 
@@ -182,6 +187,9 @@ module.exports = function (grunt) {
             }
         },
 
+        clean: {
+            build: ['dist']
+        },
 
         // Parse html and generates above the fold css
         critical: {
@@ -224,9 +232,15 @@ module.exports = function (grunt) {
                     },
                     {
                         expand: true,
-                        cwd: 'images/',
+                        cwd: 'images/dist/',
                         src: ['**'],
-                        dest: 'dist/images/',
+                        dest: 'dist/images/dist',
+                    },
+                    {
+                        expand: true,
+                        cwd: 'css/',
+                        src: ['icons.data.png.css', 'icons.data.svg.css', 'icons.fallback.css'],
+                        dest: 'dist/css/',
                     }
                 ]
             }
@@ -237,6 +251,7 @@ module.exports = function (grunt) {
 
 
     grunt.registerTask('build', [
+        'clean',
         'useminPrepare',
         'concat:generated',
         'cssmin:generated',
