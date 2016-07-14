@@ -1,7 +1,7 @@
 'use strict';
 module.exports = function (grunt) {
 
-    var mozjpeg = require('imagemin-mozjpeg');
+    // var mozjpeg = require('imagemin-mozjpeg');
 
     // Load grunt tasks automatically
     require('load-grunt-tasks')(grunt);
@@ -234,6 +234,12 @@ module.exports = function (grunt) {
                         cwd: 'images/dist/',
                         src: ['**'],
                         dest: 'dist/images/dist',
+                    },
+                    {
+                        expand: true,
+                        cwd: 'fonts/',
+                        src: ['**'],
+                        dest: 'dist/fonts',
                     },
                     {
                         expand: true,

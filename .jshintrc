@@ -20,6 +20,7 @@
   "globals": {
     "angular": false,
     "jQuery": true,
+    "google": true,
     "$": true
   }
 }
