@@ -78,8 +78,7 @@ module.exports = function (grunt) {
             dist: {
                 options: {
                     optimizationLevel: 3,
-                    svgoPlugins: [{ removeViewBox: false }],
-                    use: [mozjpeg()]
+                    svgoPlugins: [{ removeViewBox: false }]
                 },
                 files: [{
                     expand: true,
