@@ -7717,28 +7717,28 @@ button:focus {
 
 label {
   font-size: 0.8rem;
-  color: #9e9e9e;
+  color: transparent;
 }
 
 /* Text Inputs + Textarea
    ========================================================================== */
 /* Style Placeholders */
 ::-webkit-input-placeholder {
-  color: #d1d1d1;
+  color: rgba(51, 51, 51, 0);
 }
 
 :-moz-placeholder {
   /* Firefox 18- */
-  color: #d1d1d1;
+  color: rgba(51, 51, 51, 0);
 }
 
 ::-moz-placeholder {
   /* Firefox 19+ */
-  color: #d1d1d1;
+  color: rgba(51, 51, 51, 0);
 }
 
 :-ms-input-placeholder {
-  color: #d1d1d1;
+  color: rgba(51, 51, 51, 0);
 }
 
 /* Text inputs */
@@ -7757,14 +7757,14 @@ input[type=search],
 textarea.materialize-textarea {
   background-color: transparent;
   border: none;
-  border-bottom: 1px solid #9e9e9e;
+  border-bottom: 1px solid transparent;
   border-radius: 0;
   outline: none;
-  height: 3rem;
+  height: auto;
   width: 100%;
   font-size: 1rem;
   margin: 0 0 15px 0;
-  padding: 0;
+  padding: 15px;
   box-shadow: none;
   box-sizing: content-box;
   transition: all 0.3s;
@@ -8025,7 +8025,7 @@ textarea.materialize-textarea + label:after {
 }
 
 .input-field label {
-  color: #9e9e9e;
+  color: transparent;
   position: absolute;
   top: 0.8rem;
   left: 0.75rem;
@@ -8043,7 +8043,7 @@ textarea.materialize-textarea + label:after {
 
 .input-field .prefix {
   position: absolute;
-  width: 3rem;
+  width: auto;
   font-size: 2rem;
   transition: color .2s;
 }
@@ -8120,7 +8120,7 @@ textarea.materialize-textarea + label:after {
 /* Textarea */
 textarea {
   width: 100%;
-  height: 3rem;
+  height: auto;
   background-color: transparent;
 }
 
@@ -8130,7 +8130,7 @@ textarea.materialize-textarea {
   padding: 1.6rem 0;
   /* prevents text jump on Enter keypress */
   resize: none;
-  min-height: 3rem;
+  min-height: auto;
 }
 
 .hiddendiv {
@@ -8582,7 +8582,7 @@ select {
   padding: 5px;
   border: 1px solid #f2f2f2;
   border-radius: 2px;
-  height: 3rem;
+  height: auto;
 }
 
 .select-label {
@@ -8598,10 +8598,10 @@ select {
   cursor: pointer;
   background-color: transparent;
   border: none;
-  border-bottom: 1px solid #9e9e9e;
+  border-bottom: 1px solid transparent;
   outline: none;
-  height: 3rem;
-  line-height: 3rem;
+  height: auto;
+  line-height: auto;
   width: 100%;
   font-size: 1rem;
   margin: 0 0 15px 0;
@@ -8704,8 +8704,8 @@ select:disabled {
 
 .file-field .btn, .file-field .btn-large {
   float: left;
-  height: 3rem;
-  line-height: 3rem;
+  height: auto;
+  line-height: auto;
 }
 
 .file-field span {
@@ -10456,6 +10456,10 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
 /* ====================================
    Core
    ==================================== */
+* {
+  box-sizing: border-box;
+}
+
 html,
 body {
   height: 100%;
@@ -10654,8 +10658,6 @@ html.js .js-isHidden {
 /* ====================================
    Forms
    ==================================== */
-/*  Buttons
-    ==================================== */
 /* ====================================
     Components
     ==================================== */
@@ -10768,8 +10770,56 @@ html.js .js-isHidden {
 }
 
 /* ====================================
+   Search
+   ==================================== */
+.Search {
+  background-color: #003580;
+  padding: 0 10px;
+}
+
+.Search input:not([type]) {
+  background-color: #fff;
+  color: #000;
+  box-sizing: border-box;
+}
+
+.Search input:not([type]):focus {
+  color: #000;
+  border-color: #fff;
+}
+
+.Search label {
+  color: #000;
+  right: 20px;
+  left: auto;
+}
+
+/* ====================================
    Lists
    ==================================== */
+.List {
+  margin-bottom: 20px;
+}
+
+.List .collection,
+.List .collapsible {
+  margin: 0;
+  border: 0;
+}
+
+.List-holder {
+  max-height: 500px;
+  overflow: auto;
+  border: 1px solid #e0e0e0;
+}
+
+.List-title {
+  font-size: 20px;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  margin: 0 0 -1px 0;
+}
+
 /* ====================================
    Map
    ==================================== */

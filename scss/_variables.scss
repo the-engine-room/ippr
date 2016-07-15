@@ -139,8 +139,8 @@ $roboto-font-path: "../fonts/roboto/" !default;
    ========================================================================== */
 
 // Text Inputs + Textarea
-$input-height: 3rem !default;
-$input-border-color: color("grey", "base") !default;
+$input-height: auto !default;
+$input-border-color: transparent !default;
 $input-border: 1px solid $input-border-color !default;
 $input-background: #fff !default;
 $input-error-color: $error-color !default;
@@ -148,7 +148,7 @@ $input-success-color: $success-color !default;
 $input-focus-color: $secondary-color !default;
 $input-font-size: 1rem !default;
 $input-margin: 0 0 15px 0 !default;
-$input-padding: 0 !default;
+$input-padding: 15px !default;
 $input-transition: all .3s !default;
 $label-font-size: .8rem !default;
 $input-disabled-color: rgba(0,0,0, .26) !default;

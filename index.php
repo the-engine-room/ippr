@@ -61,8 +61,10 @@
     <link rel="dns-prefetch" href="//gstatic.com">
     <link rel="dns-prefetch" href="//code.jquery.com">
     <link rel="dns-prefetch" href="//www.googletagmanager.com">
-    <link rel="dns-prefetch" href="//maps.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
     <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- build:css /css/min.css -->
     <link rel="stylesheet" href="/css/global.css" />
@@ -105,11 +107,96 @@
 
         <div id="licenses" class="col s12">
 
-            <div style="background: red">asdasd</div>
+            <div class="Search row">
+
+                <div class="input-field col s12 m6 right">
+                    <input id="search-licenses" class="Search-input Search-input--licenses" />
+                    <label for="search-licenses"><i class="material-icons small">search</i></label>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col s12 l3">
+                    <div class="List List-licenses">
+
+                        <h2 class="List-title">Licenses (34)</h2>
+
+                        <div class="List-holder">
+                            <ul class="collection">
+
+                                <?php
+                                    $json = file_get_contents('data/data.json');
+                                    $data = json_decode($json, true);
+                                    $out = [];
+
+                                    foreach ($data as $licenses) {
+                                        foreach ($licenses as $licence) {
+
+                                            $out[$licence['properties']['license_number']][] = [
+                                                'concession_number' => $licence['properties']['concession_number'],
+                                                'company_id' => $licence['properties']['company_id'],
+                                                'company_name' => $licence['properties']['company_name']
+                                            ];
+
+                                        }
+                                    }
+
+                                    foreach ($out as $key => $licence) {
+                                ?>
+                                    <li class="collection-item">
+                                        <?php echo $key; ?>
+                                        <ul>
+                                            <li>asd</li>
+                                            <li>asd</li>
+                                            <li>asd</li>
+                                            <li>asd</li>
+                                        </ul>
+                                    </li>
+                                <?php
+                                    }
+                                ?>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 l3">
+                    <div class="List List-companies">
+
+                        <h2 class="List-title">Companies in Ownership (34)</h2>
+
+                        <div class="List-holder">
+                            <ul class="collapsible z-depth-0" data-collapsible="accordion">
+                                <li>
+                                    <div class="collapsible-header">First<i class="material-icons">info</i></div>
+
+                                    <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 l6">
+                    <div class="blue">
+                        List 2
+                    </div>
+                </div>
+            </div>
 
 
         </div>
-        <div id="companies" class="">Test 2</div>
+        <div id="companies" class="">
+
+            <div class="Search row">
+
+                <div class="input-field col s6 right">
+                    <input id="search-companies" class="Search-input Search-input--companies" />
+                    <label for="search-companies"><i class="material-icons small">search</i></label>
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 

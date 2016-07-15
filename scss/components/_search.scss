@@ -1,0 +1,25 @@
+/* ====================================
+   Search
+   ==================================== */
+
+.Search {
+    background-color: #003580;
+    padding: 0 10px;
+
+    input:not([type]) {
+        background-color: #fff;
+        color: #000;
+        box-sizing: border-box;
+
+        &:focus {
+            color: #000;
+            border-color: #fff;
+        }
+    }
+
+    label {
+        color: #000;
+        right: 20px;
+        left: auto;
+    }
+}
