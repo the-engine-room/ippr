@@ -10632,20 +10632,28 @@ html.js .js-isHidden {
 /*
     Loader
     ==================================== */
-.Loading {
-  position: relative;
+.Loader {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
+  z-index: 10100;
 }
 
-.Loading > *:not(.Loading-icon) {
-  opacity: 0.3;
-  transition: opacity 0.1s ease-in 0;
+.Loader .Loader-holder {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  z-index: 10101;
 }
 
-.Loading.Loading--done > *:not(.Loading-icon) {
-  opacity: 1;
-}
-
-.Loading .fa-spin {
+.is-loading .Loader {
   display: block;
 }
 
@@ -10655,6 +10663,14 @@ html.js .js-isHidden {
 /* ====================================
    Typography
    ==================================== */
+@font-face {
+  font-family: 'robotoblack';
+  src: url("/fonts/roboto/Roboto-Black-webfont.eot");
+  src: url("/fonts/roboto/Roboto-Black-webfont.eot?#iefix") format("embedded-opentype"), url("/fonts/roboto/Roboto-Black-webfont.woff") format("woff"), url("/fonts/roboto/Roboto-Black-webfont.ttf") format("truetype"), url("/fonts/roboto/Roboto-Black-webfont.svg#robotoblack") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
 /* ====================================
    Forms
    ==================================== */
@@ -10668,72 +10684,142 @@ html.js .js-isHidden {
   background-image: url(/images/dist/header.jpg);
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
+  background-position: center bottom;
+  padding-top: 50px;
 }
 
 .Header-inner {
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
-  transition: padding 0.3s ease;
-  padding: 5% 0;
   color: #fff;
-  background-color: rgba(0, 0, 0, 0.2);
   position: relative;
 }
 
 .Header-title {
-  font-size: 26px;
+  text-transform: uppercase;
+  margin: 0 0 50px 0;
+  line-height: 1;
+  font-size: 0;
+  position: relative;
+}
+
+.Header-title--secondary {
+  font-size: 20px;
+  opacity: 0.7;
+  letter-spacing: 4px;
+}
+
+.Header-title--primary {
+  font-family: 'robotoblack';
+  display: block;
+  font-weight: bold;
+  letter-spacing: 13.33px;
+  margin-top: 20px;
+  line-height: 1;
+  opacity: 1;
+}
+
+.Header-title--primary {
+  font-size: 40px;
 }
 
 @media screen and (min-width: 320px) {
-  .Header-title {
-    font-size: calc(26px + 34 * (100vw - 320px) / 1580);
+  .Header-title--primary {
+    font-size: calc(40px + 40 * (100vw - 320px) / 880);
   }
 }
 
-@media screen and (min-width: 1900px) {
-  .Header-title {
-    font-size: 60px;
+@media screen and (min-width: 1200px) {
+  .Header-title--primary {
+    font-size: 80px;
   }
 }
 
-.Header-about {
+.Header-title:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  -webkit-transform: translate(-50%, 27px);
+      -ms-transform: translate(-50%, 27px);
+          transform: translate(-50%, 27px);
+  width: 60px;
+  height: 5px;
+  background-color: #E7B51F;
+  border-radius: 2px;
+}
+
+.Header-description {
+  font-family: 'Georgia', serif;
+  font-style: italic;
+  margin: 0;
+}
+
+@media only screen and (min-width: 601px) {
+  .Header-navigation {
+    position: absolute;
+    top: 0;
+    right: 40px;
+  }
+}
+
+.Header-navigation li {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+.Header-navigation a {
   text-transform: uppercase;
   color: #fff;
-  font-size: 20px;
+}
+
+.Header-tabs {
+  margin-bottom: 0;
 }
 
 /* ====================================
    Tabs
    ==================================== */
-.TabsHolder {
-  margin-bottom: 0;
-}
-
 .tabs .indicator {
   display: none;
 }
 
 .tabs {
+  display: inline-block;
+  vertical-align: bottom;
   margin-top: 20px;
   height: auto;
+  background-color: transparent;
+  width: auto !important;
+  white-space: normal;
 }
 
 .tabs .tab {
+  display: inline-block;
+  vertical-align: bottom;
+  float: none;
+  width: 80%;
   text-transform: inherit;
   height: auto;
   line-height: 1;
-  margin: 0 10px;
+  margin: 0;
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
 }
 
+@media screen and (min-width: 560px) {
+  .tabs .tab {
+    width: auto;
+    margin: 0 10px;
+  }
+}
+
 .tabs .tab a {
-  background: #B6DBC7;
-  border-top-left-radius: 2px;
-  border-top-right-radius: 2px;
-  color: #000;
-  padding: 20px;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 20px 40px;
+  color: #FFFFFF;
+  font-weight: bold;
+  text-transform: uppercase;
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
   transition: -webkit-transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
@@ -10746,18 +10832,18 @@ html.js .js-isHidden {
 
 @media screen and (min-width: 320px) {
   .tabs .tab a {
-    font-size: calc(15px + 15 * (100vw - 320px) / 1580);
+    font-size: calc(15px + 5 * (100vw - 320px) / 1580);
   }
 }
 
 @media screen and (min-width: 1900px) {
   .tabs .tab a {
-    font-size: 30px;
+    font-size: 20px;
   }
 }
 
 .tabs .tab a.active {
-  background: #003580;
+  background: #E7B51F;
   color: #fff;
 }
 
@@ -10767,20 +10853,66 @@ html.js .js-isHidden {
 
 .tabs .tab a:hover {
   color: inherit;
+  background: #E7B51F;
+}
+
+/* ====================================
+   Filters
+   ==================================== */
+.Filters {
+  margin: 0;
+  display: block;
+  text-align: center;
+  padding: 20px 0;
+  font-size: 0;
+}
+
+.Filters-item {
+  display: inline-block;
+  border-left: #D8D8D8 1px solid;
+}
+
+.Filters-item:first-child {
+  border-left: 0;
+}
+
+.Filters-itemFilter {
+  display: block;
+  padding: 15px 20px;
+  background: #EEE;
+  font-size: 16px;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  transition: -webkit-transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+  transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+.Filters-itemFilter.is-active, .Filters-itemFilter:hover {
+  background: #E7B51F;
+  color: #fff;
 }
 
 /* ====================================
    Search
    ==================================== */
 .Search {
-  background-color: #003580;
-  padding: 0 10px;
+  position: relative;
+  z-index: 2;
+}
+
+.Search .input-field {
+  margin: 0;
 }
 
 .Search input:not([type]) {
   background-color: #fff;
   color: #000;
   box-sizing: border-box;
+  padding: 20px 0 20px 50px;
+  margin: 0;
 }
 
 .Search input:not([type]):focus {
@@ -10790,15 +10922,23 @@ html.js .js-isHidden {
 
 .Search label {
   color: #000;
-  right: 20px;
-  left: auto;
+  top: 50%;
+  -webkit-transform: translate(0, -50%);
+      -ms-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+}
+
+.Data {
+  position: relative;
+  max-height: 800px;
+  height: 800px;
 }
 
 /* ====================================
    Lists
    ==================================== */
 .List {
-  margin-bottom: 20px;
+  background-color: #fff;
 }
 
 .List .collection,
@@ -10807,22 +10947,30 @@ html.js .js-isHidden {
   border: 0;
 }
 
-.List-holder {
-  max-height: 500px;
-  overflow: auto;
-  border: 1px solid #e0e0e0;
+.List.List-licenses {
+  position: absolute;
+  width: 50%;
+  left: 100px;
+  top: 50px;
+  z-index: 2;
 }
 
-.List-title {
-  font-size: 20px;
-  padding: 20px;
-  border: 1px solid #e0e0e0;
-  margin: 0 0 -1px 0;
+.List-holder {
+  max-height: 500px;
+  overflow-y: auto;
 }
 
 /* ====================================
    Map
    ==================================== */
+.Map {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 /* ====================================
    Table
    ==================================== */

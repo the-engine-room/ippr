@@ -3,13 +3,19 @@
    ==================================== */
 
 .Search {
-    background-color: #003580;
-    padding: 0 10px;
+    position: relative;
+    z-index: 2;
+
+    .input-field {
+        margin: 0;
+    }
 
     input:not([type]) {
         background-color: #fff;
         color: #000;
         box-sizing: border-box;
+        padding: 20px 0 20px 50px;
+        margin: 0;
 
         &:focus {
             color: #000;
@@ -19,7 +25,7 @@
 
     label {
         color: #000;
-        right: 20px;
-        left: auto;
+        top: 50%;
+        transform: translate(0,-50%);
     }
 }

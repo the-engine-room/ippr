@@ -22,6 +22,8 @@
     "jQuery": true,
     "google": true,
     "Materialize": true,
+    "cartodb": true,
+    "L": true,
     "$": true
   }
 }

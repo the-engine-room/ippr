@@ -64,7 +64,8 @@
     <link rel="dns-prefetch" href="//fonts.googleapis.com">
     <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
 
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 
     <!-- build:css /css/min.css -->
     <link rel="stylesheet" href="/css/global.css" />
@@ -75,19 +76,31 @@
 
     <header class="Header center-align">
         <div class="Header-inner">
-            <div class="container">
+            <div class="">
 
                 <div class="row">
                     <div class="col s12">
-                        <h1 class="Header-title">Transparent Oil Namibia</h1>
+                        <h1 class="Header-title">
+                            <span class="Header-title--secondary">Transparent Oil</span>
+                            <span class="Header-title--primary">Namibia</span>
+                        </h1>
                     </div>
-                    <div class="col s12 m8 offset-m2 left-align">
-                        <p class="light Header-description">The Transparent Oil Namibia platform maps the details, trends and connections in the allocation of Petroleum Exploration Licences in Namibia. The page lets you search through a collection of information about which companies hold these licenses, who owns and manages them, where are these companies registered and how has license ownership changed over time.</p>
+                    <div class="col s12 m6 offset-m3">
+                        <p class="light Header-description">The Transparent Oil Namibia platform maps the details, trends and connections in the allocation of Petroleum Exploration Licences in Namibia.</p>
                     </div>
                 </div>
 
+                <ul class="Header-navigation">
+                    <li><a href="about.php">About</a></li>
+                    <li><a href="help.php">Help</a></li>
+                </ul>
 
-                <a href="about.php" class="Header-about">About us</a>
+
+                <ul class="tabs Header-tabs">
+                    <li class="tab col"><a class="active" href="#licenses">Browse by licence</a></li>
+                    <li class="tab col"><a href="#companies">Browse by company</a></li>
+                </ul>
+
             </div>
         </div>
     </header>
@@ -95,93 +108,52 @@
 
 
     <div class="Content">
-
-        <div class="row TabsHolder">
-            <div class="col s12">
-                <ul class="tabs">
-                    <li class="tab col"><a class="active" href="#licenses">Licenses</a></li>
-                    <li class="tab col"><a href="#companies">Companies</a></li>
-                </ul>
-            </div>
-        </div>
-
         <div id="licenses" class="col s12">
 
-            <div class="Search row">
+            <ul class="Filters z-depth-1">
+                <li class="Filters-item">
+                    <span class="Filters-itemFilter">Soon to expire</span>
+                </li>
+                <li class="Filters-item">
+                    <span class="Filters-itemFilter">Without ownership</span>
+                </li>
+                <li class="Filters-item">
+                    <span class="Filters-itemFilter">Recently changed ownership</span>
+                </li>
+            </ul>
 
-                <div class="input-field col s12 m6 right">
-                    <input id="search-licenses" class="Search-input Search-input--licenses" />
-                    <label for="search-licenses"><i class="material-icons small">search</i></label>
+
+            <div class="Data is-loading">
+
+
+                <div class="List List-licenses z-depth-1">
+
+                    <div class="Search z-depth-1">
+                        <div class="input-field">
+                            <input id="search-licenses" class="Search-input Search-input--licenses" />
+                            <label for="search-licenses"><i class="material-icons small">search</i></label>
+                        </div>
+                    </div>
+
+                    <div class="List-holder">
+                        <ul class="collapsible" data-collapsible="accordion">
+                        </ul>
+                    </div>
                 </div>
+
+                <div class="Map" id="map"></div>
+
+
+                <div class="Loader">
+                    <div class="Loader-holder">
+                        <div class="preloader-wrapper big active"> <div class="spinner-layer spinner-blue-only"> <div class="circle-clipper left"> <div class="circle"></div> </div><div class="gap-patch"> <div class="circle"></div> </div><div class="circle-clipper right"> <div class="circle"></div> </div> </div> </div>
+                    </div>
+                </div>
+
 
             </div>
 
-            <div class="row">
-                <div class="col s12 l3">
-                    <div class="List List-licenses">
 
-                        <h2 class="List-title">Licenses (34)</h2>
-
-                        <div class="List-holder">
-                            <ul class="collection">
-
-                                <?php
-                                    $json = file_get_contents('data/data.json');
-                                    $data = json_decode($json, true);
-                                    $out = [];
-
-                                    foreach ($data as $licenses) {
-                                        foreach ($licenses as $licence) {
-
-                                            $out[$licence['properties']['license_number']][] = [
-                                                'concession_number' => $licence['properties']['concession_number'],
-                                                'company_id' => $licence['properties']['company_id'],
-                                                'company_name' => $licence['properties']['company_name']
-                                            ];
-
-                                        }
-                                    }
-
-                                    foreach ($out as $key => $licence) {
-                                ?>
-                                    <li class="collection-item">
-                                        <?php echo $key; ?>
-                                        <ul>
-                                            <li>asd</li>
-                                            <li>asd</li>
-                                            <li>asd</li>
-                                            <li>asd</li>
-                                        </ul>
-                                    </li>
-                                <?php
-                                    }
-                                ?>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s12 l3">
-                    <div class="List List-companies">
-
-                        <h2 class="List-title">Companies in Ownership (34)</h2>
-
-                        <div class="List-holder">
-                            <ul class="collapsible z-depth-0" data-collapsible="accordion">
-                                <li>
-                                    <div class="collapsible-header">First<i class="material-icons">info</i></div>
-
-                                    <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s12 l6">
-                    <div class="blue">
-                        List 2
-                    </div>
-                </div>
-            </div>
 
 
         </div>
@@ -209,13 +181,25 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
     <script src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.2.0/list.min.js"></script>
+    <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
 
     <!-- build:js /js/min.js -->
     <script src="/js/vendor/burza/utils.js"></script>
     <script src="/js/main.js"></script>
     <!-- endbuild -->
 
+    <script type="infowindow/html" id="infowindow_template">
+        <div class="cartodb-popup">
+            <a href="#close" class="cartodb-popup-close-button close">x</a>
 
+            <div class="cartodb-popup-content-wrapper">
+                <div class="cartodb-popup-content">
+                    {{ cartodb_id }}
+                </div>
+            </div>
+            <div class="cartodb-popup-tip-container"></div>
+        </div>
+    </script>
 
     <script>
         (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
