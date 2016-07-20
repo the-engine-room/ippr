@@ -9,8 +9,11 @@
         },
         data: {},
         dataGroups: {
-            licenses: $('#licenses .List-licenses .collection'),
-            companies: $('#companies .List-companies .collection')
+            licenses: $('#licenses'),
+            companies: $('#companies')
+        },
+        templates: {
+            licence: $('#licence-tpl').html()
         },
         main: $('.Data'),
         groupBy: function(xs, key) {
@@ -33,30 +36,33 @@
     IPPR.getData = function(){
 
 
-        var licensesSql = "SELECT MAX(companies.company_name) as company_name, MAX(companies.company_address) as company_address, license_number, array_to_string(array_agg(concession_number), ',') as concessions FROM hydrocarbon_licences_latest_clean JOIN companies ON (hydrocarbon_licences_latest_clean.company_id = companies.company_id) GROUP BY license_number, companies.company_id ORDER BY license_number", // jshint ignore:line
+        var licensesSql = "SELECT MAX(companies.company_name) as company_name, MAX(companies.company_address) as company_address, license_number, array_to_string(array_agg(concession_number), ',') as concessions FROM hydrocarbon_licences_latest_clean JOIN companies ON (hydrocarbon_licences_latest_clean.company_id = companies.company_id) GROUP BY license_number, companies.company_id ORDER BY license_number"; // jshint ignore:line
             // companiesSql = 'SELECT * FROM companies ORDER BY company_name',
-            licensesMarkup = '';
 
         $.getJSON('https://namibmap.carto.com/api/v2/sql/?q='+licensesSql, function(data) {
 
             IPPR.data.licenses = IPPR.groupBy(data.rows, 'license_number');
 
+            Mustache.parse(IPPR.templates.licence);
+
+            var concessions = [];
             $.each(IPPR.data.licenses, function(key, value){
-                licensesMarkup += '<li class="collection-item"><p class="List-title">' + key + '</p>';
 
                 $.each(value, function(k,v){
-                    var concessions = v.concessions.split(',');
-
-                    $.each(concessions, function(kk,vv){
-                        licensesMarkup += '<span class="ConcessionNumber">' + vv + '</span>';
-                    });
-
+                    concessions = v.concessions;
                 });
 
-                licensesMarkup += '</li>';
+                var final = Mustache.render(
+                    IPPR.templates.licence, {
+                        title: key,
+                        id: key,
+                        concessionNumbers: concessions.split(',')
+                    }
+                );
+                IPPR.dataGroups.licenses.find('.List-licenses .collection').append(final);
             });
 
-            IPPR.dataGroups.licenses.html(licensesMarkup);
+
             IPPR.loading();
 
         });
@@ -116,13 +122,6 @@
                 active: 'is-active',
                 animate: 'has-animation'
             },
-            dataHolderStates: {
-
-            },
-            items: {
-                licenses: $('.List-licenses'),
-                companies: $('.List-companies')
-            },
             levels: $('div[data-level]'),
             bindEvents: function(){
 
@@ -142,16 +141,12 @@
                                 _self.content.removeClass(_self.contentStates.active);
                             }, 100);
                         } else if (level === 1){
-
+                            $('.Data-holder').css({transform: 'translate(0,0)'});
+                            setTimeout(function(){
+                                $('.Search').css({transform: 'translate(0,0)'});
+                                $('.Search-field').css({transform: 'translate(100%,0)'});
+                            },300);
                         }
-                    });
-                });
-
-                $.each(_self.items, function(key, value){
-                    value.on('click', '.collection-item', function(){
-                        $('.Data-holder').css({transform: 'translate(-50%,0)'});
-                        $('.Search').css({transform: 'translate(-100%,0)'});
-                        $('.Search-field').css({transform: 'translate(0%,0)'});
                     });
                 });
 
@@ -169,6 +164,35 @@
         IPPR.appState.desktop = true;
     };
 
+    IPPR.listDetails = function(){
+        $.each(IPPR.dataGroups, function(key, value){
+            value.on('click', '.collection-item', function(){
+
+                if (IPPR.appState.mobile){
+                    $('.Data-holder').css({transform: 'translate(-50%,0)'});
+                    $('.Search').css({transform: 'translate(-100%,0)'});
+                    $('.Search-field').css({transform: 'translate(0%,0)'});
+                }
+
+                var key = $(this).data('id'),
+                    list = '';
+
+                $.each(IPPR.data.licenses[key], function(key, company){
+                    list += '<li><div class="collapsible-header">' + company.company_name + '</div>';
+                    list += '<div class="collapsible-body">' +
+                            '<p>' + company.company_address + '</p>';
+                    list += '</div></li>';
+                });
+
+                console.log(list);
+                IPPR.dataGroups.licenses.find('.List-selected .collapsible').html(list);
+
+                $('.List-headerActive').removeClass('u-isHidden');
+                $('.List-headerInactive').addClass('u-isHidden');
+            });
+        });
+    };
+
     IPPR.initApp = function(){
         if(U.vw() < 600){
             if (!IPPR.appState.mobile){
@@ -179,6 +203,8 @@
                 IPPR.desktop();
             }
         }
+
+        IPPR.listDetails();
     };
 
 

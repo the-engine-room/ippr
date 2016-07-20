@@ -11018,6 +11018,8 @@ html.js .js-isHidden {
 
 .Content.is-active {
   display: block;
+  min-height: 100%;
+  background-color: #fff;
 }
 
 .Content.has-animation {
@@ -11100,7 +11102,7 @@ html.js .js-isHidden {
   background-color: #256A9A;
 }
 
-.List-licensesSelected .List-header {
+.List-selected .List-header {
   background-color: #7E9669;
 }
 

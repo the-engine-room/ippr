@@ -159,13 +159,19 @@
                         </div>
                     </div>
 
-                    <div class="List List-licensesSelected z-depth-1" data-level="1">
+                    <div class="List List-selected z-depth-1" data-level="1">
                         <div class="List-header">
-                            Select a license on the left to see ownership information
+                            <div class="List-headerActive u-isHidden">
+                                <i class="material-icons">keyboard_arrow_left</i>
+                                Companies in ownership (<span></span>)
+                            </div>
+                            <div class="List-headerInactive">
+                                Select a license on the left to see ownership information
+                            </div>
                         </div>
 
                         <div class="List-holder">
-                            <ul class="collection">
+                            <ul class="collection collapsible" data-collapsible="accordion">
                             </ul>
                         </div>
                     </div>
@@ -213,7 +219,14 @@
         proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </footer>
 
-
+    <script type="x-tmpl-mustache" id="licence-tpl">
+        <li class="collection-item" data-id="{{ id }}">
+            <p class="List-title">{{ title }}</p>
+            {{#concessionNumbers}}
+                <span class="List-number">{{.}}</span>
+            {{/concessionNumbers}}
+        </li>
+    </script>
 
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
@@ -229,18 +242,7 @@
     <script src="/js/main.js"></script>
     <!-- endbuild -->
 
-    <script type="infowindow/html" id="infowindow_template">
-        <div class="cartodb-popup">
-            <a href="#close" class="cartodb-popup-close-button close">x</a>
 
-            <div class="cartodb-popup-content-wrapper">
-                <div class="cartodb-popup-content">
-                    {{ cartodb_id }}
-                </div>
-            </div>
-            <div class="cartodb-popup-tip-container"></div>
-        </div>
-    </script>
 
     <script>
         (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=

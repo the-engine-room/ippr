@@ -13,6 +13,8 @@
 
     &.is-active {
         display: block;
+        min-height: 100%;
+        background-color: #fff;
     }
 
     &.has-animation {
@@ -84,7 +86,7 @@
         background-color: $blue;
     }
 
-    .List-licensesSelected & {
+    .List-selected & {
         background-color: $green;
     }
 
