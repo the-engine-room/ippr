@@ -4,18 +4,47 @@
 
 .Search {
     position: relative;
-    z-index: 2;
+    z-index: 12;
+    font-size: 15px;
+    margin: 0;
+    background-color: $blue;
 
-    .input-field {
-        margin: 0;
+    backface-visibility: hidden;
+    transition: opacity 0.3s ease;
+
+    @media #{$medium-and-up} {
+        padding: 20px;
     }
 
-    input:not([type]) {
+    .Search-inner {
+        overflow: hidden;
+    }
+
+    .Search-field {
+        margin: 0;
+        position: absolute;
+        right: 0;
+        top: 8px;
+        transform: translate(100%,0);
+
+        @media #{$medium-and-up} {
+            position: relative;
+            top: 0;
+            right: auto;
+            transform: translate(0,0);
+            display: inline-block;
+            vertical-align: middle;
+            width: 100%;
+        }
+    }
+
+    input[type=text] {
         background-color: #fff;
         color: #000;
         box-sizing: border-box;
-        padding: 20px 0 20px 50px;
+        padding: 15px 50px 15px 20px;
         margin: 0;
+        width: 100%;
 
         &:focus {
             color: #000;
@@ -27,5 +56,22 @@
         color: #000;
         top: 50%;
         transform: translate(0,-50%);
+        margin-left: 10px !important;
+
+        &.active {
+            display: none;
+        }
+    }
+
+    .prefix {
+        top: 50%;
+        left: -10px;
+        transform: translate(-100%,-50%);
+
+        @media #{$medium-and-up} {
+            left: auto;
+            right: 10px;
+            transform: translate(0,-50%);
+        }
     }
 }

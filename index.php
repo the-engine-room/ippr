@@ -64,7 +64,9 @@
     <link rel="dns-prefetch" href="//fonts.googleapis.com">
     <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
 
+    <link rel="stylesheet" href="https://npmcdn.com/leaflet@0.7.7/dist/leaflet.css" />
     <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 
     <!-- build:css /css/min.css -->
@@ -76,32 +78,40 @@
 
     <header class="Header center-align">
         <div class="Header-inner">
-            <div class="">
 
-                <div class="row">
-                    <div class="col s12">
-                        <h1 class="Header-title">
-                            <span class="Header-title--secondary">Transparent Oil</span>
-                            <span class="Header-title--primary">Namibia</span>
-                        </h1>
-                    </div>
-                    <div class="col s12 m6 offset-m3">
-                        <p class="light Header-description">The Transparent Oil Namibia platform maps the details, trends and connections in the allocation of Petroleum Exploration Licences in Namibia.</p>
-                    </div>
+            <div class="row">
+                <div class="col s12">
+                    <h1 class="Header-title">
+                        <span class="Header-title--secondary">Transparent Oil</span>
+                        <span class="Header-title--primary">Namibia</span>
+                    </h1>
                 </div>
-
-                <ul class="Header-navigation">
-                    <li><a href="about.php">About</a></li>
-                    <li><a href="help.php">Help</a></li>
-                </ul>
-
-
-                <ul class="tabs Header-tabs">
-                    <li class="tab col"><a class="active" href="#licenses">Browse by licence</a></li>
-                    <li class="tab col"><a href="#companies">Browse by company</a></li>
-                </ul>
-
+                <div class="col s12 m6 offset-m3">
+                    <p class="light Header-description">The Transparent Oil Namibia platform maps the details, trends and connections in the allocation of Petroleum Exploration Licences in Namibia.</p>
+                </div>
             </div>
+
+            <ul class="Header-navigation">
+                <li><a href="about.php">About</a></li>
+                <li><a href="help.php">Help</a></li>
+            </ul>
+
+
+            <ul class="tabs Header-tabs">
+                <li class="tab col">
+                    <a class="Header-tabs-licenses" href="#licenses">
+                        <span>Browse by licence</span>
+                        <i class="material-icons">keyboard_arrow_right</i>
+                    </a>
+                </li>
+                <li class="tab col">
+                    <a class="Header-tabs-companies" href="#companies">
+                        <span>Browse by company</span>
+                        <i class="material-icons">keyboard_arrow_right</i>
+                    </a>
+                </li>
+            </ul>
+
         </div>
     </header>
 
@@ -110,35 +120,56 @@
     <div class="Content">
         <div id="licenses" class="col s12">
 
-            <ul class="Filters z-depth-1">
-                <li class="Filters-item">
-                    <span class="Filters-itemFilter">Soon to expire</span>
-                </li>
-                <li class="Filters-item">
-                    <span class="Filters-itemFilter">Without ownership</span>
-                </li>
-                <li class="Filters-item">
-                    <span class="Filters-itemFilter">Recently changed ownership</span>
-                </li>
-            </ul>
 
+            <div class="Search z-depth-1">
+
+                <div class="input-field Search-field">
+                    <i class="material-icons small prefix">search</i>
+                    <input id="search-licenses" type="text" class="Search-input Search-input--licenses" />
+                    <label for="search-licenses">Filter by licence</label>
+                </div>
+
+                <ul class="Filters">
+                    <li class="Filters-item chip">
+                        <span class="Filters-itemFilter">Soon to expire</span>
+                    </li>
+                    <li class="Filters-item chip">
+                        <span class="Filters-itemFilter">Without ownership</span>
+                    </li>
+                    <li class="Filters-item chip">
+                        <span class="Filters-itemFilter">Recently changed ownership</span>
+                    </li>
+                </ul>
+
+            </div>
 
             <div class="Data is-loading">
 
+                <div class="Data-holder">
 
-                <div class="List List-licenses z-depth-1">
+                    <div class="List List-licenses z-depth-1" data-level="0">
+                        <div class="List-header">
+                            <i class="material-icons">keyboard_arrow_left</i>
+                            <span>Licenses (<span class="List-count">34</span>)</span>
+                        </div>
 
-                    <div class="Search z-depth-1">
-                        <div class="input-field">
-                            <input id="search-licenses" class="Search-input Search-input--licenses" />
-                            <label for="search-licenses"><i class="material-icons small">search</i></label>
+                        <div class="List-holder">
+                            <ul class="collection">
+                            </ul>
                         </div>
                     </div>
 
-                    <div class="List-holder">
-                        <ul class="collapsible" data-collapsible="accordion">
-                        </ul>
+                    <div class="List List-licensesSelected z-depth-1" data-level="1">
+                        <div class="List-header">
+                            Select a license on the left to see ownership information
+                        </div>
+
+                        <div class="List-holder">
+                            <ul class="collection">
+                            </ul>
+                        </div>
                     </div>
+
                 </div>
 
                 <div class="Map" id="map"></div>
@@ -173,7 +204,14 @@
     </div>
 
 
-
+    <footer>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </footer>
 
 
 
@@ -181,7 +219,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
     <script src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.2.0/list.min.js"></script>
+
+
     <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
+    <script src="https://npmcdn.com/leaflet@0.7.7/dist/leaflet.js"></script>
 
     <!-- build:js /js/min.js -->
     <script src="/js/vendor/burza/utils.js"></script>

@@ -12,13 +12,14 @@
     background-color: transparent;
     width: auto !important;
     white-space: normal;
+    font-size: 0;
 
     .tab {
 
         display: inline-block;
         vertical-align: bottom;
         float: none;
-        width: 80%;
+        width: 100%;
         text-transform: inherit;
         height: auto;
         line-height: 1;
@@ -26,16 +27,20 @@
         backface-visibility: hidden;
 
 
-        @media screen and (min-width: 560px) {
+        @media #{$medium-and-up} {
             width: auto;
             margin: 0 10px;
+
+            a {
+                font-weight: bold;
+                padding: 20px 40px;
+            }
         }
 
         a {
             background: rgba(0,0,0,0.40);
-            padding: 20px 40px;
+            padding: 20px 30px;
             color: #FFFFFF;
-            font-weight: bold;
             text-transform: uppercase;
 
             @include fluid-type(font-size, 320px, 1900px, 15px, 20px);
@@ -44,7 +49,7 @@
             transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
 
             &.active {
-                background: #E7B51F;
+                background: $accent;
                 color: #fff;
                 &:hover {
                     color: #fff;
@@ -53,7 +58,7 @@
 
             &:hover {
                 color: inherit;
-                background: #E7B51F;
+                background: $accent;
             }
         }
     }
@@ -65,39 +70,18 @@
    ==================================== */
 
 .Filters {
-    margin: 0;
-    display: block;
-    text-align: center;
-    padding: 20px 0;
-    font-size: 0;
+    position: absolute;
+    display: none;
+    @media #{$medium-and-up} {
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 0;
+    }
 
     &-item {
         display: inline-block;
-        border-left: #D8D8D8 1px solid;
-
-        &:first-child {
-            border-left: 0;
-        }
-    }
-
-    &-itemFilter {
-        display: block;
-        padding: 15px 20px;
-        background: #EEE;
-        font-size: 16px;
-        text-transform: uppercase;
-        color: rgba(0,0,0,0.5);
         cursor: pointer;
-
-        backface-visibility: hidden;
-        transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
-
-        &.is-active,
-        &:hover {
-            background: #E7B51F;
-            color: #fff;
-        }
-
+        margin: 0 10px;
     }
 
 }

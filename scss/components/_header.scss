@@ -47,7 +47,7 @@
             transform: translate(-50%,27px);
             width: 60px;
             height: 5px;
-            background-color: #E7B51F;
+            background-color: $accent;
             border-radius: 2px;
         }
     }
@@ -80,6 +80,28 @@
 
     &-tabs {
         margin-bottom: 0;
+
+        i,span {
+            vertical-align: middle;
+        }
+
+        @media #{$medium-and-up} {
+            i {
+                display: none;
+            }
+        }
+
+        @media #{$small-and-down} {
+            &-licenses.active,
+            &-licenses {
+                background-color: $blue !important;
+            }
+
+            &-companies.active,
+            &-companies {
+                background-color: $green !important;
+            }
+        }
     }
 
 

@@ -10637,7 +10637,7 @@ html.js .js-isHidden {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 50%;
   height: 100%;
   background-color: rgba(255, 255, 255, 0.5);
   z-index: 10100;
@@ -10655,6 +10655,12 @@ html.js .js-isHidden {
 
 .is-loading .Loader {
   display: block;
+}
+
+@media only screen and (min-width: 601px) {
+  .Loader {
+    width: 100%;
+  }
 }
 
 /* ====================================
@@ -10777,6 +10783,25 @@ html.js .js-isHidden {
   margin-bottom: 0;
 }
 
+.Header-tabs i, .Header-tabs span {
+  vertical-align: middle;
+}
+
+@media only screen and (min-width: 601px) {
+  .Header-tabs i {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .Header-tabs-licenses.active, .Header-tabs-licenses {
+    background-color: #256A9A !important;
+  }
+  .Header-tabs-companies.active, .Header-tabs-companies {
+    background-color: #7E9669 !important;
+  }
+}
+
 /* ====================================
    Tabs
    ==================================== */
@@ -10792,13 +10817,14 @@ html.js .js-isHidden {
   background-color: transparent;
   width: auto !important;
   white-space: normal;
+  font-size: 0;
 }
 
 .tabs .tab {
   display: inline-block;
   vertical-align: bottom;
   float: none;
-  width: 80%;
+  width: 100%;
   text-transform: inherit;
   height: auto;
   line-height: 1;
@@ -10807,18 +10833,21 @@ html.js .js-isHidden {
           backface-visibility: hidden;
 }
 
-@media screen and (min-width: 560px) {
+@media only screen and (min-width: 601px) {
   .tabs .tab {
     width: auto;
     margin: 0 10px;
+  }
+  .tabs .tab a {
+    font-weight: bold;
+    padding: 20px 40px;
   }
 }
 
 .tabs .tab a {
   background: rgba(0, 0, 0, 0.4);
-  padding: 20px 40px;
+  padding: 20px 30px;
   color: #FFFFFF;
-  font-weight: bold;
   text-transform: uppercase;
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
@@ -10860,39 +10889,22 @@ html.js .js-isHidden {
    Filters
    ==================================== */
 .Filters {
-  margin: 0;
-  display: block;
-  text-align: center;
-  padding: 20px 0;
-  font-size: 0;
+  position: absolute;
+  display: none;
+}
+
+@media only screen and (min-width: 601px) {
+  .Filters {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 0;
+  }
 }
 
 .Filters-item {
   display: inline-block;
-  border-left: #D8D8D8 1px solid;
-}
-
-.Filters-item:first-child {
-  border-left: 0;
-}
-
-.Filters-itemFilter {
-  display: block;
-  padding: 15px 20px;
-  background: #EEE;
-  font-size: 16px;
-  text-transform: uppercase;
-  color: rgba(0, 0, 0, 0.5);
   cursor: pointer;
-  -webkit-backface-visibility: hidden;
-          backface-visibility: hidden;
-  transition: -webkit-transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
-  transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
-}
-
-.Filters-itemFilter.is-active, .Filters-itemFilter:hover {
-  background: #E7B51F;
-  color: #fff;
+  margin: 0 10px;
 }
 
 /* ====================================
@@ -10900,22 +10912,59 @@ html.js .js-isHidden {
    ==================================== */
 .Search {
   position: relative;
-  z-index: 2;
-}
-
-.Search .input-field {
+  z-index: 12;
+  font-size: 15px;
   margin: 0;
+  background-color: #256A9A;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  transition: opacity 0.3s ease;
 }
 
-.Search input:not([type]) {
+@media only screen and (min-width: 601px) {
+  .Search {
+    padding: 20px;
+  }
+}
+
+.Search .Search-inner {
+  overflow: hidden;
+}
+
+.Search .Search-field {
+  margin: 0;
+  position: absolute;
+  right: 0;
+  top: 8px;
+  -webkit-transform: translate(100%, 0);
+      -ms-transform: translate(100%, 0);
+          transform: translate(100%, 0);
+}
+
+@media only screen and (min-width: 601px) {
+  .Search .Search-field {
+    position: relative;
+    top: 0;
+    right: auto;
+    -webkit-transform: translate(0, 0);
+        -ms-transform: translate(0, 0);
+            transform: translate(0, 0);
+    display: inline-block;
+    vertical-align: middle;
+    width: 100%;
+  }
+}
+
+.Search input[type=text] {
   background-color: #fff;
   color: #000;
   box-sizing: border-box;
-  padding: 20px 0 20px 50px;
+  padding: 15px 50px 15px 20px;
   margin: 0;
+  width: 100%;
 }
 
-.Search input:not([type]):focus {
+.Search input[type=text]:focus {
   color: #000;
   border-color: #fff;
 }
@@ -10926,38 +10975,148 @@ html.js .js-isHidden {
   -webkit-transform: translate(0, -50%);
       -ms-transform: translate(0, -50%);
           transform: translate(0, -50%);
+  margin-left: 10px !important;
+}
+
+.Search label.active {
+  display: none;
+}
+
+.Search .prefix {
+  top: 50%;
+  left: -10px;
+  -webkit-transform: translate(-100%, -50%);
+      -ms-transform: translate(-100%, -50%);
+          transform: translate(-100%, -50%);
+}
+
+@media only screen and (min-width: 601px) {
+  .Search .prefix {
+    left: auto;
+    right: 10px;
+    -webkit-transform: translate(0, -50%);
+        -ms-transform: translate(0, -50%);
+            transform: translate(0, -50%);
+  }
+}
+
+.Content {
+  width: 100%;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  -webkit-transform: translate(100%, 0);
+      -ms-transform: translate(100%, 0);
+          transform: translate(100%, 0);
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  transition: -webkit-transform 0.3s ease;
+  transition: transform 0.3s ease;
+}
+
+.Content.is-active {
+  display: block;
+}
+
+.Content.has-animation {
+  -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0);
+          transform: translate(0, 0);
+}
+
+@media only screen and (min-width: 601px) {
+  .Content {
+    position: relative;
+    display: block;
+    -webkit-transform: translate(0, 0);
+        -ms-transform: translate(0, 0);
+            transform: translate(0, 0);
+  }
 }
 
 .Data {
   position: relative;
-  max-height: 800px;
-  height: 800px;
+  width: 200%;
+}
+
+@media only screen and (min-width: 601px) {
+  .Data {
+    width: 100%;
+    max-height: 800px;
+    height: 800px;
+  }
+}
+
+.Data-holder {
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  transition: -webkit-transform 0.3s ease;
+  transition: transform 0.3s ease;
+  font-size: 0;
+}
+
+.Data-holder .collection,
+.Data-holder .collapsible {
+  margin: 0;
+  border: 0;
+}
+
+@media only screen and (min-width: 601px) {
+  .Data-holder {
+    position: absolute;
+    width: 50%;
+    left: 60px;
+    top: 50px;
+    z-index: 2;
+  }
 }
 
 /* ====================================
    Lists
    ==================================== */
 .List {
-  background-color: #fff;
-}
-
-.List .collection,
-.List .collapsible {
-  margin: 0;
-  border: 0;
-}
-
-.List.List-licenses {
-  position: absolute;
+  display: inline-block;
   width: 50%;
-  left: 100px;
-  top: 50px;
-  z-index: 2;
+  background-color: #fff;
+  vertical-align: top;
+  position: relative;
+  -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0);
+          transform: translate(0, 0);
 }
 
-.List-holder {
-  max-height: 500px;
-  overflow-y: auto;
+.List-header {
+  position: relative;
+  z-index: 2;
+  font-size: 15px;
+  padding: 20px;
+  border-bottom: #e0e0e0 1px solid;
+  color: #fff;
+}
+
+.List-licenses .List-header {
+  background-color: #256A9A;
+}
+
+.List-licensesSelected .List-header {
+  background-color: #7E9669;
+}
+
+.List-header i, .List-header span {
+  vertical-align: middle;
+}
+
+.collection-item {
+  font-size: 15px;
+}
+
+@media only screen and (min-width: 601px) {
+  .List-holder {
+    max-height: 500px;
+    overflow-y: auto;
+  }
 }
 
 /* ====================================
@@ -10969,6 +11128,13 @@ html.js .js-isHidden {
   left: 0;
   width: 100%;
   height: 100%;
+  display: none;
+}
+
+@media only screen and (min-width: 601px) {
+  .Map {
+    display: block;
+  }
 }
 
 /* ====================================

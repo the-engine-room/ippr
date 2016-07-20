@@ -1,15 +1,48 @@
+.Content {
+    width: 100%;
+    overflow: hidden;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    transform: translate(100%,0);
+
+    backface-visibility: hidden;
+    transition: transform 0.3s ease;
+
+    &.is-active {
+        display: block;
+    }
+
+    &.has-animation {
+        transform: translate(0,0);
+    }
+
+    @media #{$medium-and-up} {
+        position: relative;
+        display: block;
+        transform: translate(0,0);
+    }
+
+}
+
 .Data {
     position: relative;
-    max-height: 800px;
-    height: 800px;
+    width: 200%;
+
+    @media #{$medium-and-up} {
+        width: 100%;
+        max-height: 800px;
+        height: 800px;
+    }
 }
-/* ====================================
-   Lists
-   ==================================== */
 
-.List {
+.Data-holder {
 
-    background-color: #fff;
+    backface-visibility: hidden;
+    transition: transform 0.3s ease;
+    font-size: 0;
 
     .collection,
     .collapsible {
@@ -17,19 +50,58 @@
         border: 0;
     }
 
-
-    &.List-licenses {
+    @media #{$medium-and-up} {
         position: absolute;
         width: 50%;
-        left: 100px;
+        left: 60px;
         top: 50px;
         z-index: 2;
     }
 }
 
+/* ====================================
+   Lists
+   ==================================== */
+
+.List {
+    display: inline-block;
+    width: 50%;
+    background-color: #fff;
+    vertical-align: top;
+    position: relative;
+    transform: translate(0,0);
+}
+
+.List-header {
+    position: relative;
+    z-index: 2;
+    font-size: 15px;
+    padding: 20px;
+    border-bottom: #e0e0e0 1px solid;
+    color: #fff;
+
+    .List-licenses & {
+        background-color: $blue;
+    }
+
+    .List-licensesSelected & {
+        background-color: $green;
+    }
+
+    i,span {
+        vertical-align: middle;
+    }
+}
+
+.collection-item {
+    font-size: 15px;
+}
+
 .List-holder {
-    max-height: 500px;
-    overflow-y: auto;
+    @media #{$medium-and-up} {
+        max-height: 500px;
+        overflow-y: auto;
+    }
 }
 
 /* ====================================
@@ -42,4 +114,9 @@
     left: 0;
     width: 100%;
     height: 100%;
+    display: none;
+
+    @media #{$medium-and-up} {
+        display: block;
+    }
 }
