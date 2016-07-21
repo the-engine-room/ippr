@@ -247,7 +247,8 @@
         _self.filterItem.on('click', function() {
 
             list.filter();
-            $('.'+_self.options.searchClass).val('');
+            list.search();
+            $('.'+_self.options.searchClass).val('').trigger('keyup').blur();
 
             if ($(this).is('.is-active')){
                 list.filter();
@@ -290,6 +291,10 @@
             }
         });
 
+        _self.searchRemove.on('click', function(){
+            $('.'+_self.options.searchClass).val('').trigger('keyup').blur();
+            list.search();
+        });
 
         if(IPPR.appState.mobile){
             _self.filtersActiveHolder.on('click', '.chip', _self.clearFilters);
