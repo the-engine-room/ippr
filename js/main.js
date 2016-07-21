@@ -23,6 +23,19 @@
                 return rv;
             }, {});
         },
+        highlightMapLayer: function(key){
+            $.each(IPPR.mapLayers, function(k,value){
+                if (value.ID === key){
+                    IPPR.mapLayers[k].setStyle({
+                        weight: 2,
+                        color: '#666',
+                        dashArray: '',
+                        fillOpacity: 0.7
+                    });
+                }
+            });
+        },
+        mapLayers: [],
         appState: {
             mobile: false,
             desktop: false
@@ -99,7 +112,17 @@
                 }
 
                 layer.bindPopup(popupContent);
+
+                layer.ID = feature.properties.license_number;
+
+                IPPR.mapLayers.push(layer);
+
+                layer.on('click', function () {
+                    console.log(layer);
+                    $('.List[data-level=0]').find('li[data-id="'+ feature.properties.license_number +'"]').click();
+                });
             }
+
 
             L.geoJson([data], {
 
@@ -107,12 +130,11 @@
                     return feature.properties && feature.properties.style;
                 },
 
-                onEachFeature: onEachFeature
+                onEachFeature: onEachFeature,
             }).addTo(map);
 
+
         });
-
-
     };
 
 
@@ -184,6 +206,8 @@
                 var licensesSelectedMarkup = '',
                     key = $(this).data('id'),
                     body = {};
+
+                IPPR.highlightMapLayer(key);
 
                 $.each(IPPR.data.licenses[key], function(key, company){
 
@@ -317,6 +341,46 @@
     };
 
 
+    IPPR.sankey = function(){
+        google.charts.load('current', {'packages':['sankey']});
+
+        var _self = {
+            draw: function(){
+
+                var data = new google.visualization.DataTable();
+
+                data.addColumn('string', 'From');
+                data.addColumn('string', 'To');
+                data.addColumn('number', 'Weight');
+                data.addRows([
+                    [ 'A', 'X', 5 ],
+                    [ 'A', 'Y', 7 ],
+                    [ 'A', 'Z', 6 ]
+                ]);
+
+
+                // Sets chart options.
+                var options = {
+                };
+
+                // Instantiates and draws our chart, passing in some options.
+                var chart = new google.visualization.Sankey(document.getElementById('sankey'));
+
+                chart.draw(data, options);
+            }
+        };
+
+        google.charts.setOnLoadCallback(_self.draw);
+
+        U.addEvent(window, 'resize', U.debounce(function () {
+            _self.draw();
+        }, 200));
+
+    };
+
+    IPPR.sankey();
+
+
     IPPR.getData();
     IPPR.initMap();
     IPPR.initApp();
@@ -338,37 +402,5 @@
         alignment: 'right' // Displays dropdown with edge aligned to the left of button
     });
 
-    // google.charts.load('current', {'packages':['sankey']});
-
-    // function drawChart() {
-    //     var data = new google.visualization.DataTable();
-    //     data.addColumn('string', 'From');
-    //     data.addColumn('string', 'To');
-    //     data.addColumn('number', 'Weight');
-    //     data.addRows([
-    //         [ 'A', 'X', 5 ],
-    //         [ 'A', 'Y', 7 ],
-    //         [ 'A', 'Z', 6 ],
-    //         [ 'B', 'X', 2 ],
-    //         [ 'B', 'Y', 9 ],
-    //         [ 'B', 'Z', 4 ]
-    //     ]);
-
-    //     // Sets chart options.
-    //     var options = {
-    //     };
-
-    //     // Instantiates and draws our chart, passing in some options.
-    //     var chart = new google.visualization.Sankey(document.getElementById('sankey_basic'));
-
-    //     chart.draw(data, options);
-    // }
-
-    // google.charts.setOnLoadCallback(drawChart);
-
-
-    // $(window).resize(function(){
-    //     drawChart();
-    // });
 
 })(window.burza.utils, jQuery);

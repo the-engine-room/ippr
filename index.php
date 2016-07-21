@@ -223,6 +223,14 @@
             </div>
 
 
+            <div class="Sankey">
+
+                <div class="Sankey-header">
+                    <h2>Transaction history for </h2>
+                </div>
+
+                <div id="sankey"></div>
+            </div>
 
 
         </div>

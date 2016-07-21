@@ -1,0 +1,55 @@
+cartodb_id,the_geom,license_number,google_docs_copy,source_url_pdf,transaction_notes,operator_after,operator_prior,percent_check,buyer_stake_after,license_buyer,seller_stake_after,seller_stake_prior,license_seller,transfer_type,transfer_date
+1,,23,,,,HRT Africa Petroleo S.A.,N/A,,100%,HRT Africa Petroleo S.A.,0%,100%,Government of Namibia,Transfer,8/6/2008
+2,,23,,,relinquished,N/A,HRT Africa Petroleo S.A.,,100.00%,Government of Namibia,0.00%,100%%,HRT Africa Petroleo S.A.,Transfer,6/6/2015
+3,,29,,,,,,,,,,,,,
+4,,30,,,,Eco Oil and Gas Namibia,N/A,,90.00%,Eco Oil and Gas Namibia,10.00%,100.00%,Government of Namibia,Transfer,14-03-2011
+5,,30,,,,Eco Oil and Gas Namibia,N/A,,10.00%,NAMCOR,0.00%,10.00%,Government of Namibia,Transfer,14-03-2011
+6,,30,,," Toronto, Ontario April 12, 2012 / CNW ECO (ATLANTIC) OIL AND GAS LTD. (TSX-V:EOG) Eco (Atlantic) Oil & Gas Ltd. (“Eco Atlantic” or the “Company”) is pleased to announce that it has signed a definitive Farm-out Agreement with Azimuth Ltd. (“Azimuth”) of Hamilton, Bermuda, an exploration and production company backed by majority-owner Seacrest Capital Ltd. and Petroleum Geo-Services ASA (“PGS”) (Letter of Intent announced on December 22, 2011).   Pursuant to the agreement, Azimuth will earn  a 20% working interest in each of Eco Atlantic’s offshore Namibia licenses, namely the “Cooper License” (Block 2012A), the “Sharon License” (Blocks 2213A & 2213B) and the “Guy License” (Blocks 2111B & 2211A) (jointly, the “Licenses”) in return for funding 40% of the cost of 3D seismic surveys covering 2,500 square kilometers across all three Licenses, the acquisition of which is expected to cost in excess of US$25 million.  The assignment of a 20% working interest in the Licenses to Azimuth is subject to the approval of Namibia’s Ministry of Mines and Energy.  Eco Atlantic currently holds a 90% working interest in the Licenses through its wholly-owned subsidiary Eco Oil and Gas Namibia (PTY) Ltd. (“Eco Namibia"") and NAMCOR, the Namibian national oil and Gas Company, holds a 10% working interest. As a result of this transaction, Eco Namibia’s interest will be 70%, Azimuth will earn a 20% interest, and NAMCOR will retain its 10% carried interest. Eco Atlantic, through the project management group of Kinley Exploration and Azimuth will be responsible for designing, sourcing and operating all aspects of the 3D seismic program.",Eco Oil and Gas Namibia,Eco Oil and Gas Namibia,,20.00%,Azimuth Namibia Limited,70.00%,90.00%,Eco Oil and Gas Namibia,Transfer,12-04-2012
+7,,30,,,"On July 17, 2014, the Company entered into a farmout agreement (the “Tullow Farmout Agreement”) with Tullow Kudu Limited, a wholly owned subsidiary of Tullow Oil plc (“Tullow”), pursuant to which Tullow has agreed to acquire up to a 40% working interest in the Cooper License. In October, 2014, The Company completed the transfer of a 25% working interest in the Cooper License to Tullow in in return for a carry (capped at US$4.103 million) of the Company’s share of costs to execute and process a 1,000 square kilometer 3D seismic survey, and the reimbursement of 25% of the Company’s past costs in an amount of approximately US$1,000,000 (the “First Transfer”). Following the First Transfer, if Tullow elects to participate in the drilling of an exploration well on the Cooper Block, Tullow will acquire an additional 15% working interest in the Cooper License, in return for a full carry (capped at $18.17 million) of the Company’s share of costs to drill an exploration well on the Cooper Block and the reimbursement of an additional 15% of the Company’s past costs (the “Second Transfer”). There is no guarantee that the Second Transfer will be completed.",Eco Oil and Gas Namibia,Eco Oil and Gas Namibia,,25.00%,Tullow Kudu Limited,45.00%,70.00%,Eco Oil and Gas Namibia,Transfer,17-07-2014
+8,,30,,,No date yet on this name change,Eco Oil and Gas Namibia,Eco Oil and Gas Namibia,,,AziNam Namibia Exploration Limited,,,Azimuth Namibia Limited,Name Change,
+9,,30,,,The Company has agreed to transfer an additional 12.5% participating interest in Block 2012A offshore Namibia (the “Cooper Block”) to Azinam in exchange for US$3.5 million in cash. Azinam’s working commitments on the Cooper Block was not amended by the Agreement.,Eco Oil and Gas Namibia,Eco Oil and Gas Namibia,,32.50%,AziNam Namibia Exploration Limited,32.50%,45.00%,Eco Oil and Gas Namibia,Transfer,05-01-2015
+10,,31,,,,Eco Oil and Gas Namibia,,,100.00%,Eco Oil and Gas Namibia,0.00%,100.00%,Government of Namibia,Transfer,14-03-2011
+11,,32,,,,,,,,,,,,Relinquished,
+39,,66,,,,,,,,,,,,,
+12,,33,,,,Eco Oil and Gas Namibia,,100.00%,100.00%,Eco Oil and Gas Namibia,0.00%,100.00%,Government of Namibia,Transfer,14-03-2011
+13,,35,,,,,,,,,,,,,
+14,,36,,,,,,,,,,,,,
+15,,37,,,,,,,,,,,,,
+16,,38,,contracts_na_na_Blocks-1714B-1814B-1715_dd20110803_Operating-Agree_Namibia-Energy_Namibia-Exploration.pdf,,Hydrocarb Namibia Energy Corp,N/A,100.00%,100.00%,Hydrocarb Namibia Energy (Pty) Limited,0.00%,100.00%,Government of Namibia,Transfer,8/3/2011
+17,,38,,contracts_na_na_Blocks-1714B-1814B-1715_dd20110803_Operating-Agree_Namibia-Energy_Namibia-Exploration.pdf,,Hydrocarb Namibia Energy Corp,Hydrocarb Namibia Energy Corp,100.00%,43.00%,Namibia Exploration Inc,57.00%,100.00%,,Transfer,8/28/2012
+18,,39,,,,,,,,,,,,,
+19,,42,,,,,,,,,,,,,
+20,,43,,,,,,,,,,,,,
+21,,46,,,,,,,,,,,,,
+22,,47,,,,,,,,,,,,,
+23,,50,,,,,,,,,,,,,
+24,,51,,,,,,,,,,,,,
+25,,52,,,,,,,,,,,,,
+26,,54,,,,,,,,,,,,,
+27,,55,,,,,,,,,,,,,
+28,,56,,,,,,,,,,,,,
+29,,58,,,,,,,,,,,,,
+30,,59,,,,Lekoil Exploration and Production,Lekoil Exploration and Production,,77.50%,Lekoil Exploration and Production,22.50%,100%,Government of Namibia,Transfer,27/7/2012
+31,,59,,,,Lekoil Exploration and Production,Lekoil Exploration and Production,,12.50%,Hallie Investments 3041,10.00%,22.50%,Government of Namibia,Transfer,27/7/2012
+32,,59,,,,Lekoil Exploration and Production,Lekoil Exploration and Production,,10.00%,NAMCOR,0.00%,10.00%,Government of Namibia ,Transfer,27/7/2012
+33,,61,,,,,,,,,,,,,
+34,,62,,,,Leopard Investments Ten (Pty.) Ltd. ,N/A,,90.00%,Leopard Investments Ten (Pty.) Ltd. ,10.00%,100.00%,Government of Namibia ,Transfer,21/12/2012
+35,,62,,,,Leopard Investments Ten (Pty.) Ltd. ,N/A,,10.00%,NAMCOR,0.00%,10.00%,Government of Namibia ,Transfer,21/12/2012
+36,,63,,,,Ropat Petroleum Investments (Pty) Ltd,N/A,,90.00%,Ropat Petroleum Investments (Pty) Ltd,10.00%,100.00%,Government of Namibia ,Transfer,18/6/2013
+37,,63,,,,Ropat Petroleum Investments (Pty) Ltd,N/A,,10.00%,NAMCOR,0.00%,10.00%,Government of Namibia ,Transfer,18/6/2013
+38,,63,,,,Westbridge Energy Corporation,Ropat Petroleum Investments (Pty) Ltd,,75.00%,Westbridge Energy Corporation,15.00%,90.00%,Ropat Petroleum Investments (Pty) Ltd,Transfer,26/6/2013
+40,,67,,,,,,,,,,,,,
+41,,68,,,,,,,,,,,,,
+42,,69,,,,,,,,,,,,,
+43,,70,,,,,,,,,,,,,
+44,,71,,,,,,,,,,,,,
+45,,72,,,,,,,,,,,,,
+46,,73,,,,,,,,,,,,,
+47,,74,,,,,,,,,,,,,
+48,,75,,,,Camelot Investment Group,N/A,,90.00%,Camelot Investment Group,10.00%,100.00%,Government of Namibia ,Transfer,20-01-2015
+49,,75,,,,Camelot Investment Group,N/A,,10.00%,NAMCOR,0.00%,10.00%,Government of Namibia ,Transfer,20-01-2015
+50,,75,,,"On or around 31st December 2014 ShoreCan entered into a Farm Out Agreement with Camelot Investment Group (Pty) Ltd (""Camelot""), a Namibian registered company, whereby ShoreCan acquired an 80% working interest in Block 1708, 1709, 1808 offshore Namibia deepwater blocks. ShoreCan is to be the Operator of the blocks. Camelot retains a 10% carried interest and the Namibian National Oil Company, NAMCOR, also has a 10% carried interest. ShoreCan paid a signature bonus to Camelot of $150,000 US Dollars and licence rental fees of Namibian Dollars 1,367,644.80 and training fees of $49,000 US Dollars. ShoreCan will meet 100% of the exploration costs (the ""carried costs"") and such costs will be adjusted by inflation and recoverable by ShoreCan from any Cost Oil as defined in the Farm Out Agreement. The Farm Out Agreement was amended on 4th February 2015 to clarify that Camelot would be entitled to 40% of the net gain to ShoreCan on disposal of the assets or any company holding such assets. In the event of a corporate disposal, the Namibian assets would be independently valued and such value ascribed to them for the purposes of determining any sum due to Camelot. The assignation of the interest and re-issuance of the Petroleum Exploration Licence to include ShoreCan was signed by the Minister of Mines and Energy on the 20th February 2015. The Parties have agreed to negotiate an AIPN standard Joint Operating Agreement",Shoreline CanOverseas Petroleum Development Corporation ,Camelot Investment Group,,,Shoreline CanOverseas Petroleum Development Corporation ,10.00%,90.00%,Camelot Investment Group,Transfer,31-12-2014
+51,,76,,,,,,,,,,,,,
+52,,77,,,,,,,,,,,,,
+53,,78,,,,,,,,,,,,,
+54,,79,,,,,,,,,,,,,
