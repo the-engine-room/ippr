@@ -70,20 +70,84 @@
    ==================================== */
 
 .Filters {
-    position: absolute;
-    display: none;
+    display: inline-block;
+    vertical-align: middle;
+
     @media #{$medium-and-up} {
-        display: inline-block;
-        vertical-align: middle;
-        font-size: 0;
+        width: 70%;
+        overflow: auto;
     }
 
+    &.Filters--mobile {
+        position: absolute;
+        top: 50%;
+        left: 20px;
+        transform: translate(0,-50%);
+    }
+
+
     &-item {
-        display: inline-block;
+        display: block;
+        margin: 10px 0;
+
+        @media #{$medium-and-up} {
+            display: inline-block;
+            margin: 10px;
+        }
+
+    }
+
+    &-close {
+        display: none;
+    }
+
+    &-list {
+        @media #{$medium-and-up} {
+            white-space: nowrap;
+        }
+
+        .Filters--mobile & {
+            display: none;
+            background-color: #fff;
+        }
+
+        margin: 0;
+        padding: 0 10px;
+    }
+
+    &-trigger {
+        color: #fff;
         cursor: pointer;
-        margin: 0 10px;
+        padding: 10px;
+
+        &.active {
+            background-color: #fff;
+            color: #000;
+        }
     }
 
 }
 
+.chip {
+    cursor: pointer;
 
+   .Filters-remove {
+        display: none;
+    }
+
+    &.is-active {
+        background-color: $accent;
+        color: #fff;
+        .Filters-remove {
+            display: block;
+        }
+    }
+
+    .Filters-active & {
+        @media #{$small-and-down} {
+            display: block;
+            margin-top: 8px;
+        }
+    }
+
+}

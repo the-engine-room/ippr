@@ -13,7 +13,8 @@
             companies: $('#companies')
         },
         templates: {
-            licence: $('#licence-tpl').html()
+            licence: $('#licence-tpl').html(),
+            licenceSelected: $('#licenceSelected-tpl').html()
         },
         main: $('.Data'),
         groupBy: function(xs, key) {
@@ -36,8 +37,11 @@
     IPPR.getData = function(){
 
 
-        var licensesSql = "SELECT MAX(companies.company_name) as company_name, MAX(companies.company_address) as company_address, license_number, array_to_string(array_agg(concession_number), ',') as concessions FROM hydrocarbon_licences_latest_clean JOIN companies ON (hydrocarbon_licences_latest_clean.company_id = companies.company_id) GROUP BY license_number, companies.company_id ORDER BY license_number"; // jshint ignore:line
+        var licensesSql = "SELECT MAX(companies.company_hq) as company_hq, MAX(companies.company_formed) as company_formed, MAX(companies.company_jurisdiction) as company_jurisdiction, MAX(companies.website) as company_website, MAX(companies.company_name) as company_name, MAX(companies.company_address) as company_address, license_number, array_to_string(array_agg(concession_number), ',') as concessions FROM hydrocarbon_licences_latest_clean JOIN companies ON (hydrocarbon_licences_latest_clean.company_id = companies.company_id) GROUP BY license_number, companies.company_id ORDER BY license_number"; // jshint ignore:line
             // companiesSql = 'SELECT * FROM companies ORDER BY company_name',
+
+
+        var licensesMarkup = '';
 
         $.getJSON('https://namibmap.carto.com/api/v2/sql/?q='+licensesSql, function(data) {
 
@@ -45,25 +49,28 @@
 
             Mustache.parse(IPPR.templates.licence);
 
-            var concessions = [];
+
             $.each(IPPR.data.licenses, function(key, value){
 
+                var concessions = '';
                 $.each(value, function(k,v){
-                    concessions = v.concessions;
+                    concessions += v.concessions;
                 });
 
-                var final = Mustache.render(
+                licensesMarkup += Mustache.render(
                     IPPR.templates.licence, {
                         title: key,
                         id: key,
                         concessionNumbers: concessions.split(',')
                     }
                 );
-                IPPR.dataGroups.licenses.find('.List-licenses .collection').append(final);
             });
 
+            IPPR.dataGroups.licenses.find('.List--licenses .collection').html(licensesMarkup);
+            IPPR.dataGroups.licenses.find('.List--licenses .List-count').html(Object.keys(IPPR.data.licenses).length);
 
             IPPR.loading();
+            IPPR.filtering();
 
         });
 
@@ -142,10 +149,6 @@
                             }, 100);
                         } else if (level === 1){
                             $('.Data-holder').css({transform: 'translate(0,0)'});
-                            setTimeout(function(){
-                                $('.Search').css({transform: 'translate(0,0)'});
-                                $('.Search-field').css({transform: 'translate(100%,0)'});
-                            },300);
                         }
                     });
                 });
@@ -165,32 +168,133 @@
     };
 
     IPPR.listDetails = function(){
+        Mustache.parse(IPPR.templates.licenceSelected);
+
         $.each(IPPR.dataGroups, function(key, value){
             value.on('click', '.collection-item', function(){
 
+                $(this).parent().find('li').removeClass('is-active');
+                $(this).addClass('is-active');
+
                 if (IPPR.appState.mobile){
                     $('.Data-holder').css({transform: 'translate(-50%,0)'});
-                    $('.Search').css({transform: 'translate(-100%,0)'});
-                    $('.Search-field').css({transform: 'translate(0%,0)'});
+                    $(window).scrollTop(0);
                 }
 
-                var key = $(this).data('id'),
-                    list = '';
+                var licensesSelectedMarkup = '',
+                    key = $(this).data('id'),
+                    body = {};
 
                 $.each(IPPR.data.licenses[key], function(key, company){
-                    list += '<li><div class="collapsible-header">' + company.company_name + '</div>';
-                    list += '<div class="collapsible-body">' +
-                            '<p>' + company.company_address + '</p>';
-                    list += '</div></li>';
+
+                    body.address = company.company_address ? company.company_address : false;
+                    body.jurisdiction = company.company_jurisdiction ? company.company_jurisdiction : false;
+                    body.headquarters = company.company_hq ? company.company_hq : false;
+                    body.formed = company.company_formed ? company.company_formed : false;
+
+                    body.website = company.company_website ? company.company_website : false;
+
+                    licensesSelectedMarkup += Mustache.render(
+                        IPPR.templates.licenceSelected, {
+                            title: company.company_name,
+                            address: body.address,
+                            jurisdiction: body.jurisdiction,
+                            headquarters: body.headquarters,
+                            formed: body.formed,
+                            website: body.website
+                        }
+                    );
+
                 });
 
-                console.log(list);
-                IPPR.dataGroups.licenses.find('.List-selected .collapsible').html(list);
+
+                IPPR.dataGroups.licenses.find('.List--selected .collapsible').html(licensesSelectedMarkup);
+                IPPR.dataGroups.licenses.find('.List--selected .List-count').html(Object.keys(IPPR.data.licenses[key]).length);
 
                 $('.List-headerActive').removeClass('u-isHidden');
                 $('.List-headerInactive').addClass('u-isHidden');
             });
         });
+    };
+
+
+    IPPR.filtering = function(){
+        var _self = {
+            filters: '.Filters',
+            filtersMobile: '.Filters--mobile',
+            filterItem: $('.Filters .chip'),
+            filtersTrigger: $('.Filters-trigger'),
+            filtersActiveHolder: $('.Filters-active'),
+            filterRemove: $('Filters-remove'),
+            search: $('.Search-field'),
+            searchRemove: $('.Search-remove'),
+            searchTrigger: $('.Search-trigger'),
+            options: {
+                valueNames: ['List-title', 'List-number', 'expiration'],
+                listClass: 'collection',
+                searchClass: 'Search-input'
+            },
+            clearFilters: function(){
+                list.filter(); // jshint ignore:line
+                $(_self.filters).find('.chip').removeClass('is-active');
+                _self.search.removeClass('u-isHidden');
+                _self.filtersActiveHolder.empty();
+            }
+        };
+
+        var list = new List('data', _self.options);// jshint ignore:line
+
+        _self.filterItem.on('click', function() {
+
+            list.filter();
+            $('.'+_self.options.searchClass).val('');
+
+            if ($(this).is('.is-active')){
+                list.filter();
+                $(this).closest(_self.filters).find('.chip').removeClass('is-active');
+                if(IPPR.appState.mobile){
+                    _self.clearFilters();
+                }
+            } else {
+
+                var value = $(this).data('filter');
+
+                $(this).closest(_self.filtersMobile).find('.chip').removeClass('is-active');
+                $(this).addClass('is-active');
+
+                if(IPPR.appState.mobile){
+                    _self.search.addClass('u-isHidden');
+                    var clone = $(this).clone();
+                    _self.filtersActiveHolder.html(clone);
+                }
+
+                list.filter(function (item) {
+                    if (item.values()[value]){
+                        return true;
+                    } else {
+                        return false;
+                    }
+                });
+
+            }
+        });
+
+        $('.'+_self.options.searchClass).on('keyup', function(){
+            if($(this).val()){
+                _self.clearFilters();
+                _self.searchTrigger.addClass('is-hidden');
+                _self.searchRemove.addClass('is-visible');
+            } else {
+                _self.searchTrigger.removeClass('is-hidden');
+                _self.searchRemove.removeClass('is-visible');
+            }
+        });
+
+
+        if(IPPR.appState.mobile){
+            _self.filtersActiveHolder.on('click', '.chip', _self.clearFilters);
+        }
+
     };
 
     IPPR.initApp = function(){
@@ -215,6 +319,19 @@
         IPPR.initApp();
     }, 200));
 
+
+
+
+
+    $('.js-dropdown-trigger').dropdown({
+        inDuration: 300,
+        outDuration: 225,
+        constrain_width: false, // Does not change width of dropdown to that of the activator
+        hover: false, // Activate on hover
+        gutter: 0, // Spacing from edge
+        belowOrigin: true, // Displays dropdown below the button
+        alignment: 'right' // Displays dropdown with edge aligned to the left of button
+    });
 
     // google.charts.load('current', {'packages':['sankey']});
 

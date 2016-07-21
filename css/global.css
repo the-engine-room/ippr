@@ -10889,22 +10889,91 @@ html.js .js-isHidden {
    Filters
    ==================================== */
 .Filters {
-  position: absolute;
-  display: none;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 @media only screen and (min-width: 601px) {
   .Filters {
-    display: inline-block;
-    vertical-align: middle;
-    font-size: 0;
+    width: 70%;
+    overflow: auto;
   }
 }
 
+.Filters.Filters--mobile {
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  -webkit-transform: translate(0, -50%);
+      -ms-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+}
+
 .Filters-item {
-  display: inline-block;
+  display: block;
+  margin: 10px 0;
+}
+
+@media only screen and (min-width: 601px) {
+  .Filters-item {
+    display: inline-block;
+    margin: 10px;
+  }
+}
+
+.Filters-close {
+  display: none;
+}
+
+.Filters-list {
+  margin: 0;
+  padding: 0 10px;
+}
+
+@media only screen and (min-width: 601px) {
+  .Filters-list {
+    white-space: nowrap;
+  }
+}
+
+.Filters--mobile .Filters-list {
+  display: none;
+  background-color: #fff;
+}
+
+.Filters-trigger {
+  color: #fff;
   cursor: pointer;
-  margin: 0 10px;
+  padding: 10px;
+}
+
+.Filters-trigger.active {
+  background-color: #fff;
+  color: #000;
+}
+
+.chip {
+  cursor: pointer;
+}
+
+.chip .Filters-remove {
+  display: none;
+}
+
+.chip.is-active {
+  background-color: #E7B51F;
+  color: #fff;
+}
+
+.chip.is-active .Filters-remove {
+  display: block;
+}
+
+@media only screen and (max-width: 600px) {
+  .Filters-active .chip {
+    display: block;
+    margin-top: 8px;
+  }
 }
 
 /* ====================================
@@ -10913,9 +10982,11 @@ html.js .js-isHidden {
 .Search {
   position: relative;
   z-index: 12;
-  font-size: 15px;
+  font-size: 0;
   margin: 0;
   background-color: #256A9A;
+  padding: 20px 20px 20px 80px;
+  min-height: 87px;
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
   transition: opacity 0.3s ease;
@@ -10927,32 +10998,54 @@ html.js .js-isHidden {
   }
 }
 
-.Search .Search-inner {
+.Search-inner {
   overflow: hidden;
 }
 
-.Search .Search-field {
+.Search-field {
   margin: 0;
-  position: absolute;
-  right: 0;
-  top: 8px;
-  -webkit-transform: translate(100%, 0);
-      -ms-transform: translate(100%, 0);
-          transform: translate(100%, 0);
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  width: 100%;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  transition: opacity 0.3s ease;
+}
+
+.Search-field.is-hidden {
+  opacity: 0;
 }
 
 @media only screen and (min-width: 601px) {
-  .Search .Search-field {
-    position: relative;
-    top: 0;
-    right: auto;
-    -webkit-transform: translate(0, 0);
-        -ms-transform: translate(0, 0);
-            transform: translate(0, 0);
-    display: inline-block;
-    vertical-align: middle;
-    width: 100%;
+  .Search-field {
+    width: 30%;
   }
+}
+
+.Search-trigger, .Search-remove {
+  left: auto;
+  right: 10px;
+  top: 50%;
+  -webkit-transform: translate(0, -50%);
+      -ms-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  transition: opacity 0.3s ease;
+}
+
+.Search-trigger.is-hidden, .Search-remove.is-hidden {
+  opacity: 0;
+}
+
+.Search-remove {
+  cursor: pointer;
+  opacity: 0;
+}
+
+.Search-remove.is-visible {
+  opacity: 1;
 }
 
 .Search input[type=text] {
@@ -10970,6 +11063,7 @@ html.js .js-isHidden {
 }
 
 .Search label {
+  pointer-events: none;
   color: #000;
   top: 50%;
   -webkit-transform: translate(0, -50%);
@@ -10980,24 +11074,6 @@ html.js .js-isHidden {
 
 .Search label.active {
   display: none;
-}
-
-.Search .prefix {
-  top: 50%;
-  left: -10px;
-  -webkit-transform: translate(-100%, -50%);
-      -ms-transform: translate(-100%, -50%);
-          transform: translate(-100%, -50%);
-}
-
-@media only screen and (min-width: 601px) {
-  .Search .prefix {
-    left: auto;
-    right: 10px;
-    -webkit-transform: translate(0, -50%);
-        -ms-transform: translate(0, -50%);
-            transform: translate(0, -50%);
-  }
 }
 
 .Content {
@@ -11065,13 +11141,27 @@ html.js .js-isHidden {
   border: 0;
 }
 
+.Data-holder .collapsible-body {
+  padding: 2rem;
+}
+
+.Data-holder .collapsible-body p {
+  padding: 0;
+}
+
 @media only screen and (min-width: 601px) {
   .Data-holder {
     position: absolute;
-    width: 50%;
+    width: 85%;
     left: 60px;
     top: 50px;
     z-index: 2;
+  }
+}
+
+@media only screen and (min-width: 993px) {
+  .Data-holder {
+    width: 50%;
   }
 }
 
@@ -11089,20 +11179,27 @@ html.js .js-isHidden {
           transform: translate(0, 0);
 }
 
+@media only screen and (min-width: 601px) {
+  .List {
+    width: 48%;
+  }
+}
+
 .List-header {
   position: relative;
   z-index: 2;
-  font-size: 15px;
+  font-size: 20px;
   padding: 20px;
   border-bottom: #e0e0e0 1px solid;
   color: #fff;
+  cursor: pointer;
 }
 
-.List-licenses .List-header {
+.List--licenses .List-header {
   background-color: #256A9A;
 }
 
-.List-selected .List-header {
+.List--selected .List-header {
   background-color: #7E9669;
 }
 
@@ -11110,14 +11207,70 @@ html.js .js-isHidden {
   vertical-align: middle;
 }
 
-.collection-item {
-  font-size: 15px;
+.List .collection .is-active {
+  background-color: #C8DAE6;
+}
+
+.List .collection-item {
+  padding: 20px;
+}
+
+.List .collapsible-header {
+  position: relative;
+}
+
+.List .collapsible-header i {
+  float: right;
+  margin-right: 0;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  transition: -webkit-transform 0.3s ease;
+  transition: transform 0.3s ease;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  -webkit-transform: translate(0, -50%);
+      -ms-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+}
+
+.List .collapsible-header.active i {
+  -webkit-transform: translate(0, -50%) rotate(180deg);
+      -ms-transform: translate(0, -50%) rotate(180deg);
+          transform: translate(0, -50%) rotate(180deg);
 }
 
 @media only screen and (min-width: 601px) {
   .List-holder {
     max-height: 500px;
     overflow-y: auto;
+  }
+}
+
+.List-holder ul {
+  font-size: 15px;
+}
+
+.List-title {
+  font-weight: bold;
+  margin-top: 10px;
+  line-height: 1;
+}
+
+.List--selected .List-title {
+  max-width: 80%;
+  display: inline-block;
+}
+
+.List-number {
+  background-color: #256A9A;
+  color: #fff;
+  padding: 3px;
+}
+
+@media only screen and (min-width: 601px) {
+  .List.List--selected {
+    margin-left: 2%;
   }
 }
 
@@ -11133,7 +11286,7 @@ html.js .js-isHidden {
   display: none;
 }
 
-@media only screen and (min-width: 601px) {
+@media only screen and (min-width: 993px) {
   .Map {
     display: block;
   }

@@ -54,7 +54,8 @@ module.exports = function (grunt) {
                     'Gruntfile.js',
                     'js/{,*/}*.js',
                     '!js/production.js',
-                    '!js/production.min.js'
+                    '!js/production.min.js',
+                    '!js/vendor/materialize.js'
                 ]
             }
         },

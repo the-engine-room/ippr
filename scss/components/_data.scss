@@ -52,12 +52,23 @@
         border: 0;
     }
 
+    .collapsible-body {
+        padding: 2rem;
+        p {
+            padding: 0;
+        }
+    }
+
     @media #{$medium-and-up} {
         position: absolute;
-        width: 50%;
+        width: 85%;
         left: 60px;
         top: 50px;
         z-index: 2;
+    }
+
+    @media #{$large-and-up} {
+        width: 50%;
     }
 }
 
@@ -72,39 +83,99 @@
     vertical-align: top;
     position: relative;
     transform: translate(0,0);
-}
 
-.List-header {
-    position: relative;
-    z-index: 2;
-    font-size: 15px;
-    padding: 20px;
-    border-bottom: #e0e0e0 1px solid;
-    color: #fff;
-
-    .List-licenses & {
-        background-color: $blue;
-    }
-
-    .List-selected & {
-        background-color: $green;
-    }
-
-    i,span {
-        vertical-align: middle;
-    }
-}
-
-.collection-item {
-    font-size: 15px;
-}
-
-.List-holder {
     @media #{$medium-and-up} {
-        max-height: 500px;
-        overflow-y: auto;
+        width: 48%;
     }
+
+    &-header {
+        position: relative;
+        z-index: 2;
+        font-size: 20px;
+        padding: 20px;
+        border-bottom: #e0e0e0 1px solid;
+        color: #fff;
+        cursor: pointer;
+
+        .List--licenses & {
+            background-color: $blue;
+        }
+
+        .List--selected & {
+            background-color: $green;
+        }
+
+        i,span {
+            vertical-align: middle;
+        }
+    }
+
+    .collection .is-active {
+        background-color: #C8DAE6;
+    }
+
+    .collection-item {
+        padding: 20px;
+    }
+
+    .collapsible-header {
+        position: relative;
+
+        i {
+            float: right;
+            margin-right: 0;
+            backface-visibility: hidden;
+            transition: transform 0.3s ease;
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translate(0,-50%);
+        }
+
+        &.active {
+            i {
+                transform: translate(0,-50%) rotate(180deg);
+            }
+        }
+    }
+
+    &-holder {
+        @media #{$medium-and-up} {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        ul {
+            font-size: 15px;
+        }
+    }
+
+    &-title {
+        font-weight: bold;
+        margin-top: 10px;
+        line-height: 1;
+
+        .List--selected & {
+            max-width: 80%;
+            display: inline-block;
+        }
+    }
+
+    &-number {
+        background-color: $blue;
+        color: #fff;
+        padding: 3px;
+    }
+
+    @media #{$medium-and-up} {
+        &.List--selected {
+            margin-left: 2%;
+        }
+    }
+
 }
+
+
 
 /* ====================================
    Map
@@ -118,7 +189,7 @@
     height: 100%;
     display: none;
 
-    @media #{$medium-and-up} {
+    @media #{$large-and-up} {
         display: block;
     }
 }

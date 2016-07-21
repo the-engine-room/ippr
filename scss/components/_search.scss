@@ -5,9 +5,11 @@
 .Search {
     position: relative;
     z-index: 12;
-    font-size: 15px;
+    font-size: 0;
     margin: 0;
     background-color: $blue;
+    padding: 20px 20px 20px 80px;
+    min-height: 87px;
 
     backface-visibility: hidden;
     transition: opacity 0.3s ease;
@@ -16,25 +18,47 @@
         padding: 20px;
     }
 
-    .Search-inner {
+
+    &-inner {
         overflow: hidden;
     }
 
-    .Search-field {
+    &-field {
         margin: 0;
-        position: absolute;
-        right: 0;
-        top: 8px;
-        transform: translate(100%,0);
+        position: relative;
+        display: inline-block;
+        vertical-align: middle;
+        width: 100%;
+        backface-visibility: hidden;
+        transition: opacity 0.3s ease;
+
+        &.is-hidden {
+            opacity: 0;
+        }
 
         @media #{$medium-and-up} {
-            position: relative;
-            top: 0;
-            right: auto;
-            transform: translate(0,0);
-            display: inline-block;
-            vertical-align: middle;
-            width: 100%;
+            width: 30%;
+        }
+    }
+
+    &-trigger,
+    &-remove {
+        left: auto;
+        right: 10px;
+        top: 50%;
+        transform: translate(0,-50%);
+        backface-visibility: hidden;
+        transition: opacity 0.3s ease;
+        &.is-hidden {
+            opacity: 0;
+        }
+    }
+
+    &-remove {
+        cursor: pointer;
+        opacity: 0;
+        &.is-visible {
+            opacity: 1;
         }
     }
 
@@ -53,6 +77,7 @@
     }
 
     label {
+        pointer-events: none;
         color: #000;
         top: 50%;
         transform: translate(0,-50%);
@@ -63,15 +88,7 @@
         }
     }
 
-    .prefix {
-        top: 50%;
-        left: -10px;
-        transform: translate(-100%,-50%);
 
-        @media #{$medium-and-up} {
-            left: auto;
-            right: 10px;
-            transform: translate(0,-50%);
-        }
-    }
+
+
 }

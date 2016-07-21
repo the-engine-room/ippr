@@ -117,29 +117,32 @@
 
 
 
-    <div class="Content">
+    <div class="Content" id="data">
         <div id="licenses" class="col s12">
 
 
-            <div class="Search z-depth-1">
+            <div class="Search z-depth-1 hide-on-small-only">
 
                 <div class="input-field Search-field">
-                    <i class="material-icons small prefix">search</i>
+                    <i class="material-icons small prefix Search-trigger">search</i>
+                    <i class="material-icons small prefix Search-remove">close</i>
                     <input id="search-licenses" type="text" class="Search-input Search-input--licenses" />
                     <label for="search-licenses">Filter by licence</label>
                 </div>
 
-                <ul class="Filters">
-                    <li class="Filters-item chip">
-                        <span class="Filters-itemFilter">Soon to expire</span>
-                    </li>
-                    <li class="Filters-item chip">
-                        <span class="Filters-itemFilter">Without ownership</span>
-                    </li>
-                    <li class="Filters-item chip">
-                        <span class="Filters-itemFilter">Recently changed ownership</span>
-                    </li>
-                </ul>
+                <div class="Filters">
+                    <ul class="Filters-list">
+                        <li class="Filters-item">
+                            <span class="chip Filters-itemFilter">Soon to expire <i class="material-icons Filters-remove">close</i></span>
+                        </li>
+                        <li class="Filters-item">
+                            <span class="chip Filters-itemFilter">Without ownership <i class="material-icons Filters-remove">close</i></span>
+                        </li>
+                        <li class="Filters-item">
+                            <span class="chip Filters-itemFilter">Recently changed ownership <i class="material-icons Filters-remove">close</i></span>
+                        </li>
+                    </ul>
+                </div>
 
             </div>
 
@@ -147,10 +150,39 @@
 
                 <div class="Data-holder">
 
-                    <div class="List List-licenses z-depth-1" data-level="0">
+                    <div class="List List--licenses z-depth-1" data-level="0">
                         <div class="List-header">
-                            <i class="material-icons">keyboard_arrow_left</i>
+                            <i class="material-icons hide-on-med-and-up">keyboard_arrow_left</i>
                             <span>Licenses (<span class="List-count">34</span>)</span>
+                        </div>
+
+
+                        <div class="Search Search--mobile hide-on-med-and-up">
+
+                            <div class="Filters Filters--mobile">
+                                <i class="material-icons small Filters-trigger js-dropdown-trigger" data-beloworigin="true" data-activates='filters'>filter_list</i>
+                                <ul class="Filters-list z-depth-1" id="filters">
+                                    <li class="Filters-item">
+                                        <span class="chip Filters-itemFilter" data-filter="expiration">Soon to expire <i class="material-icons Filters-remove">close</i></span>
+                                    </li>
+                                    <li class="Filters-item">
+                                        <span class="chip Filters-itemFilter" data-filter="ownership">Without ownership <i class="material-icons Filters-remove">close</i></span>
+                                    </li>
+                                    <li class="Filters-item">
+                                        <span class="chip Filters-itemFilter" data-filter="changedOwnership">Recently changed ownership <i class="material-icons Filters-remove">close</i></span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="Filters-active"></div>
+
+                            <div class="input-field Search-field">
+                                <i class="material-icons small prefix Search-trigger">search</i>
+                                <i class="material-icons small prefix Search-remove">close</i>
+                                <input id="search-licenses" type="text" class="Search-input Search-input--licenses" />
+                                <label for="search-licenses">Filter by licence</label>
+                            </div>
+
                         </div>
 
                         <div class="List-holder">
@@ -159,11 +191,11 @@
                         </div>
                     </div>
 
-                    <div class="List List-selected z-depth-1" data-level="1">
+                    <div class="List List--selected z-depth-1" data-level="1">
                         <div class="List-header">
                             <div class="List-headerActive u-isHidden">
-                                <i class="material-icons">keyboard_arrow_left</i>
-                                Companies in ownership (<span></span>)
+                                <i class="material-icons hide-on-med-and-up">keyboard_arrow_left</i>
+                                Companies in ownership (<span class="List-count"></span>)
                             </div>
                             <div class="List-headerInactive">
                                 Select a license on the left to see ownership information
@@ -228,8 +260,27 @@
         </li>
     </script>
 
+    <script type="x-tmpl-mustache" id="licenceSelected-tpl">
+        <li>
+            <div class="collapsible-header">
+                <div class="List-title">{{ title }}</div>
+                <i class="material-icons">keyboard_arrow_down</i>
+            </div>
+            <div class="collapsible-body">
+                <ul>
+                    <li>
+                        {{#address}}<p><strong>Address:</strong> {{address}}</p>{{/address}}
+                        {{#jurisdiction}}<p><strong>Jurisdiction:</strong> {{jurisdiction}}</p>{{/jurisdiction}}
+                        {{#headquarters}}<p><strong>Headquarters:</strong> {{headquarters}}</p>{{/headquarters}}
+                        {{#formed}}<p><strong>Formed on:</strong> {{formed}}</p>{{/formed}}
+                        {{#website}}<p><strong>Website:</strong> <a href="{{website}}">{{website}}</a></p>{{/website}}
+                    </li>
+                </ul>
+            </div>
+        </li>
+    </script>
+
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
     <script src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.2.0/list.min.js"></script>
 
@@ -239,6 +290,7 @@
 
     <!-- build:js /js/min.js -->
     <script src="/js/vendor/burza/utils.js"></script>
+    <script src="/js/vendor/materialize.js"></script>
     <script src="/js/main.js"></script>
     <!-- endbuild -->
 
