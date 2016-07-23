@@ -260,77 +260,79 @@
 
                 IPPR.map.highlightLayer(key,id);
 
-                var _tmp = [];
+                if(!$(this).closest('.List--extra').size()){
 
-                $.each(IPPR.data.data[key][id], function(k, company){
+                    var _tmp = [];
 
-                    if (parseInt(key) === 2){
-                        _tmp.push(company);
-                    }
+                    $.each(IPPR.data.data[key][id], function(k, company){
 
-                    if (parseInt(key) === 1){
+                        if (company.company_id){
+                            _tmp.push(company);
+                        } else {
 
-                        body.address = company.company_address ? company.company_address : false;
-                        body.jurisdiction = company.company_jurisdiction ? company.company_jurisdiction : false;
-                        body.headquarters = company.company_hq ? company.company_hq : false;
-                        body.formed = company.company_formed ? company.company_formed : false;
+                            body.address = company.company_address ? company.company_address : false;
+                            body.jurisdiction = company.company_jurisdiction ? company.company_jurisdiction : false;
+                            body.headquarters = company.company_hq ? company.company_hq : false;
+                            body.formed = company.company_formed ? company.company_formed : false;
 
-                        body.website = company.company_website ? company.company_website : false;
+                            body.website = company.company_website ? company.company_website : false;
 
-                        Mustache.parse(mustacheTpl[key]);
+                            Mustache.parse(mustacheTpl[key]);
 
-                        markup[key] += Mustache.render(
-                            mustacheTpl[key], {
-                                active: key <= 2 ? ' active': '',
-                                title: company.company_name,
-                                address: body.address,
-                                jurisdiction: body.jurisdiction,
-                                headquarters: body.headquarters,
-                                formed: body.formed,
-                                website: body.website
-                            }
-                        );
+                            markup[key] += Mustache.render(
+                                mustacheTpl[key], {
+                                    active: key <= 2 ? ' active': '',
+                                    title: company.company_name,
+                                    address: body.address,
+                                    jurisdiction: body.jurisdiction,
+                                    headquarters: body.headquarters,
+                                    formed: body.formed,
+                                    website: body.website
+                                }
+                            );
 
-                    }
-
-                    size++;
-
-                });
-
-                if (parseInt(key) === 2){
-                    size = 0;
-                    $.each(IPPR.helpers.groupBy(_tmp, 'license_number'), function(k, value){
-
-                        var concessions = [];
-
-                        $.each(value, function(k,v){
-                            concessions.push(v.concession_number);
-                        });
-
-                        Mustache.parse(mustacheTpl[key]);
-
-                        markup[key] += Mustache.render(
-                            mustacheTpl[key], {
-                                title: k,
-                                id: k,
-                                concessionNumbers: concessions ? concessions : false
-                            }
-                        );
+                        }
 
                         size++;
+
                     });
+
+                    if (parseInt(key) === 2){
+                        size = 0;
+                        $.each(IPPR.helpers.groupBy(_tmp, 'license_number'), function(k, value){
+
+                            var concessions = [];
+
+                            $.each(value, function(k,v){
+                                concessions.push(v.concession_number);
+                            });
+
+                            Mustache.parse(mustacheTpl[key]);
+
+                            markup[key] += Mustache.render(
+                                mustacheTpl[key], {
+                                    title: k,
+                                    id: k,
+                                    concessionNumbers: concessions ? concessions : false
+                                }
+                            );
+
+                            size++;
+                        });
+                    }
+
+
+                    $('#tab-'+key).find(IPPR.dom.lists.extra).find(IPPR.dom.lists.list).html(markup[key]);
+                    $('#tab-'+key).find(IPPR.dom.lists.extra).find(IPPR.dom.lists.count).html(size);
+
+                    $('#tab-'+key).find(IPPR.dom.lists.headerActive).removeClass(IPPR.states.hidden);
+                    $('#tab-'+key).find(IPPR.dom.lists.headerInActive).addClass(IPPR.states.hidden);
+
+                    $('.collapsible').collapsible({
+                        accordion : true
+                    });
+
                 }
-
-
-                $('#tab-'+key).find(IPPR.dom.lists.extra).find(IPPR.dom.lists.list).html(markup[key]);
-                $('#tab-'+key).find(IPPR.dom.lists.extra).find(IPPR.dom.lists.count).html(size);
-
-                $('#tab-'+key).find(IPPR.dom.lists.headerActive).removeClass(IPPR.states.hidden);
-                $('#tab-'+key).find(IPPR.dom.lists.headerInActive).addClass(IPPR.states.hidden);
-
-                $('.collapsible').collapsible({
-                    accordion : true
-                });
             });
         });
 
