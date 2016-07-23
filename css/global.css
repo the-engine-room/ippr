@@ -11128,6 +11128,8 @@ html.js .js-isHidden {
 }
 
 .Data-holder {
+  position: relative;
+  z-index: 2;
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
   transition: -webkit-transform 0.3s ease;
@@ -11195,11 +11197,11 @@ html.js .js-isHidden {
   cursor: pointer;
 }
 
-.List--licenses .List-header {
+.List--main .List-header {
   background-color: #256A9A;
 }
 
-.List--selected .List-header {
+.List--extra .List-header {
   background-color: #7E9669;
 }
 
@@ -11257,7 +11259,7 @@ html.js .js-isHidden {
   line-height: 1;
 }
 
-.List--selected .List-title {
+.List--extra .List-title {
   max-width: 80%;
   display: inline-block;
 }
@@ -11269,7 +11271,7 @@ html.js .js-isHidden {
 }
 
 @media only screen and (min-width: 601px) {
-  .List.List--selected {
+  .List.List--extra {
     margin-left: 2%;
   }
 }
@@ -11278,18 +11280,39 @@ html.js .js-isHidden {
    Map
    ==================================== */
 .Map {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: none;
+  position: relative;
+  width: 50%;
+  height: 100vh;
 }
 
 @media only screen and (min-width: 993px) {
   .Map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     display: block;
   }
+}
+
+.Map-trigger {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  transition: -webkit-transform 0.3s ease;
+  transition: transform 0.3s ease;
+  -webkit-transform: translate(100%, -20px);
+      -ms-transform: translate(100%, -20px);
+          transform: translate(100%, -20px);
+}
+
+.Map-trigger.is-active {
+  -webkit-transform: translate(-20px, -20px);
+      -ms-transform: translate(-20px, -20px);
+          transform: translate(-20px, -20px);
 }
 
 /* ====================================

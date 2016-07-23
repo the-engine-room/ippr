@@ -38,39 +38,44 @@
         max-height: 800px;
         height: 800px;
     }
-}
 
-.Data-holder {
+    &-holder {
 
-    backface-visibility: hidden;
-    transition: transform 0.3s ease;
-    font-size: 0;
+        position: relative;
+        z-index: 2;
+        backface-visibility: hidden;
+        transition: transform 0.3s ease;
+        font-size: 0;
 
-    .collection,
-    .collapsible {
-        margin: 0;
-        border: 0;
-    }
+        .collection,
+        .collapsible {
+            margin: 0;
+            border: 0;
+        }
 
-    .collapsible-body {
-        padding: 2rem;
-        p {
-            padding: 0;
+        .collapsible-body {
+            padding: 2rem;
+            p {
+                padding: 0;
+            }
+        }
+
+        @media #{$medium-and-up} {
+            position: absolute;
+            width: 85%;
+            left: 60px;
+            top: 50px;
+            z-index: 2;
+        }
+
+        @media #{$large-and-up} {
+            width: 50%;
         }
     }
 
-    @media #{$medium-and-up} {
-        position: absolute;
-        width: 85%;
-        left: 60px;
-        top: 50px;
-        z-index: 2;
-    }
-
-    @media #{$large-and-up} {
-        width: 50%;
-    }
 }
+
+
 
 /* ====================================
    Lists
@@ -97,11 +102,11 @@
         color: #fff;
         cursor: pointer;
 
-        .List--licenses & {
+        .List--main & {
             background-color: $blue;
         }
 
-        .List--selected & {
+        .List--extra & {
             background-color: $green;
         }
 
@@ -155,7 +160,7 @@
         margin-top: 10px;
         line-height: 1;
 
-        .List--selected & {
+        .List--extra & {
             max-width: 80%;
             display: inline-block;
         }
@@ -168,7 +173,7 @@
     }
 
     @media #{$medium-and-up} {
-        &.List--selected {
+        &.List--extra {
             margin-left: 2%;
         }
     }
@@ -182,14 +187,29 @@
    ==================================== */
 
 .Map {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: none;
+    position: relative;
+    width: 50%;
+    height: 100vh;
 
     @media #{$large-and-up} {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
         display: block;
+    }
+
+    &-trigger {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        backface-visibility: hidden;
+        transition: transform 0.3s ease;
+        transform: translate(100%,-20px);
+
+        &.is-active {
+            transform: translate(-20px,-20px);
+        }
     }
 }

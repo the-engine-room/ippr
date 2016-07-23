@@ -99,13 +99,13 @@
 
             <ul class="tabs Header-tabs">
                 <li class="tab col">
-                    <a class="Header-tabs-licenses" href="#licenses">
+                    <a href="#tab-1">
                         <span>Browse by licence</span>
                         <i class="material-icons">keyboard_arrow_right</i>
                     </a>
                 </li>
                 <li class="tab col">
-                    <a class="Header-tabs-companies" href="#companies">
+                    <a href="#tab-2">
                         <span>Browse by company</span>
                         <i class="material-icons">keyboard_arrow_right</i>
                     </a>
@@ -118,7 +118,7 @@
 
 
     <div class="Content" id="data">
-        <div id="licenses" class="col s12">
+        <div id="tab-1" class="col s12">
 
 
             <div class="Search z-depth-1 hide-on-small-only">
@@ -126,8 +126,8 @@
                 <div class="input-field Search-field">
                     <i class="material-icons small prefix Search-trigger">search</i>
                     <i class="material-icons small prefix Search-remove">close</i>
-                    <input id="search-licenses" type="text" class="Search-input Search-input--licenses" />
-                    <label for="search-licenses">Filter by licence</label>
+                    <input id="search-tab-1" type="text" class="Search-input" />
+                    <label for="search-tab-1">Filter by licence</label>
                 </div>
 
                 <div class="Filters">
@@ -150,7 +150,7 @@
 
                 <div class="Data-holder">
 
-                    <div class="List List--licenses z-depth-1" data-level="0">
+                    <div class="List List--main z-depth-1" data-level="0">
                         <div class="List-header">
                             <i class="material-icons hide-on-med-and-up">keyboard_arrow_left</i>
                             <span>Licenses (<span class="List-count">34</span>)</span>
@@ -179,8 +179,8 @@
                             <div class="input-field Search-field">
                                 <i class="material-icons small prefix Search-trigger">search</i>
                                 <i class="material-icons small prefix Search-remove">close</i>
-                                <input id="search-licenses" type="text" class="Search-input Search-input--licenses" />
-                                <label for="search-licenses">Filter by licence</label>
+                                <input id="search-tab-1" type="text" class="Search-input" />
+                                <label for="search-tab-1">Filter by licence</label>
                             </div>
 
                         </div>
@@ -189,9 +189,10 @@
                             <ul class="collection">
                             </ul>
                         </div>
+
                     </div>
 
-                    <div class="List List--selected z-depth-1" data-level="1">
+                    <div class="List List--extra z-depth-1" data-level="1">
                         <div class="List-header">
                             <div class="List-headerActive u-isHidden">
                                 <i class="material-icons hide-on-med-and-up">keyboard_arrow_left</i>
@@ -219,7 +220,6 @@
                     </div>
                 </div>
 
-
             </div>
 
 
@@ -233,8 +233,9 @@
             </div>
 
 
+
         </div>
-        <div id="companies" class="">
+        <div id="tab-2" class="">
 
             <div class="Search row">
 
@@ -248,6 +249,8 @@
         </div>
 
     </div>
+
+    <a class="Map-trigger btn-floating btn-large waves-effect waves-light red"><i class="material-icons">map</i></a>
 
 
     <footer>
@@ -265,6 +268,11 @@
             {{#concessionNumbers}}
                 <span class="List-number">{{.}}</span>
             {{/concessionNumbers}}
+            <span class="u-isHidden concessionNumbers">
+                {{#concessionNumbers}}
+                    {{.}}
+                {{/concessionNumbers}}
+            </span>
         </li>
     </script>
 
