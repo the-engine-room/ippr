@@ -160,8 +160,8 @@
                         <div class="Search Search--mobile hide-on-med-and-up brand blue">
 
                             <div class="Filters Filters--mobile">
-                                <i class="material-icons small Filters-trigger js-dropdown-trigger" data-beloworigin="true" data-activates='filters'>filter_list</i>
-                                <ul class="Filters-list z-depth-1" id="filters">
+                                <i class="material-icons small Filters-trigger js-dropdown-trigger" data-beloworigin="true" data-activates='filters1'>filter_list</i>
+                                <ul class="Filters-list z-depth-1" id="filters1">
                                     <li class="Filters-item">
                                         <span class="chip Filters-itemFilter" data-filter="expiration">Soon to expire <i class="material-icons Filters-remove">close</i></span>
                                     </li>
@@ -185,7 +185,7 @@
 
                         </div>
 
-                        <div class="List-holder">
+                        <div class="List-holder is-filterable">
                             <ul class="collection">
                             </ul>
                         </div>
@@ -196,10 +196,10 @@
                         <div class="List-header brand green">
                             <div class="List-headerActive u-isHidden">
                                 <i class="material-icons hide-on-med-and-up">keyboard_arrow_left</i>
-                                Companies in ownership (<span class="List-count"></span>)
+                                <span>Companies in ownership (<span class="List-count"></span>)</span>
                             </div>
                             <div class="List-headerInactive">
-                                Select a license on the left to see ownership information
+                                <span>Select a license on the left to see ownership information</span>
                             </div>
                         </div>
 
@@ -257,7 +257,7 @@
             </script>
 
         </div>
-        <div id="tab-2" class="">
+        <div id="tab-2" class="col s12">
 
             <div class="Search z-depth-1 hide-on-small-only brand green">
 
@@ -298,8 +298,8 @@
                         <div class="Search Search--mobile hide-on-med-and-up brand green">
 
                             <div class="Filters Filters--mobile">
-                                <i class="material-icons small Filters-trigger js-dropdown-trigger" data-beloworigin="true" data-activates='filters'>filter_list</i>
-                                <ul class="Filters-list z-depth-1" id="filters">
+                                <i class="material-icons small Filters-trigger js-dropdown-trigger" data-beloworigin="true" data-activates='filters2'>filter_list</i>
+                                <ul class="Filters-list z-depth-1" id="filters2">
                                     <li class="Filters-item">
                                         <span class="chip Filters-itemFilter" data-filter="expiration">Soon to expire <i class="material-icons Filters-remove">close</i></span>
                                     </li>
@@ -334,14 +334,14 @@
                         <div class="List-header brand blue">
                             <div class="List-headerActive u-isHidden">
                                 <i class="material-icons hide-on-med-and-up">keyboard_arrow_left</i>
-                                Licenses in ownership (<span class="List-count"></span>)
+                                <span>Licenses in ownership (<span class="List-count"></span>)</span>
                             </div>
                             <div class="List-headerInactive">
-                                Select a company on the left to see licenses information
+                                <span>Select a company on the left to see licenses information</span>
                             </div>
                         </div>
 
-                        <div class="List-holder">
+                        <div class="List-holder is-filterable">
                             <ul class="collection collapsible" data-collapsible="accordion">
                             </ul>
                         </div>
@@ -369,7 +369,7 @@
 
             <script type="x-tmpl-mustache" class="extra-tpl">
                 <li class="collection-item" data-id="{{ id }}">
-                    <p class="List-title">{{ title }}</p>
+                    <p class="List-title List-title--full">{{ title }}</p>
                     {{#concessionNumbers}}
                         <span class="List-number brand blue">{{.}}</span>
                     {{/concessionNumbers}}

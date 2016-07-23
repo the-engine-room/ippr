@@ -11,20 +11,33 @@
                 extra: '.List--extra',
                 count: '.List-count',
                 header: '.List-header',
+                holder: '.List-holder',
                 list: '.collection',
                 headerActive: '.List-headerActive',
-                headerInActive: '.List-headerInactive'
+                headerInActive: '.List-headerInactive',
             },
             content: $('.Content'),
             tabs: $('.Header-tabs a'),
             levels: $('div[data-level]'),
             dataHolder: $('.Data-holder'),
+            filters: {
+                main: '.Filters',
+                mobile: '.Filters--mobile',
+                item: '.Filters .chip',
+                trigger: $('.Filters-trigger'),
+                activeHolder: $('.Filters-active'),
+                remove: $('Filters-remove'),
+                search: $('.Search-field'),
+                searchRemove: $('.Search-remove'),
+                searchTrigger: $('.Search-trigger'),
+            }
         },
         states: {
             loading: 'is-loading',
             active: 'is-active',
             animate: 'has-animation',
             hidden: 'u-isHidden',
+            visible: 'is-visible',
             mobile: false,
             desktop: false
         },
@@ -32,10 +45,12 @@
             data: {},
             tabs: {
                 1: {
+                    name: 'licenses',
                     sql: "SELECT MAX(companies.company_hq) as company_hq, MAX(companies.company_formed) as company_formed, MAX(companies.company_jurisdiction) as company_jurisdiction, MAX(companies.website) as company_website, MAX(companies.company_name) as company_name, MAX(companies.company_address) as company_address, license_number, array_to_string(array_agg(concession_number), ',') as concessions FROM hydrocarbon_licences_latest_clean JOIN companies ON (hydrocarbon_licences_latest_clean.company_id = companies.company_id) GROUP BY license_number, companies.company_id ORDER BY license_number",
                     groupBy: 'license_number'
                 },
                 2: {
+                    name: 'companies',
                     sql: "SELECT * FROM companies JOIN hydrocarbon_licences_latest_clean ON (companies.company_id = hydrocarbon_licences_latest_clean.company_id) ORDER BY company_name",
                     groupBy: 'company_name'
                 }
@@ -60,6 +75,7 @@
             },
             highlightLayer: function(key,id){
                 $.each(IPPR.map.layers[key], function(k,value){
+
                     IPPR.map.layers[key][k].setStyle(IPPR.map.styles.default);
 
                     if (value.ID === id || value.company_name === id){
@@ -70,12 +86,31 @@
             },
             trigger: $('.Map-trigger')
         },
+        filters: {
+            list: [],
+            options: {
+                valueNames: ['List-title', 'concessionNumbers', 'expiration'],
+                listClass: 'collection',
+                searchClass: 'Search-input'
+            },
+            clear: function(){
+                $.each(IPPR.filters.list, function(k){
+                    IPPR.filters.list[k].filter();
+                });
+                $(IPPR.dom.filters.item).removeClass(IPPR.states.active);
+                IPPR.dom.filters.search.removeClass(IPPR.states.hidden);
+                IPPR.dom.filters.activeHolder.empty();
+            }
+        },
         helpers: {
             groupBy: function(xs, key) {
                 return xs.reduce(function(rv, x) {
                     (rv[x[key]] = rv[x[key]] || []).push(x);
                     return rv;
                 }, {});
+            },
+            unique(value, index, self) {
+                return self.indexOf(value) === index;
             }
         }
     };
@@ -122,7 +157,7 @@
 
                 if (Object.keys(IPPR.data.tabs).length === parseInt(key)){
                     IPPR.loading();
-                    // FILTERING
+                    IPPR.filtering();
                 }
 
             });
@@ -137,7 +172,7 @@
 
         $.getJSON('data/data.json', function(data){
 
-            $.each(IPPR.data.tabs, function(key){
+            $.each(IPPR.data.tabs, function(key,tab){
 
                 IPPR.map.layers[key] = [];
 
@@ -157,8 +192,29 @@
                     layer.company_name = feature.properties.company_name;
                     IPPR.map.layers[key].push(layer);
                     layer.on('click', function () {
-                        $(IPPR.dom.lists.main).find('li[data-id="'+ feature.properties.license_number +'"]').click();
-                        $(IPPR.dom.lists.main).find('li[data-id="'+ feature.properties.company_name +'"]').click();
+
+
+                        $.each(IPPR.filters.list, function(k,v){
+                            v.filter();
+                            v.search();
+                        });
+
+                        $('.'+IPPR.filters.options.searchClass).val('').trigger('keyup').blur();
+
+                        var elem, top;
+                        if (tab.name === 'licenses'){
+                            elem = $(IPPR.dom.lists.main).find('li[data-id="'+ feature.properties.license_number +'"]');
+                            elem.click();
+                            top = elem.position().top;
+                            $(IPPR.dom.lists.main).find(IPPR.dom.lists.holder).scrollTop(top);
+
+                        } else if (tab.name === 'companies'){
+                            elem = $(IPPR.dom.lists.main).find('li[data-id="'+ feature.properties.company_name +'"]');
+                            elem.click();
+                            top = elem.position().top;
+                            $(IPPR.dom.lists.main).find(IPPR.dom.lists.holder).scrollTop(top);
+                        }
+
                     });
                 }
 
@@ -236,7 +292,8 @@
         var markup = [],
             mustacheTpl = [];
 
-        $.each(IPPR.data.tabs, function(key){
+        $.each(IPPR.data.tabs, function(key, tab){
+
 
             mustacheTpl[key] = $('#tab-'+key).find('.extra-tpl').html();
 
@@ -260,15 +317,15 @@
 
                 IPPR.map.highlightLayer(key,id);
 
-                if(!$(this).closest('.List--extra').size()){
+                if(!$(this).closest(IPPR.dom.lists.extra).size()){
 
-                    var _tmp = [];
+                    var companies = [];
 
                     $.each(IPPR.data.data[key][id], function(k, company){
 
-                        if (company.company_id){
-                            _tmp.push(company);
-                        } else {
+                        if (tab.name === 'companies'){
+                            companies.push(company);
+                        } else if (tab.name === 'licenses'){
 
                             body.address = company.company_address ? company.company_address : false;
                             body.jurisdiction = company.company_jurisdiction ? company.company_jurisdiction : false;
@@ -297,9 +354,9 @@
 
                     });
 
-                    if (parseInt(key) === 2){
+                    if (tab.name === 'companies'){
                         size = 0;
-                        $.each(IPPR.helpers.groupBy(_tmp, 'license_number'), function(k, value){
+                        $.each(IPPR.helpers.groupBy(companies, 'license_number'), function(k, value){
 
                             var concessions = [];
 
@@ -341,108 +398,108 @@
 
     IPPR.filtering = function(){
 
-        var _self = {
-            filters: '.Filters',
-            filtersMobile: '.Filters--mobile',
-            filterItem: $('.Filters .chip'),
-            filtersTrigger: $('.Filters-trigger'),
-            filtersActiveHolder: $('.Filters-active'),
-            filterRemove: $('Filters-remove'),
-            search: $('.Search-field'),
-            searchRemove: $('.Search-remove'),
-            searchTrigger: $('.Search-trigger'),
-            options: {
-                valueNames: ['List-title', 'concessionNumbers', 'expiration'],
-                listClass: 'collection',
-                searchClass: 'Search-input'
-            },
-            clearFilters: function(){
-                list.filter(); // jshint ignore:line
-                $(_self.filters).find('.chip').removeClass('is-active');
-                _self.search.removeClass('u-isHidden');
-                _self.filtersActiveHolder.empty();
-            }
-        };
+        $.each(IPPR.data.tabs, function(key){
+            IPPR.filters.list.push(new List('tab-'+key, IPPR.filters.options));// jshint ignore:line
 
-        var list = new List('data', _self.options);// jshint ignore:line
+            $('#tab-'+key).find(IPPR.dom.filters.item).on('click', function() {
 
-        _self.filterItem.on('click', function() {
+                IPPR.filters.list[key-1].filter();
+                IPPR.filters.list[key-1].search();
 
-            list.filter();
-            list.search();
-            $('.'+_self.options.searchClass).val('').trigger('keyup').blur();
+                $('.'+IPPR.filters.options.searchClass).val('').trigger('keyup').blur();
 
-            if ($(this).is('.is-active')){
-                list.filter();
-                $(this).closest(_self.filters).find('.chip').removeClass('is-active');
-                if(IPPR.appState.mobile){
-                    _self.clearFilters();
-                }
-            } else {
-
-                var value = $(this).data('filter');
-
-                $(this).closest(_self.filtersMobile).find('.chip').removeClass('is-active');
-                $(this).addClass('is-active');
-
-                if(IPPR.appState.mobile){
-                    _self.search.addClass('u-isHidden');
-                    var clone = $(this).clone();
-                    _self.filtersActiveHolder.html(clone);
-                }
-
-                list.filter(function (item) {
-                    if (item.values()[value]){
-                        return true;
+                if ($(this).is('.'+IPPR.states.active)){
+                    IPPR.filters.list[key-1].filter();
+                    $(this).closest(IPPR.dom.filters.main).find('.chip').removeClass(IPPR.states.active);
+                    if(IPPR.states.mobile){
+                        IPPR.filters.clear();
                     }
-                    return false;
+                } else {
 
-                });
+                    var value = $(this).data('filter');
 
-            }
+                    $(this).closest(IPPR.dom.filters.main).find('.chip').removeClass(IPPR.states.active);
+                    $(this).addClass(IPPR.states.active);
+
+                    if(IPPR.states.mobile){
+                        IPPR.dom.filters.search.addClass(IPPR.states.hidden);
+                        var clone = $(this).clone();
+                        IPPR.dom.filters.activeHolder.html(clone);
+                    }
+
+                    IPPR.filters.list[key-1].filter(function (item) {
+                        if (item.values()[value]){
+                            return true;
+                        }
+                        return false;
+                    });
+
+                }
+            });
+
+
         });
 
-        var mapLayers= [];
 
-        $('.'+_self.options.searchClass).on('keyup', function(){
+
+
+
+
+        $('.'+IPPR.filters.options.searchClass).on('keyup', function(){
 
             var val = $(this).val();
+            var mapLayers= [];
 
             if(val){
-                _self.clearFilters();
-                _self.searchTrigger.addClass('is-hidden');
-                _self.searchRemove.addClass('is-visible');
+                IPPR.filters.clear();
+                IPPR.dom.filters.searchTrigger.addClass(IPPR.states.hidden);
+                IPPR.dom.filters.searchRemove.addClass(IPPR.states.visible);
 
-                $.each(IPPR.mapLayers, function(k,v){
-                    if(v.ID.search(new RegExp(val, 'i')) > -1){
-                        mapLayers.push(IPPR.mapLayers[k]);
+
+                $.each(IPPR.map.layers, function(k,v){
+                    if(v){
+                        $.each(v, function(key,value){
+                            IPPR.map.layers[k][key].setStyle(IPPR.map.styles.default);
+                            if(value.ID.search(new RegExp(val, 'i')) > -1){
+                                IPPR.map.highlightLayer(1,IPPR.map.layers[k][key].ID);
+                            } else if (value.concession_number.search(new RegExp(val, 'i')) > -1){
+                                IPPR.map.highlightLayer(1,IPPR.map.layers[k][key].ID);
+                            } else if (value.company_name.search(new RegExp(val, 'i')) > -1){
+                                mapLayers.push(IPPR.map.layers[k][key].ID);
+                            }
+                        });
                     }
 
-                    if (v.concession_number.search(new RegExp(val, 'i')) > -1){
-                        mapLayers.push(IPPR.mapLayers[k]);
-                    }
                 });
 
-                console.log(mapLayers);
-                IPPR.highlightMultipleMapLayer(mapLayers);
+
+                $.each(mapLayers, function(k,v){
+                    IPPR.map.layers[2][k].setStyle(IPPR.map.styles.active);
+                });
 
             } else {
                 mapLayers = [];
-                _self.searchTrigger.removeClass('is-hidden');
-                _self.searchRemove.removeClass('is-visible');
-                IPPR.highlightMapLayer();
+                IPPR.dom.filters.searchTrigger.removeClass(IPPR.states.hidden);
+                IPPR.dom.filters.searchRemove.removeClass(IPPR.states.visible);
+                // IPPR.highlightMapLayer();
             }
         });
 
-        _self.searchRemove.on('click', function(){
-            $('.'+_self.options.searchClass).val('').trigger('keyup').blur();
-            list.search();
+
+
+
+
+        IPPR.dom.filters.searchRemove.on('click', function(){
+            $('.'+IPPR.filters.options.searchClass).val('').trigger('keyup').blur();
+            $.each(IPPR.filters.list, function(k){
+                IPPR.filters.list[k].search();
+            });
         });
 
-        if(IPPR.appState.mobile){
-            _self.filtersActiveHolder.on('click', '.chip', _self.clearFilters);
-        }
 
+        if(IPPR.states.mobile){
+            IPPR.dom.filters.activeHolder.on('click', '.chip', IPPR.filters.clear);
+        }
     };
 
 

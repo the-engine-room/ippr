@@ -107,6 +107,15 @@
         }
     }
 
+    &-count {
+        vertical-align: initial;
+    }
+
+    &-headerInactive {
+        font-size: 15px;
+        text-align: center;
+    }
+
     .collection .is-active {
         background-color: #C8DAE6;
     }
@@ -156,6 +165,11 @@
         .List--extra & {
             max-width: 80%;
             display: inline-block;
+        }
+
+        &.List-title--full {
+            display: block;
+            max-width: 100%;
         }
     }
 

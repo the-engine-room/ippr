@@ -11213,6 +11213,15 @@ html.js .js-isHidden {
   vertical-align: middle;
 }
 
+.List-count {
+  vertical-align: initial;
+}
+
+.List-headerInactive {
+  font-size: 15px;
+  text-align: center;
+}
+
 .List .collection .is-active {
   background-color: #C8DAE6;
 }
@@ -11267,6 +11276,11 @@ html.js .js-isHidden {
 .List--extra .List-title {
   max-width: 80%;
   display: inline-block;
+}
+
+.List-title.List-title--full {
+  display: block;
+  max-width: 100%;
 }
 
 .List-number {
