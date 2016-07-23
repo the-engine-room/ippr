@@ -47,7 +47,7 @@
             transform: translate(-50%,27px);
             width: 60px;
             height: 5px;
-            background-color: $accent;
+            background-color: map-get($brand-colors, 'accent');
             border-radius: 2px;
         }
     }
@@ -88,18 +88,6 @@
         @media #{$medium-and-up} {
             i {
                 display: none;
-            }
-        }
-
-        @media #{$small-and-down} {
-            &-licenses.active,
-            &-licenses {
-                background-color: $blue !important;
-            }
-
-            &-companies.active,
-            &-companies {
-                background-color: $green !important;
             }
         }
     }

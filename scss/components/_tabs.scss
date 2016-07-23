@@ -49,7 +49,6 @@
             transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
 
             &.active {
-                background: $accent;
                 color: #fff;
                 &:hover {
                     color: #fff;
@@ -58,7 +57,6 @@
 
             &:hover {
                 color: inherit;
-                background: $accent;
             }
         }
     }
@@ -136,7 +134,7 @@
     }
 
     &.is-active {
-        background-color: $accent;
+        background-color: map-get($brand-colors, 'accent');
         color: #fff;
         .Filters-remove {
             display: block;

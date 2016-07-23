@@ -2137,6 +2137,30 @@
   color: transparent !important;
 }
 
+.brand.blue {
+  background-color: #256A9A !important;
+}
+
+.brand-text.text-blue {
+  color: #256A9A !important;
+}
+
+.brand.green {
+  background-color: #7E9669 !important;
+}
+
+.brand-text.text-green {
+  color: #7E9669 !important;
+}
+
+.brand.accent {
+  background-color: #E7B51F !important;
+}
+
+.brand-text.text-accent {
+  color: #E7B51F !important;
+}
+
 .black {
   background-color: #000000 !important;
 }
@@ -10793,15 +10817,6 @@ html.js .js-isHidden {
   }
 }
 
-@media only screen and (max-width: 600px) {
-  .Header-tabs-licenses.active, .Header-tabs-licenses {
-    background-color: #256A9A !important;
-  }
-  .Header-tabs-companies.active, .Header-tabs-companies {
-    background-color: #7E9669 !important;
-  }
-}
-
 /* ====================================
    Tabs
    ==================================== */
@@ -10872,7 +10887,6 @@ html.js .js-isHidden {
 }
 
 .tabs .tab a.active {
-  background: #E7B51F;
   color: #fff;
 }
 
@@ -10882,7 +10896,6 @@ html.js .js-isHidden {
 
 .tabs .tab a:hover {
   color: inherit;
-  background: #E7B51F;
 }
 
 /* ====================================
@@ -10984,7 +10997,6 @@ html.js .js-isHidden {
   z-index: 12;
   font-size: 0;
   margin: 0;
-  background-color: #256A9A;
   padding: 20px 20px 20px 80px;
   min-height: 87px;
   -webkit-backface-visibility: hidden;
@@ -11197,14 +11209,6 @@ html.js .js-isHidden {
   cursor: pointer;
 }
 
-.List--main .List-header {
-  background-color: #256A9A;
-}
-
-.List--extra .List-header {
-  background-color: #7E9669;
-}
-
 .List-header i, .List-header span {
   vertical-align: middle;
 }
@@ -11244,7 +11248,8 @@ html.js .js-isHidden {
 
 @media only screen and (min-width: 601px) {
   .List-holder {
-    max-height: 500px;
+    max-height: 620px;
+    height: 620px;
     overflow-y: auto;
   }
 }
@@ -11265,7 +11270,6 @@ html.js .js-isHidden {
 }
 
 .List-number {
-  background-color: #256A9A;
   color: #fff;
   padding: 3px;
 }
@@ -11285,13 +11289,19 @@ html.js .js-isHidden {
   height: 100vh;
 }
 
-@media only screen and (min-width: 993px) {
+@media only screen and (min-width: 601px) {
   .Map {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 993px) {
+  .Map {
     display: block;
   }
 }
@@ -11313,6 +11323,20 @@ html.js .js-isHidden {
   -webkit-transform: translate(-20px, -20px);
       -ms-transform: translate(-20px, -20px);
           transform: translate(-20px, -20px);
+}
+
+@media only screen and (min-width: 601px) {
+  .Map-trigger {
+    -webkit-transform: translate(-20px, -20px);
+        -ms-transform: translate(-20px, -20px);
+            transform: translate(-20px, -20px);
+  }
+}
+
+@media only screen and (min-width: 993px) {
+  .Map-trigger {
+    display: none;
+  }
 }
 
 /* ====================================

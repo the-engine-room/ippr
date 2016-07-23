@@ -102,14 +102,6 @@
         color: #fff;
         cursor: pointer;
 
-        .List--main & {
-            background-color: $blue;
-        }
-
-        .List--extra & {
-            background-color: $green;
-        }
-
         i,span {
             vertical-align: middle;
         }
@@ -146,7 +138,8 @@
 
     &-holder {
         @media #{$medium-and-up} {
-            max-height: 500px;
+            max-height: 620px;
+            height: 620px;
             overflow-y: auto;
         }
 
@@ -167,7 +160,6 @@
     }
 
     &-number {
-        background-color: $blue;
         color: #fff;
         padding: 3px;
     }
@@ -191,12 +183,16 @@
     width: 50%;
     height: 100vh;
 
-    @media #{$large-and-up} {
+    @media #{$medium-and-up} {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
+        display: none;
+    }
+
+    @media #{$large-and-up} {
         display: block;
     }
 
@@ -211,5 +207,14 @@
         &.is-active {
             transform: translate(-20px,-20px);
         }
+
+        @media #{$medium-and-up} {
+            transform: translate(-20px,-20px);
+        }
+
+        @media #{$large-and-up} {
+            display: none;
+        }
+
     }
 }

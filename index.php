@@ -99,13 +99,13 @@
 
             <ul class="tabs Header-tabs">
                 <li class="tab col">
-                    <a href="#tab-1" class="Header-tabs-licenses">
+                    <a href="#tab-1" class="brand blue">
                         <span>Browse by licence</span>
                         <i class="material-icons">keyboard_arrow_right</i>
                     </a>
                 </li>
                 <li class="tab col">
-                    <a href="#tab-2" class="Header-tabs-companies">
+                    <a href="#tab-2" class="brand green">
                         <span>Browse by company</span>
                         <i class="material-icons">keyboard_arrow_right</i>
                     </a>
@@ -121,7 +121,7 @@
         <div id="tab-1" class="col s12">
 
 
-            <div class="Search z-depth-1 hide-on-small-only">
+            <div class="Search z-depth-1 hide-on-small-only brand blue">
 
                 <div class="input-field Search-field">
                     <i class="material-icons small prefix Search-trigger">search</i>
@@ -151,13 +151,13 @@
                 <div class="Data-holder">
 
                     <div class="List List--main z-depth-1" data-level="0">
-                        <div class="List-header">
+                        <div class="List-header brand blue">
                             <i class="material-icons hide-on-med-and-up">keyboard_arrow_left</i>
-                            <span>Licenses (<span class="List-count">34</span>)</span>
+                            <span>Licenses (<span class="List-count"></span>)</span>
                         </div>
 
 
-                        <div class="Search Search--mobile hide-on-med-and-up">
+                        <div class="Search Search--mobile hide-on-med-and-up brand blue">
 
                             <div class="Filters Filters--mobile">
                                 <i class="material-icons small Filters-trigger js-dropdown-trigger" data-beloworigin="true" data-activates='filters'>filter_list</i>
@@ -193,7 +193,7 @@
                     </div>
 
                     <div class="List List--extra z-depth-1" data-level="1">
-                        <div class="List-header">
+                        <div class="List-header brand green">
                             <div class="List-headerActive u-isHidden">
                                 <i class="material-icons hide-on-med-and-up">keyboard_arrow_left</i>
                                 Companies in ownership (<span class="List-count"></span>)
@@ -211,7 +211,145 @@
 
                 </div>
 
-                <div class="Map" id="map"></div>
+                <div class="Map Map--1"></div>
+
+
+                <div class="Loader">
+                    <div class="Loader-holder">
+                        <div class="preloader-wrapper big active"> <div class="spinner-layer spinner-blue-only"> <div class="circle-clipper left"> <div class="circle"></div> </div><div class="gap-patch"> <div class="circle"></div> </div><div class="circle-clipper right"> <div class="circle"></div> </div> </div> </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <script type="x-tmpl-mustache" class="main-tpl">
+                <li class="collection-item" data-id="{{ id }}">
+                    <p class="List-title">{{ title }}</p>
+                    {{#concessionNumbers}}
+                        <span class="List-number brand blue">{{.}}</span>
+                    {{/concessionNumbers}}
+                    <span class="u-isHidden concessionNumbers">
+                        {{#concessionNumbers}}
+                            {{.}}
+                        {{/concessionNumbers}}
+                    </span>
+                </li>
+            </script>
+
+            <script type="x-tmpl-mustache" class="extra-tpl">
+                <li>
+                    <div class="collapsible-header{{active}}">
+                        <div class="List-title">{{ title }}</div>
+                        <i class="material-icons">keyboard_arrow_down</i>
+                    </div>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li>
+                                {{#address}}<p><strong>Address:</strong> {{address}}</p>{{/address}}
+                                {{#jurisdiction}}<p><strong>Jurisdiction:</strong> {{jurisdiction}}</p>{{/jurisdiction}}
+                                {{#headquarters}}<p><strong>Headquarters:</strong> {{headquarters}}</p>{{/headquarters}}
+                                {{#formed}}<p><strong>Formed on:</strong> {{formed}}</p>{{/formed}}
+                                {{#website}}<p><strong>Website:</strong> <a href="{{website}}">{{website}}</a></p>{{/website}}
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </script>
+
+        </div>
+        <div id="tab-2" class="">
+
+            <div class="Search z-depth-1 hide-on-small-only brand green">
+
+                <div class="input-field Search-field">
+                    <i class="material-icons small prefix Search-trigger">search</i>
+                    <i class="material-icons small prefix Search-remove">close</i>
+                    <input id="search-tab-2" type="text" class="Search-input" />
+                    <label for="search-tab-2">Filter by Company name</label>
+                </div>
+
+                <div class="Filters">
+                    <ul class="Filters-list">
+                        <li class="Filters-item">
+                            <span class="chip Filters-itemFilter">Soon to expire <i class="material-icons Filters-remove">close</i></span>
+                        </li>
+                        <li class="Filters-item">
+                            <span class="chip Filters-itemFilter">Without ownership <i class="material-icons Filters-remove">close</i></span>
+                        </li>
+                        <li class="Filters-item">
+                            <span class="chip Filters-itemFilter">Recently changed ownership <i class="material-icons Filters-remove">close</i></span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="Data is-loading">
+
+                <div class="Data-holder">
+
+                    <div class="List List--main z-depth-1" data-level="0">
+                        <div class="List-header brand green">
+                            <i class="material-icons hide-on-med-and-up">keyboard_arrow_left</i>
+                            <span>Companies (<span class="List-count"></span>)</span>
+                        </div>
+
+
+                        <div class="Search Search--mobile hide-on-med-and-up brand green">
+
+                            <div class="Filters Filters--mobile">
+                                <i class="material-icons small Filters-trigger js-dropdown-trigger" data-beloworigin="true" data-activates='filters'>filter_list</i>
+                                <ul class="Filters-list z-depth-1" id="filters">
+                                    <li class="Filters-item">
+                                        <span class="chip Filters-itemFilter" data-filter="expiration">Soon to expire <i class="material-icons Filters-remove">close</i></span>
+                                    </li>
+                                    <li class="Filters-item">
+                                        <span class="chip Filters-itemFilter" data-filter="ownership">Without ownership <i class="material-icons Filters-remove">close</i></span>
+                                    </li>
+                                    <li class="Filters-item">
+                                        <span class="chip Filters-itemFilter" data-filter="changedOwnership">Recently changed ownership <i class="material-icons Filters-remove">close</i></span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="Filters-active"></div>
+
+                            <div class="input-field Search-field">
+                                <i class="material-icons small prefix Search-trigger">search</i>
+                                <i class="material-icons small prefix Search-remove">close</i>
+                                <input id="search-tab-1" type="text" class="Search-input" />
+                                <label for="search-tab-1">Filter by Company name</label>
+                            </div>
+
+                        </div>
+
+                        <div class="List-holder">
+                            <ul class="collection">
+                            </ul>
+                        </div>
+
+                    </div>
+
+                    <div class="List List--extra z-depth-1" data-level="1">
+                        <div class="List-header brand blue">
+                            <div class="List-headerActive u-isHidden">
+                                <i class="material-icons hide-on-med-and-up">keyboard_arrow_left</i>
+                                Licenses in ownership (<span class="List-count"></span>)
+                            </div>
+                            <div class="List-headerInactive">
+                                Select a company on the left to see licenses information
+                            </div>
+                        </div>
+
+                        <div class="List-holder">
+                            <ul class="collection collapsible" data-collapsible="accordion">
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="Map Map--2"></div>
 
 
                 <div class="Loader">
@@ -223,28 +361,26 @@
             </div>
 
 
-            <div class="Sankey">
+            <script type="x-tmpl-mustache" class="main-tpl">
+                <li class="collection-item" data-id="{{ id }}">
+                    <p class="List-title">{{ title }}</p>
+                </li>
+            </script>
 
-                <div class="Sankey-header">
-                    <h2>Transaction history for </h2>
-                </div>
+            <script type="x-tmpl-mustache" class="extra-tpl">
+                <li class="collection-item" data-id="{{ id }}">
+                    <p class="List-title">{{ title }}</p>
+                    {{#concessionNumbers}}
+                        <span class="List-number brand blue">{{.}}</span>
+                    {{/concessionNumbers}}
+                    <span class="u-isHidden concessionNumbers">
+                        {{#concessionNumbers}}
+                            {{.}}
+                        {{/concessionNumbers}}
+                    </span>
+                </li>
+            </script>
 
-                <div id="sankey"></div>
-            </div>
-
-
-
-        </div>
-        <div id="tab-2" class="">
-
-            <div class="Search row">
-
-                <div class="input-field col s6 right">
-                    <input id="search-companies" class="Search-input Search-input--companies" />
-                    <label for="search-companies"><i class="material-icons small">search</i></label>
-                </div>
-
-            </div>
 
         </div>
 
@@ -262,39 +398,7 @@
         proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </footer>
 
-    <script type="x-tmpl-mustache" id="licence-tpl">
-        <li class="collection-item" data-id="{{ id }}">
-            <p class="List-title">{{ title }}</p>
-            {{#concessionNumbers}}
-                <span class="List-number">{{.}}</span>
-            {{/concessionNumbers}}
-            <span class="u-isHidden concessionNumbers">
-                {{#concessionNumbers}}
-                    {{.}}
-                {{/concessionNumbers}}
-            </span>
-        </li>
-    </script>
 
-    <script type="x-tmpl-mustache" id="licenceSelected-tpl">
-        <li>
-            <div class="collapsible-header">
-                <div class="List-title">{{ title }}</div>
-                <i class="material-icons">keyboard_arrow_down</i>
-            </div>
-            <div class="collapsible-body">
-                <ul>
-                    <li>
-                        {{#address}}<p><strong>Address:</strong> {{address}}</p>{{/address}}
-                        {{#jurisdiction}}<p><strong>Jurisdiction:</strong> {{jurisdiction}}</p>{{/jurisdiction}}
-                        {{#headquarters}}<p><strong>Headquarters:</strong> {{headquarters}}</p>{{/headquarters}}
-                        {{#formed}}<p><strong>Formed on:</strong> {{formed}}</p>{{/formed}}
-                        {{#website}}<p><strong>Website:</strong> <a href="{{website}}">{{website}}</a></p>{{/website}}
-                    </li>
-                </ul>
-            </div>
-        </li>
-    </script>
 
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://www.gstatic.com/charts/loader.js"></script>

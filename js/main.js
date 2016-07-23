@@ -3,270 +3,342 @@
 
 
     var IPPR = {
-        header: $('.Header'),
-        states: {
-            loading: 'is-loading'
-        },
-        data: {},
-        dataGroups: {
-            licenses: $('#tab-1'),
-            companies: $('#tab-2')
-        },
-        templates: {
-            licence: $('#licence-tpl').html(),
-            licenceSelected: $('#licenceSelected-tpl').html()
-        },
-        main: $('.Data'),
-        groupBy: function(xs, key) {
-            return xs.reduce(function(rv, x) {
-                (rv[x[key]] = rv[x[key]] || []).push(x);
-                return rv;
-            }, {});
-        },
-        mapHightlight: {
-            default: {
-                weight: 2,
-                color: 'green',
-                dashArray: '',
-                fillOpacity: 0.5
+        dom: {
+            header: $('.Header'),
+            data: $('.Data'),
+            lists: {
+                main: '.List--main',
+                extra: '.List--extra',
+                count: '.List-count',
+                header: '.List-header',
+                list: '.collection',
+                headerActive: '.List-headerActive',
+                headerInActive: '.List-headerInactive'
             },
-            active: {
-                weight: 2,
-                color: '#666',
-                dashArray: '',
-                fillOpacity: 1
-            }
+            content: $('.Content'),
+            tabs: $('.Header-tabs a'),
+            levels: $('div[data-level]'),
+            dataHolder: $('.Data-holder'),
         },
-        highlightMapLayer: function(key){
-            $.each(IPPR.mapLayers, function(k,value){
-                IPPR.mapLayers[k].setStyle(IPPR.mapHightlight.default);
-                if (value.ID === key){
-                    console.log(IPPR.mapLayers[k]);
-                    IPPR.mapLayers[k].setStyle(IPPR.mapHightlight.active);
-                }
-            });
-        },
-        highlightMultipleMapLayer: function(array){
-            IPPR.highlightMapLayer();
-            $.each(array, function(k,value){
-                array[k].setStyle(IPPR.mapHightlight.active);
-            });
-        },
-        mapLayers: [],
-        map: null,
-        appState: {
+        states: {
+            loading: 'is-loading',
+            active: 'is-active',
+            animate: 'has-animation',
+            hidden: 'u-isHidden',
             mobile: false,
             desktop: false
+        },
+        data: {
+            data: {},
+            tabs: {
+                1: {
+                    sql: "SELECT MAX(companies.company_hq) as company_hq, MAX(companies.company_formed) as company_formed, MAX(companies.company_jurisdiction) as company_jurisdiction, MAX(companies.website) as company_website, MAX(companies.company_name) as company_name, MAX(companies.company_address) as company_address, license_number, array_to_string(array_agg(concession_number), ',') as concessions FROM hydrocarbon_licences_latest_clean JOIN companies ON (hydrocarbon_licences_latest_clean.company_id = companies.company_id) GROUP BY license_number, companies.company_id ORDER BY license_number",
+                    groupBy: 'license_number'
+                },
+                2: {
+                    sql: "SELECT * FROM companies JOIN hydrocarbon_licences_latest_clean ON (companies.company_id = hydrocarbon_licences_latest_clean.company_id) ORDER BY company_name",
+                    groupBy: 'company_name'
+                }
+            },
+        },
+        map: {
+            map: [],
+            layers: [],
+            styles: {
+                default: {
+                    weight: 2,
+                    color: 'green',
+                    dashArray: '',
+                    fillOpacity: 0.5
+                },
+                active: {
+                    weight: 2,
+                    color: '#666',
+                    dashArray: '',
+                    fillOpacity: 1
+                }
+            },
+            highlightLayer: function(key,id){
+                $.each(IPPR.map.layers[key], function(k,value){
+                    IPPR.map.layers[key][k].setStyle(IPPR.map.styles.default);
+
+                    if (value.ID === id || value.company_name === id){
+                        IPPR.map.layers[key][k].setStyle(IPPR.map.styles.active);
+                    }
+
+                });
+            },
+            trigger: $('.Map-trigger')
+        },
+        helpers: {
+            groupBy: function(xs, key) {
+                return xs.reduce(function(rv, x) {
+                    (rv[x[key]] = rv[x[key]] || []).push(x);
+                    return rv;
+                }, {});
+            }
         }
     };
 
 
     IPPR.loading = function(){
-        IPPR.main.toggleClass(IPPR.states.loading);
+        IPPR.dom.data.toggleClass(IPPR.states.loading);
     };
 
     IPPR.getData = function(){
 
+        var markup = [],
+            mustacheTpl = [];
 
-        var licensesSql = "SELECT MAX(companies.company_hq) as company_hq, MAX(companies.company_formed) as company_formed, MAX(companies.company_jurisdiction) as company_jurisdiction, MAX(companies.website) as company_website, MAX(companies.company_name) as company_name, MAX(companies.company_address) as company_address, license_number, array_to_string(array_agg(concession_number), ',') as concessions FROM hydrocarbon_licences_latest_clean JOIN companies ON (hydrocarbon_licences_latest_clean.company_id = companies.company_id) GROUP BY license_number, companies.company_id ORDER BY license_number"; // jshint ignore:line
-            // companiesSql = 'SELECT * FROM companies ORDER BY company_name',
+        $.each(IPPR.data.tabs, function(key, tab){
 
+            markup[key] = '';
+            mustacheTpl[key] = $('#tab-'+key).find('.main-tpl').html();
 
-        var licensesMarkup = '';
+            $.getJSON('https://namibmap.carto.com/api/v2/sql/?q=' + tab.sql, function(data) {
+                IPPR.data.data[key] = IPPR.helpers.groupBy(data.rows, tab.groupBy);
 
-        $.getJSON('https://namibmap.carto.com/api/v2/sql/?q='+licensesSql, function(data) {
+                $.each(IPPR.data.data[key], function(k, value){
 
-            IPPR.data.licenses = IPPR.groupBy(data.rows, 'license_number');
+                    var concessions = '';
+                    $.each(value, function(k,v){
+                        concessions += v.concessions;
+                    });
 
-            Mustache.parse(IPPR.templates.licence);
+                    Mustache.parse(mustacheTpl[key]);
 
-
-            $.each(IPPR.data.licenses, function(key, value){
-
-                var concessions = '';
-                $.each(value, function(k,v){
-                    concessions += v.concessions;
+                    markup[key] += Mustache.render(
+                        mustacheTpl[key], {
+                            title: k,
+                            id: k,
+                            concessionNumbers: concessions ? concessions.split(',') : false
+                        }
+                    );
                 });
 
-                licensesMarkup += Mustache.render(
-                    IPPR.templates.licence, {
-                        title: key,
-                        id: key,
-                        concessionNumbers: concessions.split(',')
-                    }
-                );
+                $('#tab-'+key).find(IPPR.dom.lists.main).find(IPPR.dom.lists.list).html(markup[key]);
+                $('#tab-'+key).find(IPPR.dom.lists.main).find(IPPR.dom.lists.count).html(Object.keys(IPPR.data.data[key]).length);
+
+
+                if (Object.keys(IPPR.data.tabs).length === parseInt(key)){
+                    IPPR.loading();
+                    // FILTERING
+                }
+
             });
 
-            IPPR.dataGroups.licenses.find('.List--main .collection').html(licensesMarkup);
-            IPPR.dataGroups.licenses.find('.List--main .List-count').html(Object.keys(IPPR.data.licenses).length);
-
-            IPPR.loading();
-            IPPR.filtering();
-
         });
+
 
     };
 
 
     IPPR.initMap = function(){
 
-
         $.getJSON('data/data.json', function(data){
 
-            IPPR.map = L.map('map',{
-                scrollWheelZoom: false
-            }).setView([-23.534, 6.172], 6);
+            $.each(IPPR.data.tabs, function(key){
 
-            L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png', {
-                maxZoom: 18
-            }).addTo(IPPR.map);
+                IPPR.map.layers[key] = [];
 
+                IPPR.map.map[key] = L.map($('.Map--'+key)[0],{
+                    scrollWheelZoom: false
+                }).setView([-23.534, 6.172], 6);
 
-            function onEachFeature(feature, layer) {
-                layer.ID = feature.properties.license_number;
-                layer.concession_number = feature.properties.concession_number;
-                IPPR.mapLayers.push(layer);
-                layer.on('click', function () {
-                    $('.List[data-level=0]').find('li[data-id="'+ feature.properties.license_number +'"]').click();
-                });
-            }
+                L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png', {
+                    maxZoom: 18
+                }).addTo(IPPR.map.map[key]);
 
 
-            L.geoJson([data], {
-                style: IPPR.mapHightlight.default,
-                onEachFeature: onEachFeature,
-            }).addTo(IPPR.map);
+                function onEachFeature(feature, layer) {
+                    layer.ID = feature.properties.license_number;
+                    layer.concession_number = feature.properties.concession_number;
+                    layer.company_id = feature.properties.company_id;
+                    layer.company_name = feature.properties.company_name;
+                    IPPR.map.layers[key].push(layer);
+                    layer.on('click', function () {
+                        $(IPPR.dom.lists.main).find('li[data-id="'+ feature.properties.license_number +'"]').click();
+                        $(IPPR.dom.lists.main).find('li[data-id="'+ feature.properties.company_name +'"]').click();
+                    });
+                }
 
+
+                L.geoJson([data], {
+                    style: IPPR.map.styles.default,
+                    onEachFeature: onEachFeature,
+                }).addTo(IPPR.map.map[key]);
+
+            });
 
         });
+
     };
 
 
 
     // Mobile behaviour of the app
     IPPR.mobile = function(){
-        IPPR.appState.desktop = false;
-        var _self = {
-            fakeTabs: $('.Header-tabs a'),
-            content: $('.Content'),
-            contentStates: {
-                active: 'is-active',
-                animate: 'has-animation'
-            },
-            levels: $('div[data-level]'),
-            mapTrigger: $('.Map-trigger'),
-            map: $('.Map'),
-            dataHolder: $('.Data-holder'),
-            listMain: $('.List--main .List-holder'),
-            bindEvents: function(){
+        IPPR.states.desktop = false;
 
-                _self.fakeTabs.off('click.mobile');
-                _self.fakeTabs.on('click.mobile', function(){
-                    _self.content.addClass(_self.contentStates.active);
+        IPPR.dom.tabs.off('click.mobile');
+
+        IPPR.dom.tabs.on('click.mobile', function(){
+            IPPR.dom.content.addClass(IPPR.states.active);
+            var that = $(this);
+
+            setTimeout(function(){
+                IPPR.dom.content.addClass(IPPR.states.animate);
+                IPPR.map.map[that.attr('href').split('-')[1]].invalidateSize();
+            }, 100);
+
+            IPPR.map.trigger.addClass(IPPR.states.active);
+        });
+
+        $.each(IPPR.dom.levels, function(key, value){
+            var level = $(this).data('level');
+
+            $(value).find(IPPR.dom.lists.header).off('click');
+            $(value).find(IPPR.dom.lists.header).on('click', function(){
+                if (level === 0){
+                    IPPR.dom.content.removeClass(IPPR.states.animate);
                     setTimeout(function(){
-                        _self.content.addClass(_self.contentStates.animate);
-                        IPPR.map.invalidateSize();
+                        IPPR.dom.content.removeClass(IPPR.states.active);
                     }, 100);
-                    _self.mapTrigger.addClass('is-active');
-                });
+                    IPPR.map.trigger.removeClass(IPPR.states.active);
+                } else if (level === 1){
+                    IPPR.dom.dataHolder.css({transform: 'translate(0,0)'});
+                    IPPR.map.trigger.addClass(IPPR.states.active);
+                }
+            });
+        });
 
-                $.each(_self.levels, function(key, value){
-                    var level = $(this).data('level');
-                    $(value).find('.List-header').off('click');
-                    $(value).find('.List-header').on('click', function(){
-                        if (level === 0){
-                            _self.content.removeClass(_self.contentStates.animate);
-                            setTimeout(function(){
-                                _self.content.removeClass(_self.contentStates.active);
-                            }, 100);
-                            _self.mapTrigger.removeClass('is-active');
-                        } else if (level === 1){
-                            _self.dataHolder.css({transform: 'translate(0,0)'});
-                            _self.mapTrigger.addClass('is-active');
-                        }
-                    });
-                });
 
-                _self.mapTrigger.off('click');
-                _self.mapTrigger.on('click', function(e){
-                    e.preventDefault();
-                    _self.listMain.toggleClass('u-isHidden');
-                });
-
-            }
-        };
-
-        _self.bindEvents();
-        IPPR.appState.mobile = true;
+        IPPR.states.mobile = true;
     };
 
     // Desktop behaviour of the app
     IPPR.desktop = function(){
-        IPPR.appState.mobile = false;
-        console.log('desktop');
-        IPPR.appState.desktop = true;
+        IPPR.states.mobile = false;
+        IPPR.dom.tabs.off('click.desktop');
+
+        IPPR.dom.tabs.on('click.desktop', function(){
+            var that = $(this);
+            setTimeout(function(){
+                IPPR.map.map[that.attr('href').split('-')[1]].invalidateSize();
+            },100);
+        });
+
+        IPPR.states.desktop = true;
     };
 
     IPPR.listDetails = function(){
-        Mustache.parse(IPPR.templates.licenceSelected);
 
-        var _self = {
-            mapTrigger: $('.Map-trigger')
-        };
+        var markup = [],
+            mustacheTpl = [];
 
-        $.each(IPPR.dataGroups, function(key, value){
-            value.on('click', '.collection-item', function(){
+        $.each(IPPR.data.tabs, function(key){
 
-                _self.mapTrigger.removeClass('is-active');
+            mustacheTpl[key] = $('#tab-'+key).find('.extra-tpl').html();
 
-                $(this).parent().find('li').removeClass('is-active');
-                $(this).addClass('is-active');
+            $('#tab-'+key).on('click', '.collection-item', function(){
 
-                if (IPPR.appState.mobile){
-                    $('.Data-holder').css({transform: 'translate(-50%,0)'});
+                markup[key] = '';
+
+                IPPR.map.trigger.removeClass(IPPR.states.active);
+
+                $(this).parent().find('li').removeClass(IPPR.states.active);
+                $(this).addClass(IPPR.states.active);
+
+                if (IPPR.states.mobile){
+                    IPPR.dom.dataHolder.css({transform: 'translate(-50%,0)'});
                     $(window).scrollTop(0);
                 }
 
-                var licensesSelectedMarkup = '',
-                    key = $(this).data('id'),
-                    body = {};
+                var id = $(this).data('id'),
+                    body = {},
+                    size = 0;
 
-                IPPR.highlightMapLayer(key);
+                IPPR.map.highlightLayer(key,id);
 
-                $.each(IPPR.data.licenses[key], function(key, company){
+                var _tmp = [];
 
-                    body.address = company.company_address ? company.company_address : false;
-                    body.jurisdiction = company.company_jurisdiction ? company.company_jurisdiction : false;
-                    body.headquarters = company.company_hq ? company.company_hq : false;
-                    body.formed = company.company_formed ? company.company_formed : false;
+                $.each(IPPR.data.data[key][id], function(k, company){
 
-                    body.website = company.company_website ? company.company_website : false;
+                    if (parseInt(key) === 2){
+                        _tmp.push(company);
+                    }
 
-                    licensesSelectedMarkup += Mustache.render(
-                        IPPR.templates.licenceSelected, {
-                            title: company.company_name,
-                            address: body.address,
-                            jurisdiction: body.jurisdiction,
-                            headquarters: body.headquarters,
-                            formed: body.formed,
-                            website: body.website
-                        }
-                    );
+                    if (parseInt(key) === 1){
+
+                        body.address = company.company_address ? company.company_address : false;
+                        body.jurisdiction = company.company_jurisdiction ? company.company_jurisdiction : false;
+                        body.headquarters = company.company_hq ? company.company_hq : false;
+                        body.formed = company.company_formed ? company.company_formed : false;
+
+                        body.website = company.company_website ? company.company_website : false;
+
+                        Mustache.parse(mustacheTpl[key]);
+
+                        markup[key] += Mustache.render(
+                            mustacheTpl[key], {
+                                active: key <= 2 ? ' active': '',
+                                title: company.company_name,
+                                address: body.address,
+                                jurisdiction: body.jurisdiction,
+                                headquarters: body.headquarters,
+                                formed: body.formed,
+                                website: body.website
+                            }
+                        );
+
+                    }
+
+                    size++;
 
                 });
 
+                if (parseInt(key) === 2){
+                    size = 0;
+                    $.each(IPPR.helpers.groupBy(_tmp, 'license_number'), function(k, value){
 
-                IPPR.dataGroups.licenses.find('.List--extra .collapsible').html(licensesSelectedMarkup);
-                IPPR.dataGroups.licenses.find('.List--extra .List-count').html(Object.keys(IPPR.data.licenses[key]).length);
+                        var concessions = [];
 
-                $('.List-headerActive').removeClass('u-isHidden');
-                $('.List-headerInactive').addClass('u-isHidden');
+                        $.each(value, function(k,v){
+                            concessions.push(v.concession_number);
+                        });
+
+                        Mustache.parse(mustacheTpl[key]);
+
+                        markup[key] += Mustache.render(
+                            mustacheTpl[key], {
+                                title: k,
+                                id: k,
+                                concessionNumbers: concessions ? concessions : false
+                            }
+                        );
+
+                        size++;
+                    });
+                }
+
+
+                $('#tab-'+key).find(IPPR.dom.lists.extra).find(IPPR.dom.lists.list).html(markup[key]);
+                $('#tab-'+key).find(IPPR.dom.lists.extra).find(IPPR.dom.lists.count).html(size);
+
+                $('#tab-'+key).find(IPPR.dom.lists.headerActive).removeClass(IPPR.states.hidden);
+                $('#tab-'+key).find(IPPR.dom.lists.headerInActive).addClass(IPPR.states.hidden);
+
+                $('.collapsible').collapsible({
+                    accordion : true
+                });
             });
         });
+
     };
 
 
     IPPR.filtering = function(){
+
         var _self = {
             filters: '.Filters',
             filtersMobile: '.Filters--mobile',
@@ -371,19 +443,61 @@
 
     };
 
+
+    IPPR.mapTrigger = function(){
+        var _self = {
+            mapTrigger: $('.Map-trigger'),
+            listMain: $('.List--main .List-holder'),
+            dataHolder: $('.Data-holder'),
+            map: $('.Map'),
+            bindEvents: function(){
+
+                _self.mapTrigger.on('click', function(e){
+                    e.preventDefault();
+
+                    if (IPPR.appState.mobile){
+                        _self.listMain.toggleClass('u-isHidden');
+                    } else {
+                        _self.dataHolder.toggleClass('u-isHidden');
+                        _self.map.toggleClass('is-visible');
+                    }
+
+                    if(_self.listMain.is('.u-isHidden') || _self.dataHolder.is('.u-isHidden')){
+                        $(this).find('.material-icons').html('view_list');
+                    } else {
+                        $(this).find('.material-icons').html('map');
+                    }
+                });
+
+            }
+        };
+        _self.bindEvents();
+    };
+
+
     IPPR.initApp = function(){
         if(U.vw() < 600){
-            if (!IPPR.appState.mobile){
+            if (!IPPR.states.mobile){
                 IPPR.mobile();
             }
         } else {
-            if (!IPPR.appState.desktop){
+            if (!IPPR.states.desktop){
                 IPPR.desktop();
             }
         }
 
         IPPR.listDetails();
     };
+
+
+
+    IPPR.getData();
+    IPPR.initMap();
+    IPPR.initApp();
+    // IPPR.mapTrigger();
+    U.addEvent(window, 'resize', U.debounce(function () {
+        IPPR.initApp();
+    }, 200));
 
 
     IPPR.sankey = function(){
@@ -422,17 +536,6 @@
         }, 200));
 
     };
-
-    IPPR.sankey();
-
-
-    IPPR.getData();
-    IPPR.initMap();
-    IPPR.initApp();
-    U.addEvent(window, 'resize', U.debounce(function () {
-        IPPR.initApp();
-    }, 200));
-
 
 
 
