@@ -99,13 +99,13 @@
 
             <ul class="tabs Header-tabs">
                 <li class="tab col">
-                    <a href="#tab-1">
+                    <a href="#tab-1" class="Header-tabs-licenses">
                         <span>Browse by licence</span>
                         <i class="material-icons">keyboard_arrow_right</i>
                     </a>
                 </li>
                 <li class="tab col">
-                    <a href="#tab-2">
+                    <a href="#tab-2" class="Header-tabs-companies">
                         <span>Browse by company</span>
                         <i class="material-icons">keyboard_arrow_right</i>
                     </a>
