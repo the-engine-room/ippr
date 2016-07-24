@@ -92,6 +92,31 @@
                        IPPR.map.layers[k][index].setStyle(IPPR.map.styles.default);
                     });
                 });
+            },
+            searchLayers: function(inputValue){
+
+                if(inputValue){
+                    IPPR.filters.clear();
+                    IPPR.dom.filters.searchTrigger.addClass(IPPR.states.hidden);
+                    IPPR.dom.filters.searchRemove.addClass(IPPR.states.visible);
+
+                    $.each(IPPR.map.layers, function(index, val) {
+                        $.each(val, function(key, value) {
+
+                            if(value.ID.search(new RegExp(inputValue, 'ig')) > -1 || value.concession_number.search(new RegExp(inputValue, 'ig')) > -1 || value.company_name.search(new RegExp(inputValue, 'ig')) > -1 || value[inputValue]){
+                                IPPR.map.layers[index][key].setStyle(IPPR.map.styles.active);
+                            } else {
+                                IPPR.map.layers[index][key].setStyle(IPPR.map.styles.default);
+                            }
+
+                        });
+                    });
+
+                } else {
+                    IPPR.dom.filters.searchTrigger.removeClass(IPPR.states.hidden);
+                    IPPR.dom.filters.searchRemove.removeClass(IPPR.states.visible);
+                    IPPR.map.resetLayers();
+                }
             }
         },
         filters: {
@@ -195,12 +220,17 @@
                     maxZoom: 18
                 }).addTo(IPPR.map.map[key]);
 
-
+                var cnt = 0;
                 function onEachFeature(feature, layer) {
+                    cnt++;
                     layer.ID = feature.properties.license_number;
                     layer.concession_number = feature.properties.concession_number;
                     layer.company_id = feature.properties.company_id;
                     layer.company_name = feature.properties.company_name;
+
+                    if (cnt % 4 === 0){
+                        layer.expiration = true;
+                    }
 
                     IPPR.map.layers[key].push(layer);
 
@@ -421,20 +451,23 @@
 
             $('#tab-'+key).find(IPPR.dom.filters.item).on('click', function() {
 
-                IPPR.filters.list[key-1].filter();
-                IPPR.filters.list[key-1].search();
+                IPPR.filters.list[key].filter();
+                IPPR.filters.list[key].search();
 
                 $('.'+IPPR.filters.options.searchClass).val('').trigger('keyup').blur();
 
                 if ($(this).is('.'+IPPR.states.active)){
-                    IPPR.filters.list[key-1].filter();
+                    IPPR.filters.list[key].filter();
                     $(this).closest(IPPR.dom.filters.main).find('.chip').removeClass(IPPR.states.active);
                     if(IPPR.states.mobile){
                         IPPR.filters.clear();
+                        IPPR.map.resetLayers();
                     }
                 } else {
 
                     var value = $(this).data('filter');
+
+                    IPPR.map.searchLayers(value);
 
                     $(this).closest(IPPR.dom.filters.main).find('.chip').removeClass(IPPR.states.active);
                     $(this).addClass(IPPR.states.active);
@@ -445,7 +478,7 @@
                         IPPR.dom.filters.activeHolder.html(clone);
                     }
 
-                    IPPR.filters.list[key-1].filter(function (item) {
+                    IPPR.filters.list[key].filter(function (item) {
                         if (item.values()[value]){
                             return true;
                         }
@@ -459,40 +492,9 @@
         });
 
 
-
-
-
-
         $('.'+IPPR.filters.options.searchClass).on('keyup', function(){
-
-            var inputValue = $(this).val();
-
-            if(inputValue){
-                IPPR.filters.clear();
-                IPPR.dom.filters.searchTrigger.addClass(IPPR.states.hidden);
-                IPPR.dom.filters.searchRemove.addClass(IPPR.states.visible);
-
-                $.each(IPPR.map.layers, function(index, val) {
-                    $.each(val, function(key, value) {
-
-                        if(value.ID.search(new RegExp(inputValue, 'ig')) > -1 || value.concession_number.search(new RegExp(inputValue, 'ig')) > -1 || value.company_name.search(new RegExp(inputValue, 'ig')) > -1){
-                            IPPR.map.layers[index][key].setStyle(IPPR.map.styles.active);
-                        } else {
-                            IPPR.map.layers[index][key].setStyle(IPPR.map.styles.default);
-                        }
-
-                    });
-                });
-
-            } else {
-                IPPR.dom.filters.searchTrigger.removeClass(IPPR.states.hidden);
-                IPPR.dom.filters.searchRemove.removeClass(IPPR.states.visible);
-                IPPR.map.resetLayers();
-            }
+            IPPR.map.searchLayers($(this).val());
         });
-
-
-
 
 
         IPPR.dom.filters.searchRemove.on('click', function(){
@@ -505,7 +507,10 @@
 
 
         if(IPPR.states.mobile){
-            IPPR.dom.filters.activeHolder.on('click', '.chip', IPPR.filters.clear);
+            IPPR.dom.filters.activeHolder.on('click', '.chip', function(){
+                IPPR.filters.clear();
+                IPPR.map.resetLayers();
+            });
         }
     };
 
