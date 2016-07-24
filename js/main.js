@@ -487,7 +487,7 @@
             } else {
                 IPPR.dom.filters.searchTrigger.removeClass(IPPR.states.hidden);
                 IPPR.dom.filters.searchRemove.removeClass(IPPR.states.visible);
-                // IPPR.highlightMapLayer();
+                IPPR.map.resetLayers();
             }
         });
 
