@@ -55,7 +55,7 @@ module.exports = function (grunt) {
                     'js/{,*/}*.js',
                     '!js/production.js',
                     '!js/production.min.js',
-                    '!js/vendor/materialize.js'
+                    '!js/vendor/**/*.js'
                 ]
             }
         },

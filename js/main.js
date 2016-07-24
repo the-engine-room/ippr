@@ -201,10 +201,17 @@
                     layer.concession_number = feature.properties.concession_number;
                     layer.company_id = feature.properties.company_id;
                     layer.company_name = feature.properties.company_name;
+
                     IPPR.map.layers[key].push(layer);
-                    layer.on('click', function () {
 
+                    var marker = L.marker(layer.getBounds().getCenter(), {
+                        icon: L.divIcon({
+                            className: 'Map-label',
+                            html: layer.concession_number
+                        })
+                    }).addTo(IPPR.map.map[key]);
 
+                    function onClick(){
                         $.each(IPPR.filters.list, function(k,v){
                             v.filter();
                             v.search();
@@ -218,22 +225,23 @@
                             elem.click();
                             top = elem.position().top;
                             $(IPPR.dom.lists.main).find(IPPR.dom.lists.holder).scrollTop(top);
-
                         } else if (tab.name === 'companies'){
                             elem = $(IPPR.dom.lists.main).find('li[data-id="'+ feature.properties.company_name +'"]');
                             elem.click();
                             top = elem.position().top;
                             $(IPPR.dom.lists.main).find(IPPR.dom.lists.holder).scrollTop(top);
                         }
+                    }
 
-                    });
+                    marker.on('click',onClick);
+                    layer.on('click',onClick);
                 }
-
 
                 L.geoJson([data], {
                     style: IPPR.map.styles.default,
-                    onEachFeature: onEachFeature,
-                }).addTo(IPPR.map.map[key]);
+                    onEachFeature: onEachFeature
+                })
+                .addTo(IPPR.map.map[key]);
 
             });
 
