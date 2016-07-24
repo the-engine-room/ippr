@@ -99,13 +99,13 @@
 
             <ul class="tabs Header-tabs">
                 <li class="tab col">
-                    <a href="#tab-1" class="brand blue">
+                    <a href="#tab-0" class="brand blue">
                         <span>Browse by licence</span>
                         <i class="material-icons">keyboard_arrow_right</i>
                     </a>
                 </li>
                 <li class="tab col">
-                    <a href="#tab-2" class="brand green">
+                    <a href="#tab-1" class="brand green">
                         <span>Browse by company</span>
                         <i class="material-icons">keyboard_arrow_right</i>
                     </a>
@@ -118,7 +118,7 @@
 
 
     <div class="Content" id="data">
-        <div id="tab-1" class="col s12">
+        <div id="tab-0" class="col s12">
 
 
             <div class="Search z-depth-1 hide-on-small-only brand blue">
@@ -211,7 +211,7 @@
 
                 </div>
 
-                <div class="Map Map--1"></div>
+                <div class="Map Map--0"></div>
 
 
                 <div class="Loader">
@@ -237,12 +237,12 @@
             </script>
 
             <script type="x-tmpl-mustache" class="extra-tpl">
-                <li>
-                    <div class="collapsible-header{{active}}">
+                <li{{#active}} class="active"{{/active}}>
+                    <div class="collapsible-header{{#active}} active{{/active}}">
                         <div class="List-title">{{ title }}</div>
                         <i class="material-icons">keyboard_arrow_down</i>
                     </div>
-                    <div class="collapsible-body">
+                    <div class="collapsible-body"{{#active}} style="display: block;"{{/active}}>
                         <ul>
                             <li>
                                 {{#address}}<p><strong>Address:</strong> {{address}}</p>{{/address}}
@@ -257,7 +257,7 @@
             </script>
 
         </div>
-        <div id="tab-2" class="col s12">
+        <div id="tab-1" class="col s12">
 
             <div class="Search z-depth-1 hide-on-small-only brand green">
 
@@ -349,7 +349,7 @@
 
                 </div>
 
-                <div class="Map Map--2"></div>
+                <div class="Map Map--1"></div>
 
 
                 <div class="Loader">

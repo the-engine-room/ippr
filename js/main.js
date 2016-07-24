@@ -30,7 +30,9 @@
                 search: $('.Search-field'),
                 searchRemove: $('.Search-remove'),
                 searchTrigger: $('.Search-trigger'),
-            }
+            },
+            map: $('.Map'),
+            mapTrigger: $('.Map-trigger')
         },
         states: {
             loading: 'is-loading',
@@ -44,12 +46,12 @@
         data: {
             data: {},
             tabs: {
-                1: {
+                0: {
                     name: 'licenses',
                     sql: "SELECT MAX(companies.company_hq) as company_hq, MAX(companies.company_formed) as company_formed, MAX(companies.company_jurisdiction) as company_jurisdiction, MAX(companies.website) as company_website, MAX(companies.company_name) as company_name, MAX(companies.company_address) as company_address, license_number, array_to_string(array_agg(concession_number), ',') as concessions FROM hydrocarbon_licences_latest_clean JOIN companies ON (hydrocarbon_licences_latest_clean.company_id = companies.company_id) GROUP BY license_number, companies.company_id ORDER BY license_number",
                     groupBy: 'license_number'
                 },
-                2: {
+                1: {
                     name: 'companies',
                     sql: "SELECT * FROM companies JOIN hydrocarbon_licences_latest_clean ON (companies.company_id = hydrocarbon_licences_latest_clean.company_id) ORDER BY company_name",
                     groupBy: 'company_name'
@@ -84,7 +86,13 @@
 
                 });
             },
-            trigger: $('.Map-trigger')
+            resetLayers: function(){
+                $.each(IPPR.map.layers, function(k,v){
+                    $.each(v, function(index) {
+                       IPPR.map.layers[k][index].setStyle(IPPR.map.styles.default);
+                    });
+                });
+            }
         },
         filters: {
             list: [],
@@ -154,8 +162,7 @@
                 $('#tab-'+key).find(IPPR.dom.lists.main).find(IPPR.dom.lists.list).html(markup[key]);
                 $('#tab-'+key).find(IPPR.dom.lists.main).find(IPPR.dom.lists.count).html(Object.keys(IPPR.data.data[key]).length);
 
-
-                if (Object.keys(IPPR.data.tabs).length === parseInt(key)){
+                if (Object.keys(IPPR.data.tabs).length === parseInt(key)+1){
                     IPPR.loading();
                     IPPR.filtering();
                 }
@@ -167,7 +174,6 @@
 
     };
 
-
     IPPR.initMap = function(){
 
         $.getJSON('data/data.json', function(data){
@@ -177,8 +183,13 @@
                 IPPR.map.layers[key] = [];
 
                 IPPR.map.map[key] = L.map($('.Map--'+key)[0],{
-                    scrollWheelZoom: false
+                    scrollWheelZoom: false,
+                    zoomControl: false
                 }).setView([-23.534, 6.172], 6);
+
+                L.control.zoom({
+                     position:'bottomleft'
+                }).addTo(IPPR.map.map[key]);
 
                 L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png', {
                     maxZoom: 18
@@ -230,8 +241,6 @@
 
     };
 
-
-
     // Mobile behaviour of the app
     IPPR.mobile = function(){
         IPPR.states.desktop = false;
@@ -239,6 +248,7 @@
         IPPR.dom.tabs.off('click.mobile');
 
         IPPR.dom.tabs.on('click.mobile', function(){
+            IPPR.map.resetLayers();
             IPPR.dom.content.addClass(IPPR.states.active);
             var that = $(this);
 
@@ -247,7 +257,7 @@
                 IPPR.map.map[that.attr('href').split('-')[1]].invalidateSize();
             }, 100);
 
-            IPPR.map.trigger.addClass(IPPR.states.active);
+            IPPR.dom.mapTrigger.addClass(IPPR.states.active);
         });
 
         $.each(IPPR.dom.levels, function(key, value){
@@ -260,10 +270,10 @@
                     setTimeout(function(){
                         IPPR.dom.content.removeClass(IPPR.states.active);
                     }, 100);
-                    IPPR.map.trigger.removeClass(IPPR.states.active);
+                    IPPR.dom.mapTrigger.removeClass(IPPR.states.active);
                 } else if (level === 1){
                     IPPR.dom.dataHolder.css({transform: 'translate(0,0)'});
-                    IPPR.map.trigger.addClass(IPPR.states.active);
+                    IPPR.dom.mapTrigger.addClass(IPPR.states.active);
                 }
             });
         });
@@ -278,6 +288,7 @@
         IPPR.dom.tabs.off('click.desktop');
 
         IPPR.dom.tabs.on('click.desktop', function(){
+            IPPR.map.resetLayers();
             var that = $(this);
             setTimeout(function(){
                 IPPR.map.map[that.attr('href').split('-')[1]].invalidateSize();
@@ -301,7 +312,7 @@
 
                 markup[key] = '';
 
-                IPPR.map.trigger.removeClass(IPPR.states.active);
+                IPPR.dom.mapTrigger.removeClass(IPPR.states.active);
 
                 $(this).parent().find('li').removeClass(IPPR.states.active);
                 $(this).addClass(IPPR.states.active);
@@ -338,7 +349,7 @@
 
                             markup[key] += Mustache.render(
                                 mustacheTpl[key], {
-                                    active: key <= 2 ? ' active': '',
+                                    active: key <= 2 ? true : false,
                                     title: company.company_name,
                                     address: body.address,
                                     jurisdiction: body.jurisdiction,
@@ -377,7 +388,6 @@
                             size++;
                         });
                     }
-
 
                     $('#tab-'+key).find(IPPR.dom.lists.extra).find(IPPR.dom.lists.list).html(markup[key]);
                     $('#tab-'+key).find(IPPR.dom.lists.extra).find(IPPR.dom.lists.count).html(size);
@@ -447,38 +457,26 @@
 
         $('.'+IPPR.filters.options.searchClass).on('keyup', function(){
 
-            var val = $(this).val();
-            var mapLayers= [];
+            var inputValue = $(this).val();
 
-            if(val){
+            if(inputValue){
                 IPPR.filters.clear();
                 IPPR.dom.filters.searchTrigger.addClass(IPPR.states.hidden);
                 IPPR.dom.filters.searchRemove.addClass(IPPR.states.visible);
 
+                $.each(IPPR.map.layers, function(index, val) {
+                    $.each(val, function(key, value) {
 
-                $.each(IPPR.map.layers, function(k,v){
-                    if(v){
-                        $.each(v, function(key,value){
-                            IPPR.map.layers[k][key].setStyle(IPPR.map.styles.default);
-                            if(value.ID.search(new RegExp(val, 'i')) > -1){
-                                IPPR.map.highlightLayer(1,IPPR.map.layers[k][key].ID);
-                            } else if (value.concession_number.search(new RegExp(val, 'i')) > -1){
-                                IPPR.map.highlightLayer(1,IPPR.map.layers[k][key].ID);
-                            } else if (value.company_name.search(new RegExp(val, 'i')) > -1){
-                                mapLayers.push(IPPR.map.layers[k][key].ID);
-                            }
-                        });
-                    }
+                        if(value.ID.search(new RegExp(inputValue, 'ig')) > -1 || value.concession_number.search(new RegExp(inputValue, 'ig')) > -1 || value.company_name.search(new RegExp(inputValue, 'ig')) > -1){
+                            IPPR.map.layers[index][key].setStyle(IPPR.map.styles.active);
+                        } else {
+                            IPPR.map.layers[index][key].setStyle(IPPR.map.styles.default);
+                        }
 
-                });
-
-
-                $.each(mapLayers, function(k,v){
-                    IPPR.map.layers[2][k].setStyle(IPPR.map.styles.active);
+                    });
                 });
 
             } else {
-                mapLayers = [];
                 IPPR.dom.filters.searchTrigger.removeClass(IPPR.states.hidden);
                 IPPR.dom.filters.searchRemove.removeClass(IPPR.states.visible);
                 // IPPR.highlightMapLayer();
@@ -490,6 +488,7 @@
 
 
         IPPR.dom.filters.searchRemove.on('click', function(){
+            IPPR.map.resetLayers();
             $('.'+IPPR.filters.options.searchClass).val('').trigger('keyup').blur();
             $.each(IPPR.filters.list, function(k){
                 IPPR.filters.list[k].search();
@@ -504,33 +503,30 @@
 
 
     IPPR.mapTrigger = function(){
-        var _self = {
-            mapTrigger: $('.Map-trigger'),
-            listMain: $('.List--main .List-holder'),
-            dataHolder: $('.Data-holder'),
-            map: $('.Map'),
-            bindEvents: function(){
 
-                _self.mapTrigger.on('click', function(e){
-                    e.preventDefault();
+        IPPR.dom.mapTrigger.on('click', function(e){
+            e.preventDefault();
 
-                    if (IPPR.appState.mobile){
-                        _self.listMain.toggleClass('u-isHidden');
-                    } else {
-                        _self.dataHolder.toggleClass('u-isHidden');
-                        _self.map.toggleClass('is-visible');
-                    }
-
-                    if(_self.listMain.is('.u-isHidden') || _self.dataHolder.is('.u-isHidden')){
-                        $(this).find('.material-icons').html('view_list');
-                    } else {
-                        $(this).find('.material-icons').html('map');
-                    }
-                });
-
+            if (IPPR.states.mobile){
+                $(IPPR.dom.lists.main).find(IPPR.dom.lists.holder).toggleClass(IPPR.states.hidden);
+            } else {
+                IPPR.dom.dataHolder.toggleClass(IPPR.states.hidden);
             }
-        };
-        _self.bindEvents();
+
+            IPPR.dom.map.toggleClass(IPPR.states.visible);
+            $.each(IPPR.map.map, function(key,value){
+                if(value){
+                    value.invalidateSize();
+                }
+            });
+
+            if($(IPPR.dom.lists.main).find(IPPR.dom.lists.holder).is('.'+IPPR.states.hidden) || IPPR.dom.dataHolder.is('.'+IPPR.states.hidden)){
+                $(this).find('.material-icons').html('view_list');
+            } else {
+                $(this).find('.material-icons').html('map');
+            }
+        });
+
     };
 
 
@@ -553,7 +549,7 @@
     IPPR.getData();
     IPPR.initMap();
     IPPR.initApp();
-    // IPPR.mapTrigger();
+    IPPR.mapTrigger();
     U.addEvent(window, 'resize', U.debounce(function () {
         IPPR.initApp();
     }, 200));
