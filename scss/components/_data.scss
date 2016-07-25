@@ -94,10 +94,15 @@
         position: relative;
         z-index: 2;
         font-size: 20px;
-        padding: 20px;
+        @include fluid-type(font-size, 320px, 1200px, 16px, 20px);
+        padding: 20px 20px 20px 80px;
         border-bottom: #e0e0e0 1px solid;
         color: #fff;
         cursor: pointer;
+
+        @media #{$large-and-up} {
+            padding: 20px;
+        }
 
         i,span {
             vertical-align: middle;
@@ -105,6 +110,22 @@
                 vertical-align: initial;
             }
         }
+    }
+
+    &-back {
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-right: #fff 1px solid;
+        width: 50px;
+        height: 100%;
+
+         i {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+         }
     }
 
     &-count {
@@ -186,7 +207,7 @@
 
     &-infoLink {
         display: block;
-        padding: 10px;
+        padding: 20px;
         font-size: 15px;
         color: #fff;
         cursor: pointer;

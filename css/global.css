@@ -11197,10 +11197,32 @@ html.js .js-isHidden {
   position: relative;
   z-index: 2;
   font-size: 20px;
-  padding: 20px;
+  padding: 20px 20px 20px 80px;
   border-bottom: #e0e0e0 1px solid;
   color: #fff;
   cursor: pointer;
+}
+
+.List-header {
+  font-size: 16px;
+}
+
+@media screen and (min-width: 320px) {
+  .List-header {
+    font-size: calc(16px + 4 * (100vw - 320px) / 880);
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .List-header {
+    font-size: 20px;
+  }
+}
+
+@media only screen and (min-width: 993px) {
+  .List-header {
+    padding: 20px;
+  }
 }
 
 .List-header i, .List-header span {
@@ -11209,6 +11231,24 @@ html.js .js-isHidden {
 
 .List-header i span, .List-header span span {
   vertical-align: initial;
+}
+
+.List-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-right: #fff 1px solid;
+  width: 50px;
+  height: 100%;
+}
+
+.List-back i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
 }
 
 .List-count {
@@ -11294,7 +11334,7 @@ html.js .js-isHidden {
 
 .List-infoLink {
   display: block;
-  padding: 10px;
+  padding: 20px;
   font-size: 15px;
   color: #fff;
   cursor: pointer;

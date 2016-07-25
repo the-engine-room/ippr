@@ -90,11 +90,13 @@
                         IPPR.map.layers[key][k].setStyle(IPPR.map.styles.active);
                         $(IPPR.map.markers[key][k]._icon).addClass(IPPR.states.active);
 
-                        setTimeout(function(){
-                            if (IPPR.map.markers[key][k]._latlng.lat && IPPR.map.markers[key][k]._latlng.lng){
-                                IPPR.map.map[key].setView(new L.LatLng(IPPR.map.markers[key][k]._latlng.lat, IPPR.map.markers[key][k]._latlng.lng), 6);
-                            }
-                        },200);
+                        if(IPPR.states.mobile){
+                            setTimeout(function(){
+                                if (IPPR.map.markers[key][k]._latlng.lat && IPPR.map.markers[key][k]._latlng.lng){
+                                    IPPR.map.map[key].setView(new L.LatLng(IPPR.map.markers[key][k]._latlng.lat, IPPR.map.markers[key][k]._latlng.lng), 6);
+                                }
+                            },200);
+                        }
                     }
 
                 });
@@ -306,6 +308,8 @@
         IPPR.dom.map.addClass(IPPR.states.hidden);
         $('a[data-view="companies"]').click();
         $('.collection-item[data-id="'+id+'"]').click();
+        var top = $('.collection-item[data-id="'+id+'"]').position().top;
+        $(IPPR.dom.lists.main).find(IPPR.dom.lists.holder).scrollTop(top);
     });
 
     // Mobile behaviour of the app
@@ -445,7 +449,9 @@
 
                 if(!$(this).closest(IPPR.dom.lists.extra).size()){
 
-                    $(this).closest(IPPR.dom.lists.holder).addClass(IPPR.states.hidden);
+                    if (IPPR.states.mobile){
+                        $(this).closest(IPPR.dom.lists.holder).addClass(IPPR.states.hidden);
+                    }
                     var companies = [];
 
                     $.each(IPPR.data.data[key][id], function(k, company){

@@ -153,7 +153,7 @@
 
                     <div class="List List--main z-depth-1" data-level="0">
                         <div class="List-header brand blue">
-                            <i class="material-icons hide-on-large-only">keyboard_arrow_left</i>
+                            <span class="hide-on-large-only List-back"><i class="material-icons">keyboard_arrow_left</i></span>
                             <span>Licenses (<span class="List-count"></span>)</span>
                         </div>
 
@@ -196,7 +196,7 @@
                     <div class="List List--extra z-depth-1 u-isHidden" data-level="1">
                         <div class="List-header brand green">
                             <div class="List-headerActive">
-                                <i class="material-icons hide-on-large-only">keyboard_arrow_left</i>
+                                <span class="hide-on-large-only List-back"><i class="material-icons">keyboard_arrow_left</i></span>
                                 <span>Companies in ownership (<span class="List-count"></span>)</span>
                             </div>
                         </div>
@@ -216,7 +216,7 @@
                     <div class="List List--info z-depth-1 hide-on-large-only" data-level="2">
                         <div class="List-header brand green">
                             <div class="List-headerActive">
-                                <i class="material-icons hide-on-large-only">keyboard_arrow_left</i>
+                                <span class="hide-on-large-only List-back"><i class="material-icons">keyboard_arrow_left</i></span>
                                 <span>Transaction history</span>
                             </div>
                         </div>
@@ -319,7 +319,7 @@
 
                     <div class="List List--main z-depth-1" data-level="0">
                         <div class="List-header brand green">
-                            <i class="material-icons hide-on-large-only">keyboard_arrow_left</i>
+                            <span class="hide-on-large-only List-back"><i class="material-icons">keyboard_arrow_left</i></span>
                             <span>Companies (<span class="List-count"></span>)</span>
                         </div>
 
@@ -362,7 +362,7 @@
                     <div class="List List--extra z-depth-1 u-isHidden" data-level="1">
                         <div class="List-header brand blue">
                             <div class="List-headerActive">
-                                <i class="material-icons hide-on-large-only">keyboard_arrow_left</i>
+                                <span class="hide-on-large-only List-back"><i class="material-icons">keyboard_arrow_left</i></span>
                                 <span>Licenses in ownership (<span class="List-count"></span>)</span>
                             </div>
                         </div>
