@@ -13,7 +13,7 @@
     backface-visibility: hidden;
     transition: opacity 0.3s ease;
 
-    @media #{$medium-and-up} {
+    @media #{$large-and-up} {
         padding: 20px;
     }
 
@@ -35,7 +35,7 @@
             opacity: 0;
         }
 
-        @media #{$medium-and-up} {
+        @media #{$large-and-up} {
             width: 30%;
         }
     }

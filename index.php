@@ -99,13 +99,13 @@
 
             <ul class="tabs Header-tabs">
                 <li class="tab col">
-                    <a href="#tab-0" class="brand blue">
+                    <a href="#tab-0" class="brand blue" data-view="licenses">
                         <span>Browse by licence</span>
                         <i class="material-icons">keyboard_arrow_right</i>
                     </a>
                 </li>
                 <li class="tab col">
-                    <a href="#tab-1" class="brand green">
+                    <a href="#tab-1" class="brand green" data-view="companies">
                         <span>Browse by company</span>
                         <i class="material-icons">keyboard_arrow_right</i>
                     </a>
@@ -118,10 +118,11 @@
 
 
     <div class="Content" id="data">
+
         <div id="tab-0" class="col s12">
 
 
-            <div class="Search z-depth-1 hide-on-small-only brand blue">
+            <div class="Search z-depth-1 hide-on-med-and-down brand blue">
 
                 <div class="input-field Search-field">
                     <i class="material-icons small prefix Search-trigger">search</i>
@@ -133,13 +134,13 @@
                 <div class="Filters">
                     <ul class="Filters-list">
                         <li class="Filters-item">
-                            <span class="chip Filters-itemFilter" data-filter="expiration">Soon to expire <i class="material-icons Filters-remove">close</i></span>
+                            <span class="chip Filters-itemFilter" data-filter="expiration">Soon to expire</span>
                         </li>
                         <li class="Filters-item">
-                            <span class="chip Filters-itemFilter">Without ownership <i class="material-icons Filters-remove">close</i></span>
+                            <span class="chip Filters-itemFilter">Without ownership</span>
                         </li>
                         <li class="Filters-item">
-                            <span class="chip Filters-itemFilter">Recently changed ownership <i class="material-icons Filters-remove">close</i></span>
+                            <span class="chip Filters-itemFilter">Recently changed ownership</span>
                         </li>
                     </ul>
                 </div>
@@ -152,12 +153,12 @@
 
                     <div class="List List--main z-depth-1" data-level="0">
                         <div class="List-header brand blue">
-                            <i class="material-icons hide-on-med-and-up">keyboard_arrow_left</i>
+                            <i class="material-icons hide-on-large-only">keyboard_arrow_left</i>
                             <span>Licenses (<span class="List-count"></span>)</span>
                         </div>
 
 
-                        <div class="Search Search--mobile hide-on-med-and-up brand blue">
+                        <div class="Search Search--mobile hide-on-large-only brand blue">
 
                             <div class="Filters Filters--mobile">
                                 <i class="material-icons small Filters-trigger js-dropdown-trigger" data-beloworigin="true" data-activates='filters1'>filter_list</i>
@@ -192,27 +193,53 @@
 
                     </div>
 
-                    <div class="List List--extra z-depth-1" data-level="1">
+                    <div class="List List--extra z-depth-1 u-isHidden" data-level="1">
                         <div class="List-header brand green">
-                            <div class="List-headerActive u-isHidden">
-                                <i class="material-icons hide-on-med-and-up">keyboard_arrow_left</i>
+                            <div class="List-headerActive">
+                                <i class="material-icons hide-on-large-only">keyboard_arrow_left</i>
                                 <span>Companies in ownership (<span class="List-count"></span>)</span>
-                            </div>
-                            <div class="List-headerInactive">
-                                <span>Select a license on the left to see ownership information</span>
                             </div>
                         </div>
 
+                        <a class="List-infoLink orange js-info hide-on-large-only"><i class="material-icons right">arrow_right</i>Transaction history</a>
+
+
                         <div class="List-holder">
+                            <p class="List-headerInactive">
+                                Select a license on the left to see ownership information
+                            </p>
                             <ul class="collection collapsible" data-collapsible="accordion">
                             </ul>
                         </div>
                     </div>
 
+                    <div class="List List--info z-depth-1 hide-on-large-only" data-level="2">
+                        <div class="List-header brand green">
+                            <div class="List-headerActive">
+                                <i class="material-icons hide-on-large-only">keyboard_arrow_left</i>
+                                <span>Transaction history</span>
+                            </div>
+                        </div>
+
+                        <div class="List-holder">
+                            <div class="Sankey">
+                                <div class="Sankey-header brand blue u-cf">
+
+                                    <h2 class="Sankey-title">Transaction history for Licence number <span></span></h2>
+
+                                    <a class="waves-effect waves-light btn orange right"><i class="material-icons right">file_download</i>Download data</a>
+
+                                </div>
+                                <div class="Sankey-graph">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
-                <div class="Map Map--0"></div>
-
+                <div class="Map Map--0 licenses"></div>
 
                 <div class="Loader">
                     <div class="Loader-holder">
@@ -252,14 +279,16 @@
                                 {{#website}}<p><strong>Website:</strong> <a href="{{website}}">{{website}}</a></p>{{/website}}
                             </li>
                         </ul>
+                        <p class="List-companyInfo" data-id="{{ title }}"><i class="material-icons">info</i></p>
                     </div>
                 </li>
             </script>
 
         </div>
+
         <div id="tab-1" class="col s12">
 
-            <div class="Search z-depth-1 hide-on-small-only brand green">
+            <div class="Search z-depth-1 hide-on-med-and-down brand green">
 
                 <div class="input-field Search-field">
                     <i class="material-icons small prefix Search-trigger">search</i>
@@ -271,13 +300,13 @@
                 <div class="Filters">
                     <ul class="Filters-list">
                         <li class="Filters-item">
-                            <span class="chip Filters-itemFilter">Soon to expire <i class="material-icons Filters-remove">close</i></span>
+                            <span class="chip Filters-itemFilter">Soon to expire</span>
                         </li>
                         <li class="Filters-item">
-                            <span class="chip Filters-itemFilter">Without ownership <i class="material-icons Filters-remove">close</i></span>
+                            <span class="chip Filters-itemFilter">Without ownership</span>
                         </li>
                         <li class="Filters-item">
-                            <span class="chip Filters-itemFilter">Recently changed ownership <i class="material-icons Filters-remove">close</i></span>
+                            <span class="chip Filters-itemFilter">Recently changed ownership</span>
                         </li>
                     </ul>
                 </div>
@@ -290,12 +319,12 @@
 
                     <div class="List List--main z-depth-1" data-level="0">
                         <div class="List-header brand green">
-                            <i class="material-icons hide-on-med-and-up">keyboard_arrow_left</i>
+                            <i class="material-icons hide-on-large-only">keyboard_arrow_left</i>
                             <span>Companies (<span class="List-count"></span>)</span>
                         </div>
 
 
-                        <div class="Search Search--mobile hide-on-med-and-up brand green">
+                        <div class="Search Search--mobile hide-on-large-only brand green">
 
                             <div class="Filters Filters--mobile">
                                 <i class="material-icons small Filters-trigger js-dropdown-trigger" data-beloworigin="true" data-activates='filters2'>filter_list</i>
@@ -330,26 +359,27 @@
 
                     </div>
 
-                    <div class="List List--extra z-depth-1" data-level="1">
+                    <div class="List List--extra z-depth-1 u-isHidden" data-level="1">
                         <div class="List-header brand blue">
-                            <div class="List-headerActive u-isHidden">
-                                <i class="material-icons hide-on-med-and-up">keyboard_arrow_left</i>
+                            <div class="List-headerActive">
+                                <i class="material-icons hide-on-large-only">keyboard_arrow_left</i>
                                 <span>Licenses in ownership (<span class="List-count"></span>)</span>
-                            </div>
-                            <div class="List-headerInactive">
-                                <span>Select a company on the left to see licenses information</span>
                             </div>
                         </div>
 
                         <div class="List-holder is-filterable">
+                            <p class="List-headerInactive">
+                                Select a company on the left to see licenses information
+                            </p>
                             <ul class="collection collapsible" data-collapsible="accordion">
                             </ul>
+                            <div class="Map Map--1 Map--inline companies hide-on-large-only"></div>
                         </div>
                     </div>
 
                 </div>
 
-                <div class="Map Map--1"></div>
+                <div class="Map Map--1 companies"></div>
 
 
                 <div class="Loader">
@@ -382,6 +412,19 @@
             </script>
 
 
+        </div>
+
+        <div class="Sankey Sankey--desktop u-isHidden">
+            <div class="Sankey-header brand blue u-cf">
+
+                <h2 class="Sankey-title">Transaction history for Licence number <span></span></h2>
+
+                <a class="waves-effect waves-light btn orange right"><i class="material-icons right">file_download</i>Download data</a>
+
+            </div>
+            <div class="Sankey-graph">
+
+            </div>
         </div>
 
     </div>

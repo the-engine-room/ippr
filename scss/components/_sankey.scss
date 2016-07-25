@@ -1,0 +1,16 @@
+/* ====================================
+   Sankey
+   ==================================== */
+.Sankey {
+    &-header {
+        padding: 20px;
+    }
+
+    &-title {
+        display: inline-block;
+        vertical-align: middle;
+        color: #fff;
+        margin: 0;
+        @include fluid-type(font-size, 320px, 1200px, 20px, 24px);
+    }
+}

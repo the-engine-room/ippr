@@ -21,7 +21,7 @@
         transform: translate(0,0);
     }
 
-    @media #{$medium-and-up} {
+    @media #{$large-and-up} {
         position: relative;
         display: block;
         transform: translate(0,0);
@@ -30,9 +30,9 @@
 }
 
 .Data {
-    width: 200%;
+    width: 300%;
 
-    @media #{$medium-and-up} {
+    @media #{$large-and-up} {
         width: 100%;
         max-height: 800px;
         height: 800px;
@@ -60,15 +60,12 @@
             }
         }
 
-        @media #{$medium-and-up} {
+
+        @media #{$large-and-up} {
             position: absolute;
-            width: 85%;
             left: 60px;
             top: 50px;
             z-index: 2;
-        }
-
-        @media #{$large-and-up} {
             width: 50%;
         }
     }
@@ -83,13 +80,13 @@
 
 .List {
     display: inline-block;
-    width: 50%;
+    width: 33.3333%;
     background-color: #fff;
     vertical-align: top;
     position: relative;
     transform: translate(0,0);
 
-    @media #{$medium-and-up} {
+    @media #{$large-and-up} {
         width: 48%;
     }
 
@@ -104,6 +101,9 @@
 
         i,span {
             vertical-align: middle;
+            span {
+                vertical-align: initial;
+            }
         }
     }
 
@@ -146,7 +146,7 @@
     }
 
     &-holder {
-        @media #{$medium-and-up} {
+        @media #{$large-and-up} {
             max-height: 620px;
             height: 620px;
             overflow-y: auto;
@@ -178,10 +178,25 @@
         padding: 3px;
     }
 
-    @media #{$medium-and-up} {
+    @media #{$large-and-up} {
         &.List--extra {
             margin-left: 2%;
         }
+    }
+
+    &-infoLink {
+        display: block;
+        padding: 10px;
+        font-size: 15px;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    &-companyInfo {
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+        cursor: pointer;
     }
 
 }
@@ -203,16 +218,19 @@
         display: block;
     }
 
-    @media #{$medium-and-up} {
+    &.Map--inline {
+        position: relative;
+        bottom: auto;
+        display: block;
+        height: 400px;
+    }
+
+    @media #{$large-and-up} {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        display: none;
-    }
-
-    @media #{$large-and-up} {
         display: block;
     }
 
@@ -228,13 +246,23 @@
             transform: translate(-20px,-20px);
         }
 
-        @media #{$medium-and-up} {
-            transform: translate(-20px,-20px);
-        }
-
         @media #{$large-and-up} {
             display: none;
         }
 
+    }
+
+
+    &-label {
+        span {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+
+        &.is-active {
+            color: #fff;
+        }
     }
 }

@@ -60,7 +60,7 @@
 
     &-navigation {
 
-        @media #{$medium-and-up} {
+        @media #{$large-and-up} {
             position: absolute;
             top: 0;
             right: 40px;
@@ -85,7 +85,7 @@
             vertical-align: middle;
         }
 
-        @media #{$medium-and-up} {
+        @media #{$large-and-up} {
             i {
                 display: none;
             }

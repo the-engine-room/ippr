@@ -27,7 +27,7 @@
         backface-visibility: hidden;
 
 
-        @media #{$medium-and-up} {
+        @media #{$large-and-up} {
             width: auto;
             margin: 0 10px;
 
@@ -71,7 +71,7 @@
     display: inline-block;
     vertical-align: middle;
 
-    @media #{$medium-and-up} {
+    @media #{$large-and-up} {
         width: 70%;
         overflow: auto;
     }
@@ -88,7 +88,7 @@
         display: block;
         margin: 10px 0;
 
-        @media #{$medium-and-up} {
+        @media #{$large-and-up} {
             display: inline-block;
             margin: 10px;
         }
@@ -100,7 +100,7 @@
     }
 
     &-list {
-        @media #{$medium-and-up} {
+        @media #{$large-and-up} {
             white-space: nowrap;
         }
 
