@@ -265,6 +265,7 @@
                     IPPR.map.markers[key].push(marker);
 
                     function onClick(){
+
                         $.each(IPPR.filters.list, function(k,v){
                             v.filter();
                             v.search();
@@ -278,7 +279,7 @@
                             elem.click();
                             top = elem.position().top;
                             $(IPPR.dom.lists.main).find(IPPR.dom.lists.holder).scrollTop(top);
-                        } else if (that.is('companies')){
+                        } else if (that.is('.companies')){
                             elem = $(IPPR.dom.lists.main).find('li[data-id="'+ feature.properties.company_name +'"]');
                             elem.click();
                             top = elem.position().top;
@@ -510,13 +511,15 @@
                             size++;
                         });
 
-                        $.each(IPPR.map.markers[key], function(index, val) {
-                             val.off('click');
-                        });
+                        if (IPPR.states.mobile){
+                            $.each(IPPR.map.markers[key], function(index, val) {
+                                 val.off('click');
+                            });
 
-                        $.each(IPPR.map.layers[key], function(index, val) {
-                             val.off('click');
-                        });
+                            $.each(IPPR.map.layers[key], function(index, val) {
+                                 val.off('click');
+                            });
+                        }
                     }
 
                     $('#tab-'+key).find(IPPR.dom.lists.extra).removeClass(IPPR.states.hidden);
