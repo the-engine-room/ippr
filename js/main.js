@@ -101,12 +101,10 @@
                 });
             },
             searchLayers: function(inputValue){
-
                 if(inputValue){
                     IPPR.filters.clear();
                     IPPR.dom.filters.searchTrigger.addClass(IPPR.states.hidden);
                     IPPR.dom.filters.searchRemove.addClass(IPPR.states.visible);
-
                     $.each(IPPR.map.layers, function(index, val) {
                         $.each(val, function(key, value) {
 
