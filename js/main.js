@@ -44,7 +44,8 @@
             visible: 'is-visible',
             mobile: false,
             desktop: false,
-            view: false
+            view: false,
+            map: false
         },
         data: {
             data: {},
@@ -88,6 +89,12 @@
                     if (value.ID === id || value.company_name === id){
                         IPPR.map.layers[key][k].setStyle(IPPR.map.styles.active);
                         $(IPPR.map.markers[key][k]._icon).addClass(IPPR.states.active);
+
+                        setTimeout(function(){
+                            if (IPPR.map.markers[key][k]._latlng.lat && IPPR.map.markers[key][k]._latlng.lng){
+                                IPPR.map.map[key].setView(new L.LatLng(IPPR.map.markers[key][k]._latlng.lat, IPPR.map.markers[key][k]._latlng.lng), 6);
+                            }
+                        },200);
                     }
 
                 });
@@ -353,6 +360,11 @@
                     });
                     $(IPPR.dom.lists.extra).addClass(IPPR.states.hidden);
                     $(IPPR.dom.lists.info).addClass(IPPR.states.hidden);
+
+                    if (IPPR.dom.mapTrigger.find('.material-icons').html() === 'map'){
+                        $(IPPR.dom.lists.main).find(IPPR.dom.lists.holder).removeClass(IPPR.states.hidden);
+                    }
+
                 } else if (level === 2){
                     IPPR.dom.dataHolder.css({transform: 'translate(-33.3333%,0)'});
                 }
@@ -433,6 +445,7 @@
 
                 if(!$(this).closest(IPPR.dom.lists.extra).size()){
 
+                    $(this).closest(IPPR.dom.lists.holder).addClass(IPPR.states.hidden);
                     var companies = [];
 
                     $.each(IPPR.data.data[key][id], function(k, company){
@@ -618,6 +631,7 @@
             });
 
             if($(IPPR.dom.lists.main).find(IPPR.dom.lists.holder).is('.'+IPPR.states.hidden) || IPPR.dom.dataHolder.is('.'+IPPR.states.hidden)){
+                IPPR.states.map = true;
                 $(this).find('.material-icons').html('view_list');
             } else {
                 $(this).find('.material-icons').html('map');
