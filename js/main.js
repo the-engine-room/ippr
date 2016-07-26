@@ -73,7 +73,7 @@
                 1: {
                     name: 'companies',
                     sql: "SELECT * FROM companies JOIN hydrocarbon_licences_latest_clean ON (companies.company_id = hydrocarbon_licences_latest_clean.company_id) ORDER BY company_name",
-                    groupBy: 'company_name'
+                    groupBy: 'company_id'
                 }
             },
         },
@@ -98,10 +98,14 @@
             highlightLayer: function(key,id){
                 $.each(IPPR.map.layers[key], function(k,value){
 
+                    console.log(id);
+                    console.log(value);
+
                     IPPR.map.layers[key][k].setStyle(IPPR.map.styles.default);
                     $(IPPR.map.markers[key][k]._icon).removeClass(IPPR.states.active);
 
-                    if (value.ID === id || value.company_name === id){
+                    if (value.ID === id || value.company_id === id){
+                        console.log('aha');
                         IPPR.map.layers[key][k].setStyle(IPPR.map.styles.active);
                         $(IPPR.map.markers[key][k]._icon).addClass(IPPR.states.active);
 
@@ -189,7 +193,7 @@
 
         var markup = [],
             mustacheTpl = [],
-            table,hierarchy,ownedLicenses;
+            table,hierarchy,ownedLicenses,title;
 
         $.each(IPPR.data.tabs, function(key, tab){
 
@@ -211,16 +215,18 @@
                     // TODO
 
                     if (tab.name === 'companies'){
+                        title = value[0].company_name;
                         table = '[{"name": "Nameasd", "jurisdiction": "jurisdictionasdasd", "registration": "registrationasdasd", "headquarters": "headquartersasd", "dateOfFormation": "dateOfFormationasdasd", "companyInfo": "comany Infoas das"}]';
                         ownedLicenses = '[{"name": "Name", "percent": "50%", "numbers": [123,234]},{"name": "Name", "percent": "50%", "numbers": [123,234]}]';
                         hierarchy = '[{"title": "Title", "items": ["Nationality: Croatian", "Start date: ", "Role: Direcctor"], "percent": "80%"},{"title": "Title", "items": ["Nationality: Croatian", "Start date: ", "Role: Direcctor"], "percent": "80%"}]';
                     } else {
+                        title = k;
                         table = '[{"licenceNumber": "Pel 003 - licence Number", "transferDate": "01/2012 - transferDate", "transferType": "Transfer type", "licenceSeller": "licenceSeller", "sellerStakePrior": "sellerStakePrior", "licenceBuyer": "licenceBuyer", "buyerStakeAfter": "buyerStakeAfter", "operatorPrior": "operatorPrior", "operatorAfter": "operatorAfter"}, {"licenceNumber": "Pel 003 - licence Number", "transferDate": "01/2012 - transferDate", "transferType": "Transfer type", "licenceSeller": "licenceSeller", "sellerStakePrior": "sellerStakePrior", "licenceBuyer": "licenceBuyer", "buyerStakeAfter": "buyerStakeAfter", "operatorPrior": "operatorPrior", "operatorAfter": "operatorAfter"} ]';
                     }
 
                     markup[key] += Mustache.render(
                         mustacheTpl[key], {
-                            title: k,
+                            title: title,
                             id: k,
                             sankey:'[[ "Goverment of Namibia 100%", "Eco oil and gas 20%", 10, "20%"],[ "Eco oil and gas 20%", "Eco oil and gas 10%", 5, "10%" ],[ "Eco oil and gas 20%", "New Buyer 10%", 5, "10%" ],[ "Goverment of Namibia 100%", "Goverment of Namibia 80%", 8, "80%"]]', // TODO
                             table: table, // TODO
@@ -276,7 +282,8 @@
                     layer.ID = feature.properties.license_number;
                     layer.concession_number = feature.properties.concession_number;
                     layer.company_id = feature.properties.company_id;
-                    layer.company_name = feature.properties.company_name;
+                    layer.company_name = feature.properties.holder;
+
 
                     // TMP, REMOVE ME
                     if (cnt % 4 === 0){
@@ -311,7 +318,7 @@
                             top = elem.position().top;
                             $(IPPR.dom.lists.main).find(IPPR.dom.lists.holder).scrollTop(top);
                         } else if (that.is('.companies')){
-                            elem = $(IPPR.dom.lists.main).find('li[data-id="'+ feature.properties.company_name +'"]');
+                            elem = $(IPPR.dom.lists.main).find('li[data-id="'+ feature.properties.company_id +'"]');
                             elem.click();
                             top = elem.position().top;
                             $(IPPR.dom.lists.main).find(IPPR.dom.lists.holder).scrollTop(top);
