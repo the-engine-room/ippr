@@ -11478,17 +11478,25 @@ html.js .js-isHidden {
   font-size: 16px;
 }
 
+.OwnedLicenses span {
+  font-size: 15px;
+  display: inline-block;
+  margin-right: 10px;
+}
+
 .Hierarchy-title {
   font-size: 16px;
 }
 
 .Block {
   border: 1px solid #d0d0d0;
-  padding: 10px;
+  padding: 15px;
 }
 
 .Block-title {
-  font-size: 14px;
+  margin: 0 0 10px 0;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 /* ====================================

@@ -211,9 +211,9 @@
                     // TODO
 
                     if (tab.name === 'companies'){
-                        table = '[{"name": "Name", "jurisdiction": "jurisdiction", "registration": "registration", "headquarters": "headquarters", "dateOfFormation": "dateOfFormation", "companyInfo": "comany Info"}]';
+                        table = '[{"name": "Nameasd", "jurisdiction": "jurisdictionasdasd", "registration": "registrationasdasd", "headquarters": "headquartersasd", "dateOfFormation": "dateOfFormationasdasd", "companyInfo": "comany Infoas das"}]';
                         ownedLicenses = '[{"name": "Name", "percent": "50%", "numbers": [123,234]},{"name": "Name", "percent": "50%", "numbers": [123,234]}]';
-                        hierarchy = '[{"title": "Title"}]';
+                        hierarchy = '[{"title": "Title", "items": ["Nationality: Croatian", "Start date: ", "Role: Direcctor"], "percent": "80%"},{"title": "Title", "items": ["Nationality: Croatian", "Start date: ", "Role: Direcctor"], "percent": "80%"}]';
                     } else {
                         table = '[{"licenceNumber": "Pel 003 - licence Number", "transferDate": "01/2012 - transferDate", "transferType": "Transfer type", "licenceSeller": "licenceSeller", "sellerStakePrior": "sellerStakePrior", "licenceBuyer": "licenceBuyer", "buyerStakeAfter": "buyerStakeAfter", "operatorPrior": "operatorPrior", "operatorAfter": "operatorAfter"}, {"licenceNumber": "Pel 003 - licence Number", "transferDate": "01/2012 - transferDate", "transferType": "Transfer type", "licenceSeller": "licenceSeller", "sellerStakePrior": "sellerStakePrior", "licenceBuyer": "licenceBuyer", "buyerStakeAfter": "buyerStakeAfter", "operatorPrior": "operatorPrior", "operatorAfter": "operatorAfter"} ]';
                     }
@@ -248,7 +248,7 @@
 
     IPPR.initMap = function(){
 
-        $.getJSON('data/data.json', function(data){
+        $.getJSON('data/data2.json', function(data){
 
             $.each(IPPR.dom.map, function(key,val){
 
@@ -374,11 +374,11 @@
                 $(IPPR.dom.lists.info).find('.Table').html(finalTable);
                 IPPR.dom.additionalInfo.addClass(IPPR.states.hidden);
             } else {
+                IPPR.dom.additionalInfo.removeClass(IPPR.states.hidden);
                 IPPR.dom.additionalInfo.find('.AdditionalInfo-title span').html(title);
                 $(IPPR.dom.sankey.desktop).removeClass(IPPR.states.hidden);
                 IPPR.sankey(sankeyData, IPPR.dom.sankey.desktop);
                 IPPR.dom.additionalInfo.find('.Table').html(finalTable);
-                IPPR.dom.additionalInfo.removeClass(IPPR.states.hidden);
             }
         } else {
             $(IPPR.dom.additionalInfoHeader).removeClass('blue').addClass('green');
@@ -423,10 +423,11 @@
                 $(IPPR.dom.lists.extra).find('.Hierarchy').html(finalHierarchy);
                 IPPR.dom.additionalInfo.addClass(IPPR.states.hidden);
             } else {
-                IPPR.dom.additionalInfo.find('.Table').html(finalTable);
-                IPPR.dom.additionalInfo.find('.OwnedLicenses').html(finalownedLicenses);
-                IPPR.dom.additionalInfo.find('.Hierarchy').html(finalHierarchy);
                 IPPR.dom.additionalInfo.removeClass(IPPR.states.hidden);
+                IPPR.dom.additionalInfo.find('.Table').html(finalTable).removeClass(IPPR.states.hidden);
+                IPPR.dom.additionalInfo.find('.OwnedLicenses').html(finalownedLicenses).removeClass(IPPR.states.hidden);
+                IPPR.dom.additionalInfo.find('.Hierarchy').html(finalHierarchy).removeClass(IPPR.states.hidden);
+
             }
         }
 
@@ -820,6 +821,7 @@
 
                 // Sets chart options.
                 var options = {
+                    width: '100%',
                     height: 400,
                     sankey: {
                         node: {

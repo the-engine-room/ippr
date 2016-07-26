@@ -496,12 +496,12 @@
             <table class="bordered striped highlight responsive-table">
                 <thead>
                     <tr>
-                        <th data-field="name">name</th>
-                        <th data-field="jurisdiction">jurisdiction</th>
-                        <th data-field="registration">registration</th>
-                        <th data-field="headquarters">headquarters</th>
-                        <th data-field="dateOfFormation">dateOfFormation</th>
-                        <th data-field="companyInfo">companyInfo</th>
+                        <th data-field="name">Name</th>
+                        <th data-field="jurisdiction">Jurisdiction</th>
+                        <th data-field="registration">Registration</th>
+                        <th data-field="headquarters">Headquarters</th>
+                        <th data-field="dateOfFormation">Date Of Formation</th>
+                        <th data-field="companyInfo">Company Info</th>
                     </tr>
                 </thead>
 
@@ -525,10 +525,10 @@
 
         <div class="col s12"><p class="OwnedLicenses-title">Company owned licenses</p></div>
         {{#licence}}
-            <div class="col s6 m4 l3">
+            <div class="col s6 m4 l2">
                 <div class="Block">
-                    <p class="Block-title">{{name}}{{percent}}</p>
-                    <span>{{#numbers}}{{.}}{{/numbers}}</span>
+                    <p class="Block-title">{{name}} - {{percent}}</p>
+                    {{#numbers}}<span>{{.}}</span>{{/numbers}}
                 </div>
             </div>
         {{/licence}}
@@ -540,9 +540,13 @@
         <div class="col s12"><p class="Hierarchy-title">Company hierarchy</p></div>
 
         {{#hierarchy}}
-            <div class="col s6 m4 l3">
+            <div class="col s6 m4 l2">
                 <div class="Block">
                     <p class="Block-title">{{title}}</p>
+                    <ul>
+                        {{#items}}<li>{{.}}</li>{{/items}}
+                    </ul>
+                    <p class="Block-title">{{percent}}</p>
                 </div>
             </div>
         {{/hierarchy}}
