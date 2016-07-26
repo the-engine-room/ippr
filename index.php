@@ -201,7 +201,7 @@
                             </div>
                         </div>
 
-                        <a class="List-infoLink orange js-info hide-on-large-only"><i class="material-icons right">arrow_right</i>Transaction history</a>
+                        <a class="List-infoLink orange js-showAdditionalInfo hide-on-large-only"><i class="material-icons right">arrow_right</i>Transaction history</a>
 
 
                         <div class="List-holder">
@@ -217,23 +217,15 @@
                         <div class="List-header brand green">
                             <div class="List-headerActive">
                                 <span class="hide-on-large-only List-back"><i class="material-icons">keyboard_arrow_left</i></span>
-                                <span>Transaction history</span>
+                                <span>Transaction history for <span class="List-infoName"></span></span>
                             </div>
                         </div>
 
                         <div class="List-holder">
                             <div class="Sankey">
-                                <div class="Sankey-header brand blue u-cf">
-
-                                    <h2 class="Sankey-title">Transaction history for Licence number <span></span></h2>
-
-                                    <a class="waves-effect waves-light btn orange right"><i class="material-icons right">file_download</i>Download data</a>
-
-                                </div>
-                                <div class="Sankey-graph">
-
-                                </div>
+                                <div class="Sankey-mobile"></div>
                             </div>
+                            <div class="Table row"></div>
                         </div>
                     </div>
 
@@ -250,7 +242,7 @@
             </div>
 
             <script type="x-tmpl-mustache" class="main-tpl">
-                <li class="collection-item" data-id="{{ id }}">
+                <li class="collection-item" data-id="{{ id }}" data-sankey="{{ sankey }}" data-table="{{ table }}">
                     <p class="List-title">{{ title }}</p>
                     {{#concessionNumbers}}
                         <span class="List-number brand blue">{{.}}</span>
@@ -374,6 +366,9 @@
                             <ul class="collection collapsible" data-collapsible="accordion">
                             </ul>
                             <div class="Map Map--1 Map--inline companies hide-on-large-only"></div>
+                            <div class="Table row"></div>
+                            <div class="OwnedLicenses row"></div>
+                            <div class="Hierarchy row"></div>
                         </div>
                     </div>
 
@@ -392,7 +387,7 @@
 
 
             <script type="x-tmpl-mustache" class="main-tpl">
-                <li class="collection-item" data-id="{{ id }}">
+                <li class="collection-item" data-id="{{ id }}" data-table="{{table}}" data-hierarchy="{{ hierarchy }}" data-ownedLicenses="{{ ownedLicenses }}">
                     <p class="List-title">{{ title }}</p>
                 </li>
             </script>
@@ -414,17 +409,35 @@
 
         </div>
 
-        <div class="Sankey Sankey--desktop u-isHidden">
-            <div class="Sankey-header brand blue u-cf">
+        <div class="AdditionalInfo u-isHidden">
 
-                <h2 class="Sankey-title">Transaction history for Licence number <span></span></h2>
+            <div class="AdditionalInfo-header brand blue u-cf">
 
-                <a class="waves-effect waves-light btn orange right"><i class="material-icons right">file_download</i>Download data</a>
+                <h2 class="AdditionalInfo-title">Transaction history for Licence number <span></span></h2>
 
-            </div>
-            <div class="Sankey-graph">
+                <a class="waves-effect waves-light btn orange AdditionalInfo-download"><i class="material-icons right">file_download</i>Download data</a>
 
             </div>
+
+            <div class="row AdditionalInfo-data">
+
+                <div class="col s12">
+                    <div class="Sankey Sankey-desktop"></div>
+                </div>
+
+                <div class="col s12">
+                    <div class="Table"></div>
+                </div>
+
+                <div class="col s12">
+                    <div class="OwnedLicenses row"></div>
+                </div>
+
+                <div class="col s12">
+                    <div class="Hierarchy row"></div>
+                </div>
+            </div>
+
         </div>
 
     </div>
@@ -441,7 +454,100 @@
         proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </footer>
 
+    <script type="x-tmpl-mustache" class="licenceTable-tpl">
+        <div class="col s12">
+            <table class="bordered striped highlight responsive-table">
+                <thead>
+                    <tr>
+                        <th data-field="licenceNumber">Licence Number</th>
+                        <th data-field="transferDate">Transfer Date</th>
+                        <th data-field="transferType">Transfer Type</th>
+                        <th data-field="licenceSeller">Licence Seller</th>
+                        <th data-field="sellerStakePrior">Seller Stake Prior</th>
+                        <th data-field="licenceBuyer">Licence Buyer</th>
+                        <th data-field="buyerStakeAfter">Buyer Stake After</th>
+                        <th data-field="operatorPrior">Operator Prior</th>
+                        <th data-field="operatorAfter">Operator After</th>
+                    </tr>
+                </thead>
 
+                <tbody>
+                    {{#tableRows}}
+                        <tr>
+                            <td>{{licenceNumber}}</td>
+                            <td>{{transferDate}}</td>
+                            <td>{{transferType}}</td>
+                            <td>{{licenceSeller}}</td>
+                            <td>{{sellerStakePrior}}</td>
+                            <td>{{licenceBuyer}}</td>
+                            <td>{{buyerStakeAfter}}</td>
+                            <td>{{operatorPrior}}</td>
+                            <td>{{operatorAfter}}</td>
+                        </tr>
+                    {{/tableRows}}
+                </tbody>
+            </table>
+        </div>
+    </script>
+
+    <script type="x-tmpl-mustache" class="companyTable-tpl">
+        <div class="col s12">
+            <p class="Table-title">Company information</p>
+            <table class="bordered striped highlight responsive-table">
+                <thead>
+                    <tr>
+                        <th data-field="name">name</th>
+                        <th data-field="jurisdiction">jurisdiction</th>
+                        <th data-field="registration">registration</th>
+                        <th data-field="headquarters">headquarters</th>
+                        <th data-field="dateOfFormation">dateOfFormation</th>
+                        <th data-field="companyInfo">companyInfo</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {{#tableRows}}
+                        <tr>
+                            <td>{{name}}</td>
+                            <td>{{jurisdiction}}</td>
+                            <td>{{registration}}</td>
+                            <td>{{headquarters}}</td>
+                            <td>{{dateOfFormation}}</td>
+                            <td>{{companyInfo}}</td>
+                        </tr>
+                    {{/tableRows}}
+                </tbody>
+            </table>
+        </div>
+    </script>
+
+    <script type="x-tmpl-mustache" class="ownedLicenses-tpl">
+
+        <div class="col s12"><p class="OwnedLicenses-title">Company owned licenses</p></div>
+        {{#licence}}
+            <div class="col s6 m4 l3">
+                <div class="Block">
+                    <p class="Block-title">{{name}}{{percent}}</p>
+                    <span>{{#numbers}}{{.}}{{/numbers}}</span>
+                </div>
+            </div>
+        {{/licence}}
+
+    </script>
+
+    <script type="x-tmpl-mustache" class="hierarchy-tpl">
+
+        <div class="col s12"><p class="Hierarchy-title">Company hierarchy</p></div>
+
+        {{#hierarchy}}
+            <div class="col s6 m4 l3">
+                <div class="Block">
+                    <p class="Block-title">{{title}}</p>
+                </div>
+            </div>
+        {{/hierarchy}}
+
+    </script>
 
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://www.gstatic.com/charts/loader.js"></script>

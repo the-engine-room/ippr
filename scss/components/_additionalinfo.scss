@@ -1,0 +1,61 @@
+.AdditionalInfo{
+    &-header {
+        padding: 20px;
+        position: relative;
+    }
+
+    &-title {
+        color: #fff;
+        margin: 0;
+        @include fluid-type(font-size, 320px, 1200px, 20px, 24px);
+    }
+
+    &-download {
+        position: absolute;
+        top: 50%;
+        right: 20px;
+        transform: translate(0,-50%);
+    }
+}
+
+/* ====================================
+   Sankey
+   ==================================== */
+.Sankey {
+    margin: 20px 0;
+    overflow-y: auto;
+    &-mobile {
+        min-width: 600px;
+    }
+}
+
+
+.Table {
+    margin: 20px 0;
+
+    &-title {
+        font-size: 16px;
+    }
+}
+
+
+.OwnedLicenses {
+    &-title {
+        font-size: 16px;
+    }
+}
+
+.Hierarchy {
+    &-title {
+        font-size: 16px;
+    }
+}
+
+.Block {
+    border: 1px solid #d0d0d0;
+    padding: 10px;
+
+    &-title {
+        font-size: 14px;
+    }
+}

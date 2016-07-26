@@ -11156,6 +11156,7 @@ html.js .js-isHidden {
 }
 
 .Data-holder .collapsible-body {
+  word-break: break-word;
   padding: 2rem;
 }
 
@@ -11418,37 +11419,83 @@ html.js .js-isHidden {
   color: #fff;
 }
 
-/* ====================================
-   Sankey
-   ==================================== */
-.Sankey-header {
+.AdditionalInfo-header {
   padding: 20px;
+  position: relative;
 }
 
-.Sankey-title {
-  display: inline-block;
-  vertical-align: middle;
+.AdditionalInfo-title {
   color: #fff;
   margin: 0;
 }
 
-.Sankey-title {
+.AdditionalInfo-title {
   font-size: 20px;
 }
 
 @media screen and (min-width: 320px) {
-  .Sankey-title {
+  .AdditionalInfo-title {
     font-size: calc(20px + 4 * (100vw - 320px) / 880);
   }
 }
 
 @media screen and (min-width: 1200px) {
-  .Sankey-title {
+  .AdditionalInfo-title {
     font-size: 24px;
   }
+}
+
+.AdditionalInfo-download {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  -webkit-transform: translate(0, -50%);
+      -ms-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+}
+
+/* ====================================
+   Sankey
+   ==================================== */
+.Sankey {
+  margin: 20px 0;
+  overflow-y: auto;
+}
+
+.Sankey-mobile {
+  min-width: 600px;
+}
+
+.Table {
+  margin: 20px 0;
+}
+
+.Table-title {
+  font-size: 16px;
+}
+
+.OwnedLicenses-title {
+  font-size: 16px;
+}
+
+.Hierarchy-title {
+  font-size: 16px;
+}
+
+.Block {
+  border: 1px solid #d0d0d0;
+  padding: 10px;
+}
+
+.Block-title {
+  font-size: 14px;
 }
 
 /* ====================================
    Table
    ==================================== */
+table {
+  font-size: 15px;
+  border: 1px solid #d0d0d0;
+}
 /*# sourceMappingURL=global.css.map */

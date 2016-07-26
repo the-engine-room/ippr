@@ -1,6 +1,11 @@
 'use strict';
 (function (U, $) {
 
+    if (!Array.from){
+        Array.from = function (object) {
+            return [].slice.call(object);
+        };
+    }
 
     var IPPR = {
         dom: {
@@ -13,7 +18,9 @@
                 count: '.List-count',
                 header: '.List-header',
                 holder: '.List-holder',
+                title: '.List-title',
                 list: '.collection',
+                infoName: '.List-infoName',
                 headerActive: '.List-headerActive',
                 headerInActive: '.List-headerInactive',
             },
@@ -34,7 +41,15 @@
             },
             map: $('.Map'),
             mapTrigger: $('.Map-trigger'),
-            mapInline: $('.Map--inline')
+            mapInline: $('.Map--inline'),
+            showInfo: '.js-showAdditionalInfo',
+            sankey: {
+                mobile: '.Sankey-mobile',
+                desktop: '.Sankey-desktop',
+            },
+            additionalInfo: $('.AdditionalInfo'),
+            additionalInfoTitle: $('.AdditionalInfo-title'),
+            additionalInfoHeader: $('.AdditionalInfo-header'),
         },
         states: {
             loading: 'is-loading',
@@ -44,7 +59,7 @@
             visible: 'is-visible',
             mobile: false,
             desktop: false,
-            view: false,
+            view: 'licenses',
             map: false
         },
         data: {
@@ -164,6 +179,7 @@
         }
     };
 
+    google.charts.load('current', {'packages':['sankey']});
 
     IPPR.loading = function(){
         IPPR.dom.data.toggleClass(IPPR.states.loading);
@@ -172,7 +188,8 @@
     IPPR.getData = function(){
 
         var markup = [],
-            mustacheTpl = [];
+            mustacheTpl = [],
+            table,hierarchy,ownedLicenses;
 
         $.each(IPPR.data.tabs, function(key, tab){
 
@@ -191,10 +208,24 @@
 
                     Mustache.parse(mustacheTpl[key]);
 
+                    // TODO
+
+                    if (tab.name === 'companies'){
+                        table = '[{"name": "Name", "jurisdiction": "jurisdiction", "registration": "registration", "headquarters": "headquarters", "dateOfFormation": "dateOfFormation", "companyInfo": "comany Info"}]';
+                        ownedLicenses = '[{"name": "Name", "percent": "50%", "numbers": [123,234]},{"name": "Name", "percent": "50%", "numbers": [123,234]}]';
+                        hierarchy = '[{"title": "Title"}]';
+                    } else {
+                        table = '[{"licenceNumber": "Pel 003 - licence Number", "transferDate": "01/2012 - transferDate", "transferType": "Transfer type", "licenceSeller": "licenceSeller", "sellerStakePrior": "sellerStakePrior", "licenceBuyer": "licenceBuyer", "buyerStakeAfter": "buyerStakeAfter", "operatorPrior": "operatorPrior", "operatorAfter": "operatorAfter"}, {"licenceNumber": "Pel 003 - licence Number", "transferDate": "01/2012 - transferDate", "transferType": "Transfer type", "licenceSeller": "licenceSeller", "sellerStakePrior": "sellerStakePrior", "licenceBuyer": "licenceBuyer", "buyerStakeAfter": "buyerStakeAfter", "operatorPrior": "operatorPrior", "operatorAfter": "operatorAfter"} ]';
+                    }
+
                     markup[key] += Mustache.render(
                         mustacheTpl[key], {
                             title: k,
                             id: k,
+                            sankey:'[[ "Goverment of Namibia 100%", "Eco oil and gas 20%", 10, "20%"],[ "Eco oil and gas 20%", "Eco oil and gas 10%", 5, "10%" ],[ "Eco oil and gas 20%", "New Buyer 10%", 5, "10%" ],[ "Goverment of Namibia 100%", "Goverment of Namibia 80%", 8, "80%"]]', // TODO
+                            table: table, // TODO
+                            ownedLicenses: ownedLicenses,
+                            hierarchy: hierarchy,
                             concessionNumbers: concessions ? concessions.split(',') : false
                         }
                     );
@@ -313,6 +344,95 @@
         $(IPPR.dom.lists.main).find(IPPR.dom.lists.holder).scrollTop(top);
     });
 
+
+    IPPR.displayAdditionalInfo = function(item,type){
+        var sankeyData,tableData,title,mustacheTpl,finalTable,hierarchy,hierarchyTpl,finalHierarchy,ownedLicenses,ownedLicensesTpl,finalownedLicenses;
+        if (type === 'licence'){
+
+            $(IPPR.dom.additionalInfoTitle).html('Transaction history for Licence number <span></span>');
+            $(IPPR.dom.additionalInfoHeader).removeClass('green').addClass('blue');
+
+            sankeyData = item.data('sankey');
+            tableData = item.data('table');
+            title = item.find(IPPR.dom.lists.title).html();
+            mustacheTpl = $('.licenceTable-tpl').html();
+
+            Mustache.parse(mustacheTpl);
+
+            finalTable = Mustache.render(
+                mustacheTpl, {
+                    tableRows: Array.from(tableData),
+                }
+            );
+
+            IPPR.dom.additionalInfo.find('.OwnedLicenses').addClass(IPPR.states.hidden);
+            IPPR.dom.additionalInfo.find('.Hierarchy').addClass(IPPR.states.hidden);
+
+            if (IPPR.states.mobile){
+                $(IPPR.dom.lists.info).find(IPPR.dom.lists.infoName).html(title);
+                IPPR.sankey(sankeyData, IPPR.dom.sankey.mobile);
+                $(IPPR.dom.lists.info).find('.Table').html(finalTable);
+                IPPR.dom.additionalInfo.addClass(IPPR.states.hidden);
+            } else {
+                IPPR.dom.additionalInfo.find('.AdditionalInfo-title span').html(title);
+                $(IPPR.dom.sankey.desktop).removeClass(IPPR.states.hidden);
+                IPPR.sankey(sankeyData, IPPR.dom.sankey.desktop);
+                IPPR.dom.additionalInfo.find('.Table').html(finalTable);
+                IPPR.dom.additionalInfo.removeClass(IPPR.states.hidden);
+            }
+        } else {
+            $(IPPR.dom.additionalInfoHeader).removeClass('blue').addClass('green');
+            $(IPPR.dom.additionalInfoTitle).html('Additional information');
+
+            $(IPPR.dom.sankey.desktop).addClass(IPPR.states.hidden);
+            IPPR.dom.additionalInfo.removeClass(IPPR.states.hidden);
+
+            tableData = item.data('table');
+            ownedLicenses = item.data('ownedlicenses');
+            hierarchy = item.data('hierarchy');
+
+            mustacheTpl = $('.companyTable-tpl').html();
+            ownedLicensesTpl = $('.ownedLicenses-tpl').html();
+            hierarchyTpl = $('.hierarchy-tpl').html();
+
+            Mustache.parse(mustacheTpl);
+            Mustache.parse(ownedLicensesTpl);
+            Mustache.parse(hierarchyTpl);
+
+            finalTable = Mustache.render(
+                mustacheTpl, {
+                    tableRows: Array.from(tableData),
+                }
+            );
+
+            finalownedLicenses = Mustache.render(
+                ownedLicensesTpl, {
+                    licence: Array.from(ownedLicenses),
+                }
+            );
+
+            finalHierarchy = Mustache.render(
+                hierarchyTpl, {
+                    hierarchy: Array.from(hierarchy),
+                }
+            );
+
+            if (IPPR.states.mobile){
+                $(IPPR.dom.lists.extra).find('.Table').html(finalTable);
+                $(IPPR.dom.lists.extra).find('.OwnedLicenses').html(finalownedLicenses);
+                $(IPPR.dom.lists.extra).find('.Hierarchy').html(finalHierarchy);
+                IPPR.dom.additionalInfo.addClass(IPPR.states.hidden);
+            } else {
+                IPPR.dom.additionalInfo.find('.Table').html(finalTable);
+                IPPR.dom.additionalInfo.find('.OwnedLicenses').html(finalownedLicenses);
+                IPPR.dom.additionalInfo.find('.Hierarchy').html(finalHierarchy);
+                IPPR.dom.additionalInfo.removeClass(IPPR.states.hidden);
+            }
+        }
+
+
+    };
+
     // Mobile behaviour of the app
     IPPR.mobile = function(){
         IPPR.states.desktop = false;
@@ -376,6 +496,16 @@
             });
         });
 
+        $(document).on('click', IPPR.dom.showInfo, function(e){
+            e.preventDefault();
+
+            var item = $(this).closest(IPPR.dom.dataHolder).find('.collection-item.is-active');
+            IPPR.displayAdditionalInfo(item, 'licence');
+
+            $(IPPR.dom.lists.info).removeClass(IPPR.states.hidden);
+            IPPR.dom.dataHolder.css({transform: 'translate(-66.6666%,0)'});
+            $(window).scrollTop(0);
+        });
 
         IPPR.states.mobile = true;
     };
@@ -396,6 +526,7 @@
                 });
             },100);
             IPPR.states.view = $(this).data('view');
+            IPPR.dom.additionalInfo.addClass(IPPR.states.hidden);
         });
 
         IPPR.states.desktop = true;
@@ -446,13 +577,23 @@
                     IPPR.map.highlightLayer(key,id);
                 }
 
-
-
                 if(!$(this).closest(IPPR.dom.lists.extra).size()){
 
-                    if (IPPR.states.mobile){
+                    if(IPPR.states.desktop){
+
+                        if(IPPR.states.view === 'licenses'){
+                            IPPR.displayAdditionalInfo($(this), 'licence');
+                        } else {
+                            IPPR.displayAdditionalInfo($(this), 'company');
+                        }
+
+                    } else {
                         $(this).closest(IPPR.dom.lists.holder).addClass(IPPR.states.hidden);
+                        if(IPPR.states.view !== 'licenses'){
+                            IPPR.displayAdditionalInfo($(this), 'company');
+                        }
                     }
+
                     var companies = [];
 
                     $.each(IPPR.data.data[key][id], function(k, company){
@@ -538,14 +679,6 @@
                 }
             });
 
-        });
-
-
-        $(document).on('click', '.js-info', function(e){
-            e.preventDefault();
-            $(IPPR.dom.lists.info).removeClass(IPPR.states.hidden);
-            IPPR.dom.dataHolder.css({transform: 'translate(-66.6666%,0)'});
-            $(window).scrollTop(0);
         });
 
     };
@@ -666,17 +799,11 @@
 
 
 
-    IPPR.getData();
-    IPPR.initMap();
-    IPPR.initApp();
-    IPPR.mapTrigger();
-    U.addEvent(window, 'resize', U.debounce(function () {
-        IPPR.initApp();
-    }, 200));
 
 
-    IPPR.sankey = function(){
-        google.charts.load('current', {'packages':['sankey']});
+
+    IPPR.sankey = function(sankeyData, sankeyElem){
+
 
         var _self = {
             draw: function(){
@@ -685,26 +812,38 @@
 
                 data.addColumn('string', 'From');
                 data.addColumn('string', 'To');
-                data.addColumn('number', 'Weight');
-                data.addRows([
-                    [ 'A', 'X', 5 ],
-                    [ 'A', 'Y', 7 ],
-                    [ 'A', 'Z', 6 ]
-                ]);
+                data.addColumn('number', '');
+                data.addColumn({type:'string', role:'tooltip'});
+                data.addRows(sankeyData);
 
+                var colors = ['#7E9669', '#256A9A'];
 
                 // Sets chart options.
                 var options = {
+                    height: 400,
+                    sankey: {
+                        node: {
+                            colors: colors,
+                            width: 5,
+                            nodePadding: 150
+                        },
+                        link: {
+                            colorMode: 'gradient',
+                            colors: colors
+                        }
+                    }
                 };
 
                 // Instantiates and draws our chart, passing in some options.
-                var chart = new google.visualization.Sankey(document.getElementById('sankey'));
+                var chart = new google.visualization.Sankey(document.querySelector(sankeyElem));
 
                 chart.draw(data, options);
             }
         };
 
-        google.charts.setOnLoadCallback(_self.draw);
+        _self.draw();
+
+        // google.charts.setOnLoadCallback(_self.draw);
 
         U.addEvent(window, 'resize', U.debounce(function () {
             _self.draw();
@@ -712,6 +851,18 @@
 
     };
 
+
+
+
+
+
+    IPPR.getData();
+    IPPR.initMap();
+    IPPR.initApp();
+    IPPR.mapTrigger();
+    U.addEvent(window, 'resize', U.debounce(function () {
+        IPPR.initApp();
+    }, 200));
 
 
 
