@@ -581,7 +581,6 @@
                 }
 
                 var id = $(this).data('id'),
-                    body = {},
                     size = 0;
 
                 if(IPPR.states.desktop){
@@ -619,25 +618,12 @@
                             companies.push(company);
                         } else {
 
-                            body.address = company.company_address ? company.company_address : false;
-                            body.jurisdiction = company.company_jurisdiction ? company.company_jurisdiction : false;
-                            body.headquarters = company.company_hq ? company.company_hq : false;
-                            body.formed = company.company_formed ? company.company_formed : false;
-
-                            body.website = company.company_website ? company.company_website : false;
-
                             Mustache.parse(mustacheTpl[key]);
 
                             markup[key] += Mustache.render(
                                 mustacheTpl[key], {
                                     active: key <= 2 ? true : false,
-                                    companyId: company.company_id,
-                                    title: company.company_name,
-                                    address: body.address,
-                                    jurisdiction: body.jurisdiction,
-                                    headquarters: body.headquarters,
-                                    formed: body.formed,
-                                    website: body.website
+                                    companyInfo: company
                                 }
                             );
 
@@ -873,15 +859,21 @@
 
 
 
+    if ($('body').is('.App')){
 
-
-    IPPR.getData();
-    IPPR.initMap();
-    IPPR.initApp();
-    IPPR.mapTrigger();
-    U.addEvent(window, 'resize', U.debounce(function () {
+        IPPR.getData();
+        IPPR.initMap();
         IPPR.initApp();
-    }, 200));
+        IPPR.mapTrigger();
+        U.addEvent(window, 'resize', U.debounce(function () {
+            IPPR.initApp();
+        }, 200));
+
+        if (window.location.hash){
+            $('.Header-tabs a[href="'+window.location.hash+'"]').click();
+        }
+
+    }
 
 
 

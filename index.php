@@ -74,7 +74,7 @@
     <!-- endbuild -->
 
 </head>
-<body>
+<body class="App">
 
     <header class="Header center-align">
         <div class="Header-inner">
@@ -93,7 +93,7 @@
 
             <ul class="Header-navigation">
                 <li><a href="about.php">About</a></li>
-                <li><a href="help.php">Help</a></li>
+                <li><a href="faq.php">FAQ</a></li>
             </ul>
 
 
@@ -257,22 +257,25 @@
 
             <script type="x-tmpl-mustache" class="extra-tpl">
                 <li{{#active}} class="active"{{/active}}>
-                    <div class="collapsible-header{{#active}} active{{/active}}">
-                        <div class="List-title">{{ title }}</div>
-                        <i class="material-icons">keyboard_arrow_down</i>
-                    </div>
-                    <div class="collapsible-body"{{#active}} style="display: block;"{{/active}}>
-                        <ul>
-                            <li>
-                                {{#address}}<p><strong>Address:</strong> {{address}}</p>{{/address}}
-                                {{#jurisdiction}}<p><strong>Jurisdiction:</strong> {{jurisdiction}}</p>{{/jurisdiction}}
-                                {{#headquarters}}<p><strong>Headquarters:</strong> {{headquarters}}</p>{{/headquarters}}
-                                {{#formed}}<p><strong>Formed on:</strong> {{formed}}</p>{{/formed}}
-                                {{#website}}<p><strong>Website:</strong> <a href="{{website}}">{{website}}</a></p>{{/website}}
-                            </li>
-                        </ul>
-                        <p class="List-companyInfo" data-id="{{ companyId }}"><i class="material-icons">info</i></p>
-                    </div>
+                    {{#companyInfo}}
+                        <div class="collapsible-header{{#active}} active{{/active}}">
+                            <div class="List-title">{{ company_name }}</div>
+                            <i class="material-icons">keyboard_arrow_down</i>
+                        </div>
+                        <div class="collapsible-body"{{#active}} style="display: block;"{{/active}}>
+
+                            <ul>
+                                <li>
+                                    {{#company_address}}<p><strong>Address:</strong> {{company_address}}</p>{{/company_address}}
+                                    {{#company_jurisdiction}}<p><strong>Jurisdiction:</strong> {{company_jurisdiction}}</p>{{/company_jurisdiction}}
+                                    {{#company_hq}}<p><strong>Headquarters:</strong> {{company_hq}}</p>{{/company_hq}}
+                                    {{#company_formed}}<p><strong>Formed on:</strong> {{company_formed}}</p>{{/company_formed}}
+                                    {{#company_website}}<p><strong>Website:</strong> <a href="{{company_website}}">{{company_website}}</a></p>{{/company_website}}
+                                </li>
+                            </ul>
+                            <p class="List-companyInfo" data-id="{{ company_id }}"><i class="material-icons">info</i></p>
+                        </div>
+                    {{/companyInfo}}
                 </li>
             </script>
 
@@ -445,13 +448,32 @@
     <a class="Map-trigger btn-floating btn-large waves-effect waves-light red"><i class="material-icons">map</i></a>
 
 
-    <footer>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    <footer class="Footer">
+        <div class="row center-align">
+            <div class="col s12">
+                <p class="Header-title">
+                    <span class="Header-title--secondary">Transparent Oil</span>
+                    <span class="Header-title--primary">Namibia</span>
+                </p>
+            </div>
+        </div>
+        <div class="row center-align Footer-logos">
+            <div class="col s12 m4 l2 offset-l3">
+                <a href="#">
+                    <img src="images/dist/ippr.png" alt="IPPR" />
+                </a>
+            </div>
+            <div class="col s12 m4 l2">
+                <a href="https://www.theengineroom.org/" title="The engine room - Accelerating social change">
+                    <img src="images/dist/engineRoom.png" alt="The engine room" />
+                </a>
+            </div>
+            <div class="col s12 m4 l2">
+                <a href="http://web.burza.hr/" title="web.burza Digital agency">
+                    <img src="images/dist/wb.png" alt="web.burza" />
+                </a>
+            </div>
+        </div>
     </footer>
 
     <script type="x-tmpl-mustache" class="licenceTable-tpl">

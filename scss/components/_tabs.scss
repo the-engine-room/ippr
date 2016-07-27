@@ -3,7 +3,7 @@
    ==================================== */
 
 .tabs .indicator { display: none; }
-.tabs {
+.Header-tabs {
 
     display: inline-block;
     vertical-align: bottom;
@@ -38,27 +38,53 @@
         }
 
         a {
+            display: block;
             background: rgba(0,0,0,0.40);
             padding: 20px 30px;
             color: #FFFFFF;
             text-transform: uppercase;
+
+            @media #{$large-and-up} {
+                display: inline-block;
+                border-bottom: 5px solid;
+                .tabs & {
+                    transform: translate(0,5px);
+                }
+            }
 
             @include fluid-type(font-size, 320px, 1900px, 15px, 20px);
 
             backface-visibility: hidden;
             transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
 
+
             &.active {
                 color: #fff;
                 &:hover {
                     color: #fff;
                 }
+
+                @media #{$large-and-up} {
+                    transform: translate(0,0);
+                }
             }
 
             &:hover {
                 color: inherit;
+                @media #{$large-and-up} {
+                    transform: translate(0,0);
+                }
             }
         }
+
+        .brand.blue {
+            border-color: #256A9A;
+        }
+
+        .brand.green {
+            border-color: #7E9669;
+        }
+
     }
 }
 

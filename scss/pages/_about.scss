@@ -1,0 +1,22 @@
+/* ====================================
+   About
+   ==================================== */
+.About {
+
+    ul,ol {
+        padding: 0;
+        li {
+            list-style-type: disc;
+            list-style-position: inside;
+        }
+    }
+
+    .collapsible li {
+        list-style-type: none;
+    }
+
+    ol li {
+        list-style-type: decimal;
+    }
+
+}
