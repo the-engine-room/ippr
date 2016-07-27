@@ -82,8 +82,10 @@
             <div class="row">
                 <div class="col s12">
                     <h1 class="Header-title">
-                        <span class="Header-title--secondary">Transparent Oil</span>
-                        <span class="Header-title--primary">Namibia</span>
+                        <a href="/">
+                            <span class="Header-title--secondary">Transparent Oil</span>
+                            <span class="Header-title--primary">Namibia</span>
+                        </a>
                     </h1>
                 </div>
                 <div class="col s12 m6 offset-m3">

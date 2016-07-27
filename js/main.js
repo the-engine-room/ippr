@@ -255,7 +255,7 @@
 
     IPPR.initMap = function(){
 
-        $.getJSON('data/data2.json', function(data){
+        $.getJSON('/data/data2.json', function(data){
 
             $.each(IPPR.dom.map, function(key,val){
 
@@ -869,8 +869,9 @@
             IPPR.initApp();
         }, 200));
 
+
         if (window.location.hash){
-            $('.Header-tabs a[href="'+window.location.hash+'"]').click();
+            $('.Header-tabs a[href="/'+window.location.hash+'"]').click();
         }
 
     }

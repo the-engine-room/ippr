@@ -10733,6 +10733,10 @@ html.js .js-isHidden {
   position: relative;
 }
 
+.Header-title a {
+  color: #fff;
+}
+
 .Header-title--secondary {
   font-size: 20px;
   opacity: 0.7;
