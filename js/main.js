@@ -83,29 +83,31 @@
             markers: [],
             styles: {
                 default: {
-                    weight: 2,
-                    color: 'green',
+                    weight: 1,
+                    color: '#256A9A',
                     dashArray: '',
-                    fillOpacity: 0.5
+                    fillOpacity: 0.75,
                 },
                 active: {
                     weight: 2,
-                    color: '#666',
+                    color: '#256A9A',
                     dashArray: '',
                     fillOpacity: 1
+                },
+                filtered: {
+                    weight: 3,
+                    color: '#256A9A',
+                    dashArray: '',
+                    fillOpacity: 0.5
                 }
             },
             highlightLayer: function(key,id){
                 $.each(IPPR.map.layers[key], function(k,value){
 
-                    console.log(id);
-                    console.log(value);
-
                     IPPR.map.layers[key][k].setStyle(IPPR.map.styles.default);
                     $(IPPR.map.markers[key][k]._icon).removeClass(IPPR.states.active);
 
                     if (value.ID === id || value.company_id === id){
-                        console.log('aha');
                         IPPR.map.layers[key][k].setStyle(IPPR.map.styles.active);
                         $(IPPR.map.markers[key][k]._icon).addClass(IPPR.states.active);
 
@@ -140,7 +142,7 @@
                                 IPPR.map.layers[index][key].setStyle(IPPR.map.styles.active);
                                 $(IPPR.map.markers[index][key]._icon).addClass(IPPR.states.active);
                             } else {
-                                IPPR.map.layers[index][key].setStyle(IPPR.map.styles.default);
+                                IPPR.map.layers[index][key].setStyle(IPPR.map.styles.filtered);
                                 $(IPPR.map.markers[index][key]._icon).removeClass(IPPR.states.active);
                             }
 
@@ -218,7 +220,6 @@
                         title = value[0].company_name;
                         table = '[{"name": "Nameasd", "jurisdiction": "jurisdictionasdasd", "registration": "registrationasdasd", "headquarters": "headquartersasd", "dateOfFormation": "dateOfFormationasdasd", "companyInfo": "comany Infoas das"}]';
                         ownedLicenses = '[{"name": "Name", "percent": "50%", "numbers": [123,234]},{"name": "Name", "percent": "50%", "numbers": [123,234]}]';
-                        hierarchy = '[{"title": "Title", "items": ["Nationality: Croatian", "Start date: ", "Role: Direcctor"], "percent": "80%"},{"title": "Title", "items": ["Nationality: Croatian", "Start date: ", "Role: Direcctor"], "percent": "80%"}]';
                     } else {
                         title = k;
                         table = '[{"licenceNumber": "Pel 003 - licence Number", "transferDate": "01/2012 - transferDate", "transferType": "Transfer type", "licenceSeller": "licenceSeller", "sellerStakePrior": "sellerStakePrior", "licenceBuyer": "licenceBuyer", "buyerStakeAfter": "buyerStakeAfter", "operatorPrior": "operatorPrior", "operatorAfter": "operatorAfter"}, {"licenceNumber": "Pel 003 - licence Number", "transferDate": "01/2012 - transferDate", "transferType": "Transfer type", "licenceSeller": "licenceSeller", "sellerStakePrior": "sellerStakePrior", "licenceBuyer": "licenceBuyer", "buyerStakeAfter": "buyerStakeAfter", "operatorPrior": "operatorPrior", "operatorAfter": "operatorAfter"} ]';
@@ -353,7 +354,7 @@
 
 
     IPPR.displayAdditionalInfo = function(item,type){
-        var sankeyData,tableData,title,mustacheTpl,finalTable,hierarchy,hierarchyTpl,finalHierarchy,ownedLicenses,ownedLicensesTpl,finalownedLicenses;
+        var sankeyData,tableData,title,mustacheTpl,finalTable,hierarchyTpl,finalHierarchy;
         if (type === 'licence'){
 
             $(IPPR.dom.additionalInfoTitle).html('Transaction history for Licence number <span></span>');
@@ -394,46 +395,54 @@
             $(IPPR.dom.sankey.desktop).addClass(IPPR.states.hidden);
             IPPR.dom.additionalInfo.removeClass(IPPR.states.hidden);
 
-            tableData = item.data('table');
-            ownedLicenses = item.data('ownedlicenses');
-            hierarchy = item.data('hierarchy');
+            tableData = IPPR.data.data[1][item.data('id')][0];
+            // ownedLicenses = item.data('ownedlicenses');
 
             mustacheTpl = $('.companyTable-tpl').html();
-            ownedLicensesTpl = $('.ownedLicenses-tpl').html();
+            // ownedLicensesTpl = $('.ownedLicenses-tpl').html();
             hierarchyTpl = $('.hierarchy-tpl').html();
 
             Mustache.parse(mustacheTpl);
-            Mustache.parse(ownedLicensesTpl);
+            // Mustache.parse(ownedLicensesTpl);
             Mustache.parse(hierarchyTpl);
 
             finalTable = Mustache.render(
                 mustacheTpl, {
-                    tableRows: Array.from(tableData),
+                    tableRows: tableData,
                 }
             );
 
-            finalownedLicenses = Mustache.render(
-                ownedLicensesTpl, {
-                    licence: Array.from(ownedLicenses),
-                }
-            );
+            // finalownedLicenses = Mustache.render(
+            //     ownedLicensesTpl, {
+            //         licence: Array.from(ownedLicenses),
+            //     }
+            // );
 
-            finalHierarchy = Mustache.render(
-                hierarchyTpl, {
-                    hierarchy: Array.from(hierarchy),
+
+            $.getJSON('https://namibmap.carto.com/api/v2/sql/?q=SELECT * FROM companies_people WHERE company_id = ' + item.data('id'), function(data) {
+
+                finalHierarchy = Mustache.render(
+                    hierarchyTpl, {
+                        hierarchy: data.rows,
+                    }
+                );
+
+                if (IPPR.states.mobile){
+                    $(IPPR.dom.lists.extra).find('.Hierarchy').html(finalHierarchy);
+                } else {
+                    IPPR.dom.additionalInfo.find('.Hierarchy').html(finalHierarchy).removeClass(IPPR.states.hidden);
                 }
-            );
+            });
 
             if (IPPR.states.mobile){
                 $(IPPR.dom.lists.extra).find('.Table').html(finalTable);
-                $(IPPR.dom.lists.extra).find('.OwnedLicenses').html(finalownedLicenses);
-                $(IPPR.dom.lists.extra).find('.Hierarchy').html(finalHierarchy);
+                // $(IPPR.dom.lists.extra).find('.OwnedLicenses').html(finalownedLicenses);
                 IPPR.dom.additionalInfo.addClass(IPPR.states.hidden);
             } else {
                 IPPR.dom.additionalInfo.removeClass(IPPR.states.hidden);
                 IPPR.dom.additionalInfo.find('.Table').html(finalTable).removeClass(IPPR.states.hidden);
-                IPPR.dom.additionalInfo.find('.OwnedLicenses').html(finalownedLicenses).removeClass(IPPR.states.hidden);
-                IPPR.dom.additionalInfo.find('.Hierarchy').html(finalHierarchy).removeClass(IPPR.states.hidden);
+                // IPPR.dom.additionalInfo.find('.OwnedLicenses').html(finalownedLicenses).removeClass(IPPR.states.hidden);
+
 
             }
         }

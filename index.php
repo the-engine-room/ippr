@@ -508,12 +508,12 @@
                 <tbody>
                     {{#tableRows}}
                         <tr>
-                            <td>{{name}}</td>
-                            <td>{{jurisdiction}}</td>
-                            <td>{{registration}}</td>
-                            <td>{{headquarters}}</td>
-                            <td>{{dateOfFormation}}</td>
-                            <td>{{companyInfo}}</td>
+                            <td>{{company_name}}</td>
+                            <td>{{company_jurisdiction}}</td>
+                            <td>{{company_registration}}</td>
+                            <td>{{company_hq}}</td>
+                            <td>{{company_formed}}</td>
+                            <td>{{company_address}}</td>
                         </tr>
                     {{/tableRows}}
                 </tbody>
@@ -536,17 +536,15 @@
     </script>
 
     <script type="x-tmpl-mustache" class="hierarchy-tpl">
-
         <div class="col s12"><p class="Hierarchy-title">Company hierarchy</p></div>
-
         {{#hierarchy}}
             <div class="col s6 m4 l2">
                 <div class="Block">
-                    <p class="Block-title">{{title}}</p>
-                    <ul>
-                        {{#items}}<li>{{.}}</li>{{/items}}
-                    </ul>
-                    <p class="Block-title">{{percent}}</p>
+                    <p class="Block-title">{{person_name}}</p>
+                    {{#person_nationality}}<p>Nationality: {{person_nationality}}</p>{{/person_nationality}}
+                    {{#start_date}}<p>Start date: {{start_date}}</p>{{/start_date}}
+                    {{#role_title}}<p>Role: {{role_title}}</p>{{/role_title}}
+                    {{#percent_interest}}<p class="Block-title">{{percent_interest}}%</p>{{/percent_interest}}
                 </div>
             </div>
         {{/hierarchy}}
