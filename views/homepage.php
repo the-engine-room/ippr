@@ -133,6 +133,7 @@
                             {{.}}
                         {{/concessionNumbers}}
                     </span>
+                    {{#expiration}}<span class="expiration u-isHidden">1</span>{{/expiration}}
                 </li>
             </script>
 
@@ -147,11 +148,11 @@
 
                             <ul>
                                 <li>
-                                    {{#company_address}}<p><strong>Address:</strong> {{company_address}}</p>{{/company_address}}
-                                    {{#company_jurisdiction}}<p><strong>Jurisdiction:</strong> {{company_jurisdiction}}</p>{{/company_jurisdiction}}
-                                    {{#company_hq}}<p><strong>Headquarters:</strong> {{company_hq}}</p>{{/company_hq}}
-                                    {{#company_formed}}<p><strong>Formed on:</strong> {{company_formed}}</p>{{/company_formed}}
-                                    {{#company_website}}<p><strong>Website:</strong> <a href="{{company_website}}">{{company_website}}</a></p>{{/company_website}}
+                                    <p><strong>Address:</strong> {{company_address}}</p>
+                                    <p><strong>Jurisdiction:</strong> {{company_jurisdiction}}</p>
+                                    <p><strong>Headquarters:</strong> {{company_hq}}</p>
+                                    <p><strong>Formed on:</strong> {{company_formed}}</p>
+                                    <p><strong>Website:</strong> <a href="{{company_website}}">{{company_website}}</a></p>
                                 </li>
                             </ul>
                             <p class="List-companyInfo" data-id="{{ company_id }}"><i class="material-icons">info</i></p>
@@ -176,13 +177,10 @@
                 <div class="Filters">
                     <ul class="Filters-list">
                         <li class="Filters-item">
-                            <span class="chip Filters-itemFilter" data-filter="expiration">Soon to expire</span>
+                            <span class="chip Filters-itemFilter" data-filter="expiration">Foreign Owned</span>
                         </li>
                         <li class="Filters-item">
-                            <span class="chip Filters-itemFilter">Without ownership</span>
-                        </li>
-                        <li class="Filters-item">
-                            <span class="chip Filters-itemFilter">Recently changed ownership</span>
+                            <span class="chip Filters-itemFilter">Namibian Owned</span>
                         </li>
                     </ul>
                 </div>
@@ -206,13 +204,10 @@
                                 <i class="material-icons small Filters-trigger js-dropdown-trigger" data-beloworigin="true" data-activates='filters2'>filter_list</i>
                                 <ul class="Filters-list z-depth-1" id="filters2">
                                     <li class="Filters-item">
-                                        <span class="chip Filters-itemFilter" data-filter="expiration">Soon to expire <i class="material-icons Filters-remove">close</i></span>
+                                        <span class="chip Filters-itemFilter" data-filter="expiration">Foreign Owned <i class="material-icons Filters-remove">close</i></span>
                                     </li>
                                     <li class="Filters-item">
-                                        <span class="chip Filters-itemFilter" data-filter="ownership">Without ownership <i class="material-icons Filters-remove">close</i></span>
-                                    </li>
-                                    <li class="Filters-item">
-                                        <span class="chip Filters-itemFilter" data-filter="changedOwnership">Recently changed ownership <i class="material-icons Filters-remove">close</i></span>
+                                        <span class="chip Filters-itemFilter" data-filter="ownership">Namibian Owned <i class="material-icons Filters-remove">close</i></span>
                                     </li>
                                 </ul>
                             </div>
@@ -415,10 +410,10 @@
             <div class="col s6 m4 l2">
                 <div class="Block">
                     <p class="Block-title">{{person_name}}</p>
-                    {{#person_nationality}}<p>Nationality: {{person_nationality}}</p>{{/person_nationality}}
-                    {{#start_date}}<p>Start date: {{start_date}}</p>{{/start_date}}
-                    {{#role_title}}<p>Role: {{role_title}}</p>{{/role_title}}
-                    {{#percent_interest}}<p class="Block-title">{{percent_interest}}%</p>{{/percent_interest}}
+                    <p>Nationality: {{person_nationality}}</p>
+                    <p>Start date: {{start_date}}</p>
+                    <p>Role: {{role_title}}</p>
+                    <p class="Block-title">{{percent_interest}}%</p>
                 </div>
             </div>
         {{/hierarchy}}

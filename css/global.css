@@ -10735,6 +10735,7 @@ html.js .js-isHidden {
 
 .Header-title a {
   color: #fff;
+  display: inline-block;
 }
 
 .Header-title--secondary {
@@ -11482,7 +11483,7 @@ html.js .js-isHidden {
           transform: translate(-50%, -50%);
 }
 
-.Map-label.is-active {
+.Map-label.is-selected {
   color: #fff;
 }
 

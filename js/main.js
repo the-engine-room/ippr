@@ -57,10 +57,12 @@
             animate: 'has-animation',
             hidden: 'u-isHidden',
             visible: 'is-visible',
+            selected: 'is-selected',
             mobile: false,
             desktop: false,
             view: 'licenses',
-            map: false
+            map: false,
+            filters: false
         },
         data: {
             data: {},
@@ -102,14 +104,23 @@
                 }
             },
             highlightLayer: function(key,id){
+                console.log(IPPR.states.filters);
+
                 $.each(IPPR.map.layers[key], function(k,value){
 
-                    IPPR.map.layers[key][k].setStyle(IPPR.map.styles.default);
-                    $(IPPR.map.markers[key][k]._icon).removeClass(IPPR.states.active);
+                    if (!IPPR.states.filters){
+                        IPPR.map.layers[key][k].setStyle(IPPR.map.styles.default);
+                        $(IPPR.map.markers[key][k]._icon).removeClass(IPPR.states.active);
+                        $(IPPR.map.markers[key][k]._icon).removeClass(IPPR.states.selected);
+                        IPPR.map.layers[key][k].isActive = false;
+                        IPPR.map.markers[key][k].isActive = false;
+                    }
 
                     if (value.ID === id || value.company_id === id){
                         IPPR.map.layers[key][k].setStyle(IPPR.map.styles.active);
-                        $(IPPR.map.markers[key][k]._icon).addClass(IPPR.states.active);
+                        IPPR.map.layers[key][k].isActive = true;
+                        IPPR.map.markers[key][k].isActive = true;
+                        $(IPPR.map.markers[key][k]._icon).addClass(IPPR.states.selected);
 
                         if(IPPR.states.mobile){
                             setTimeout(function(){
@@ -127,33 +138,40 @@
                     $.each(v, function(index) {
                        IPPR.map.layers[k][index].setStyle(IPPR.map.styles.default);
                        $(IPPR.map.markers[k][index]._icon).removeClass(IPPR.states.active);
+                       $(IPPR.map.markers[k][index]._icon).removeClass(IPPR.states.selected);
                     });
                 });
             },
-            searchLayers: function(inputValue){
-                if(inputValue){
-                    IPPR.filters.clear();
-                    IPPR.dom.filters.searchTrigger.addClass(IPPR.states.hidden);
-                    IPPR.dom.filters.searchRemove.addClass(IPPR.states.visible);
-                    $.each(IPPR.map.layers, function(index, val) {
-                        $.each(val, function(key, value) {
+            searchLayers: function(type){
 
-                            if(value.ID.search(new RegExp(inputValue, 'ig')) > -1 || value.concession_number.search(new RegExp(inputValue, 'ig')) > -1 || value.company_name.search(new RegExp(inputValue, 'ig')) > -1 || value[inputValue]){
-                                IPPR.map.layers[index][key].setStyle(IPPR.map.styles.active);
-                                $(IPPR.map.markers[index][key]._icon).addClass(IPPR.states.active);
-                            } else {
-                                IPPR.map.layers[index][key].setStyle(IPPR.map.styles.filtered);
-                                $(IPPR.map.markers[index][key]._icon).removeClass(IPPR.states.active);
-                            }
-
-                        });
-                    });
-
-                } else {
-                    IPPR.dom.filters.searchTrigger.removeClass(IPPR.states.hidden);
-                    IPPR.dom.filters.searchRemove.removeClass(IPPR.states.visible);
+                if (!IPPR.states.filters){
                     IPPR.map.resetLayers();
                 }
+
+                var key = type === 'licenses' ? 0 : 2,
+                    listItems = $(IPPR.dom.lists.main+':visible').find('.collection-item'),
+                    ids = [];
+
+                $.each(listItems, function(index, val) {
+                    ids.push($(val).data('id'));
+                });
+
+
+                $.each(IPPR.map.layers[key], function(k,v){
+                    if($.inArray(v.ID, ids) < 0 && $.inArray(v.company_id, ids) < 0){
+                        IPPR.map.layers[key][k].setStyle(IPPR.map.styles.filtered);
+                        $(IPPR.map.markers[key][k]._icon).removeClass(IPPR.states.active);
+                        $(IPPR.map.markers[key][k]._icon).removeClass(IPPR.states.selected);
+                        IPPR.map.layers[key][k].isActive = false;
+                        IPPR.map.markers[key][k].isActive = false;
+                    } else {
+                        $(IPPR.map.markers[key][k]._icon).removeClass(IPPR.states.selected);
+                        IPPR.map.layers[key][k].setStyle(IPPR.map.styles.default);
+                        $(IPPR.map.markers[key][k]._icon).addClass(IPPR.states.active);
+                        IPPR.map.layers[key][k].isActive = true;
+                        IPPR.map.markers[key][k].isActive = true;
+                    }
+                });
             }
         },
         filters: {
@@ -195,7 +213,7 @@
 
         var markup = [],
             mustacheTpl = [],
-            table,hierarchy,ownedLicenses,title;
+            table,hierarchy,ownedLicenses,title,expiration = false;
 
         $.each(IPPR.data.tabs, function(key, tab){
 
@@ -205,7 +223,9 @@
             $.getJSON('https://namibmap.carto.com/api/v2/sql/?q=' + tab.sql, function(data) {
                 IPPR.data.data[key] = IPPR.helpers.groupBy(data.rows, tab.groupBy);
 
+                var cnt = 0;
                 $.each(IPPR.data.data[key], function(k, value){
+                    cnt++;
 
                     var concessions = '';
                     $.each(value, function(k,v){
@@ -214,7 +234,11 @@
 
                     Mustache.parse(mustacheTpl[key]);
 
-                    // TODO
+                    if (cnt < 4){
+                        expiration = true;
+                    } else {
+                        expiration = false;
+                    }
 
                     if (tab.name === 'companies'){
                         title = value[0].company_name;
@@ -233,6 +257,7 @@
                             table: table, // TODO
                             ownedLicenses: ownedLicenses,
                             hierarchy: hierarchy,
+                            expiration: expiration,
                             concessionNumbers: concessions ? concessions.split(',') : false
                         }
                     );
@@ -287,8 +312,10 @@
 
 
                     // TMP, REMOVE ME
-                    if (cnt % 4 === 0){
+                    if (cnt < 4){
                         layer.expiration = true;
+                    } else {
+                        layer.expiration = false;
                     }
                     // TMP, REMOVE ME
 
@@ -305,12 +332,13 @@
 
                     function onClick(){
 
-                        $.each(IPPR.filters.list, function(k,v){
-                            v.filter();
-                            v.search();
-                        });
+                        if (IPPR.states.filters){
+                            IPPR.map.searchLayers(IPPR.states.view);
+                        }
 
-                        $('.'+IPPR.filters.options.searchClass).val('').trigger('keyup').blur();
+                        if (!this.isActive){
+                            IPPR.dom.filters.searchRemove.click();
+                        }
 
                         var elem, top;
                         if (that.is('.licenses')){
@@ -324,6 +352,8 @@
                             top = elem.position().top;
                             $(IPPR.dom.lists.main).find(IPPR.dom.lists.holder).scrollTop(top);
                         }
+
+
                     }
 
                     marker.on('click',onClick);
@@ -561,6 +591,10 @@
 
             $('#tab-'+key).on('click', '.collection-item', function(){
 
+                if (IPPR.states.filters){
+                    IPPR.map.searchLayers(IPPR.states.view);
+                }
+
                 markup[key] = '';
 
                 IPPR.dom.mapTrigger.removeClass(IPPR.states.active);
@@ -695,10 +729,7 @@
 
             $('#tab-'+key).find(IPPR.dom.filters.item).on('click', function() {
 
-                IPPR.filters.list[key].filter();
-                IPPR.filters.list[key].search();
-
-                $('.'+IPPR.filters.options.searchClass).val('').trigger('keyup').blur();
+                IPPR.states.filters = true;
 
                 if ($(this).is('.'+IPPR.states.active)){
                     IPPR.filters.list[key].filter();
@@ -710,8 +741,6 @@
                 } else {
 
                     var value = $(this).data('filter');
-
-                    IPPR.map.searchLayers(value);
 
                     $(this).closest(IPPR.dom.filters.main).find('.chip').removeClass(IPPR.states.active);
                     $(this).addClass(IPPR.states.active);
@@ -729,6 +758,7 @@
                         return false;
                     });
 
+                    IPPR.map.searchLayers(IPPR.states.view);
                 }
             });
 
@@ -736,8 +766,22 @@
         });
 
 
+        $.each(IPPR.filters.list, function(index, val) {
+            val.on('updated', function(){
+                IPPR.map.searchLayers(IPPR.states.view);
+            });
+        });
+
         $('.'+IPPR.filters.options.searchClass).on('keyup', function(){
-            IPPR.map.searchLayers($(this).val());
+            if ($(this).val()){
+                IPPR.states.filters = true;
+                IPPR.dom.filters.searchTrigger.addClass(IPPR.states.hidden);
+                IPPR.dom.filters.searchRemove.addClass(IPPR.states.visible);
+            } else {
+                IPPR.states.filters = false;
+                IPPR.dom.filters.searchTrigger.removeClass(IPPR.states.hidden);
+                IPPR.dom.filters.searchRemove.removeClass(IPPR.states.visible);
+            }
         });
 
 
@@ -747,6 +791,9 @@
             $.each(IPPR.filters.list, function(k){
                 IPPR.filters.list[k].search();
             });
+            IPPR.states.filters = false;
+            IPPR.dom.filters.searchTrigger.removeClass(IPPR.states.hidden);
+            IPPR.dom.filters.searchRemove.removeClass(IPPR.states.visible);
         });
 
 
