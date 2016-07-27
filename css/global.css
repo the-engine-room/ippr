@@ -10906,11 +10906,6 @@ html.js .js-isHidden {
     display: inline-block;
     border-bottom: 5px solid;
   }
-  .tabs .Header-tabs .tab a {
-    -webkit-transform: translate(0, 5px);
-        -ms-transform: translate(0, 5px);
-            transform: translate(0, 5px);
-  }
 }
 
 .Header-tabs .tab a {
@@ -10963,6 +10958,14 @@ html.js .js-isHidden {
 
 .Header-tabs .tab .brand.green {
   border-color: #7E9669;
+}
+
+@media only screen and (min-width: 993px) {
+  .tabs a {
+    -webkit-transform: translate(0, 5px);
+        -ms-transform: translate(0, 5px);
+            transform: translate(0, 5px);
+  }
 }
 
 /* ====================================
@@ -11554,6 +11557,10 @@ html.js .js-isHidden {
 
 .Hierarchy-title {
   font-size: 16px;
+}
+
+.Hierarchy-data {
+  margin-bottom: 20px;
 }
 
 .Block {

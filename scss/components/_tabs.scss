@@ -47,9 +47,6 @@
             @media #{$large-and-up} {
                 display: inline-block;
                 border-bottom: 5px solid;
-                .tabs & {
-                    transform: translate(0,5px);
-                }
             }
 
             @include fluid-type(font-size, 320px, 1900px, 15px, 20px);
@@ -85,6 +82,12 @@
             border-color: #7E9669;
         }
 
+    }
+}
+
+@media #{$large-and-up} {
+    .tabs a {
+        transform: translate(0,5px);
     }
 }
 

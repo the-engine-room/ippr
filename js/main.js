@@ -104,7 +104,6 @@
                 }
             },
             highlightLayer: function(key,id){
-                console.log(IPPR.states.filters);
 
                 $.each(IPPR.map.layers[key], function(k,value){
 
@@ -264,7 +263,7 @@
                 });
 
                 $('#tab-'+key).find(IPPR.dom.lists.main).find(IPPR.dom.lists.list).html(markup[key]);
-                $('#tab-'+key).find(IPPR.dom.lists.main).find(IPPR.dom.lists.count).html(Object.keys(IPPR.data.data[key]).length);
+                $('#tab-'+key).find(IPPR.dom.lists.main).find(IPPR.dom.lists.count).html('(' + Object.keys(IPPR.data.data[key]).length + ')');
 
                 if (Object.keys(IPPR.data.tabs).length === parseInt(key)+1){
                     IPPR.loading();
@@ -559,6 +558,7 @@
 
     // Desktop behaviour of the app
     IPPR.desktop = function(){
+
         IPPR.states.mobile = false;
         IPPR.dom.tabs.off('click.desktop');
         $(IPPR.dom.lists.extra).removeClass(IPPR.states.hidden);
@@ -703,7 +703,7 @@
 
                     $('#tab-'+key).find(IPPR.dom.lists.extra).removeClass(IPPR.states.hidden);
                     $('#tab-'+key).find(IPPR.dom.lists.extra).find(IPPR.dom.lists.list).html(markup[key]);
-                    $('#tab-'+key).find(IPPR.dom.lists.extra).find(IPPR.dom.lists.count).html(size);
+                    $('#tab-'+key).find(IPPR.dom.lists.extra).find(IPPR.dom.lists.count).html('('+size+')');
 
                     $('#tab-'+key).find(IPPR.dom.lists.headerActive).removeClass(IPPR.states.hidden);
                     $('#tab-'+key).find(IPPR.dom.lists.headerInActive).addClass(IPPR.states.hidden);

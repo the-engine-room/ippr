@@ -35,7 +35,7 @@
                     <div class="List List--main z-depth-1" data-level="0">
                         <div class="List-header brand blue">
                             <span class="hide-on-large-only List-back"><i class="material-icons">keyboard_arrow_left</i></span>
-                            <span>Licenses (<span class="List-count"></span>)</span>
+                            <span>Licenses <span class="List-count"></span></span>
                         </div>
 
 
@@ -78,7 +78,7 @@
                         <div class="List-header brand green">
                             <div class="List-headerActive">
                                 <span class="hide-on-large-only List-back"><i class="material-icons">keyboard_arrow_left</i></span>
-                                <span>Companies in ownership (<span class="List-count"></span>)</span>
+                                <span>Companies in ownership <span class="List-count"></span></span>
                             </div>
                         </div>
 
@@ -148,11 +148,11 @@
 
                             <ul>
                                 <li>
-                                    <p><strong>Address:</strong> {{company_address}}</p>
-                                    <p><strong>Jurisdiction:</strong> {{company_jurisdiction}}</p>
-                                    <p><strong>Headquarters:</strong> {{company_hq}}</p>
-                                    <p><strong>Formed on:</strong> {{company_formed}}</p>
-                                    <p><strong>Website:</strong> <a href="{{company_website}}">{{company_website}}</a></p>
+                                    <p><strong>Address:</strong> {{company_address}}{{^company_address}}<i>unknown</i>{{/company_address}}</p>
+                                    <p><strong>Jurisdiction:</strong> {{company_jurisdiction}}{{^company_jurisdiction}}<i>unknown</i>{{/company_jurisdiction}}</p>
+                                    <p><strong>Headquarters:</strong> {{company_hq}}{{^company_hq}}<i>unknown</i>{{/company_hq}}</p>
+                                    <p><strong>Formed on:</strong> {{company_formed}}{{^company_formed}}<i>unknown</i>{{/company_formed}}</p>
+                                    <p><strong>Website:</strong> <a href="{{company_website}}">{{company_website}}{{^company_website}}<i>unknown</i>{{/company_website}}</a></p>
                                 </li>
                             </ul>
                             <p class="List-companyInfo" data-id="{{ company_id }}"><i class="material-icons">info</i></p>
@@ -194,7 +194,7 @@
                     <div class="List List--main z-depth-1" data-level="0">
                         <div class="List-header brand green">
                             <span class="hide-on-large-only List-back"><i class="material-icons">keyboard_arrow_left</i></span>
-                            <span>Companies (<span class="List-count"></span>)</span>
+                            <span>Companies <span class="List-count"></span></span>
                         </div>
 
 
@@ -234,7 +234,7 @@
                         <div class="List-header brand blue">
                             <div class="List-headerActive">
                                 <span class="hide-on-large-only List-back"><i class="material-icons">keyboard_arrow_left</i></span>
-                                <span>Licenses in ownership (<span class="List-count"></span>)</span>
+                                <span>Licenses in ownership <span class="List-count"></span></span>
                             </div>
                         </div>
 
@@ -245,9 +245,9 @@
                             <ul class="collection collapsible" data-collapsible="accordion">
                             </ul>
                             <div class="Map Map--1 Map--inline companies hide-on-large-only"></div>
-                            <div class="Table row"></div>
-                            <div class="OwnedLicenses row"></div>
-                            <div class="Hierarchy row"></div>
+                            <div class="Table row hide-on-large-only"></div>
+                            <div class="OwnedLicenses row hide-on-large-only"></div>
+                            <div class="Hierarchy row hide-on-large-only"></div>
                         </div>
                     </div>
 
@@ -343,15 +343,15 @@
                 <tbody>
                     {{#tableRows}}
                         <tr>
-                            <td>{{licenceNumber}}</td>
-                            <td>{{transferDate}}</td>
-                            <td>{{transferType}}</td>
-                            <td>{{licenceSeller}}</td>
-                            <td>{{sellerStakePrior}}</td>
-                            <td>{{licenceBuyer}}</td>
-                            <td>{{buyerStakeAfter}}</td>
-                            <td>{{operatorPrior}}</td>
-                            <td>{{operatorAfter}}</td>
+                            <td>{{licenceNumber}}{{^licenceNumber}}<i>unknown</i>{{/licenceNumber}}</td>
+                            <td>{{transferDate}}{{^transferDate}}<i>unknown</i>{{/transferDate}}</td>
+                            <td>{{transferType}}{{^transferType}}<i>unknown</i>{{/transferType}}</td>
+                            <td>{{licenceSeller}}{{^licenceSeller}}<i>unknown</i>{{/licenceSeller}}</td>
+                            <td>{{sellerStakePrior}}{{^sellerStakePrior}}<i>unknown</i>{{/sellerStakePrior}}</td>
+                            <td>{{licenceBuyer}}{{^licenceBuyer}}<i>unknown</i>{{/licenceBuyer}}</td>
+                            <td>{{buyerStakeAfter}}{{^buyerStakeAfter}}<i>unknown</i>{{/buyerStakeAfter}}</td>
+                            <td>{{operatorPrior}}{{^operatorPrior}}<i>unknown</i>{{/operatorPrior}}</td>
+                            <td>{{operatorAfter}}{{^operatorAfter}}<i>unknown</i>{{/operatorAfter}}</td>
                         </tr>
                     {{/tableRows}}
                 </tbody>
@@ -377,12 +377,12 @@
                 <tbody>
                     {{#tableRows}}
                         <tr>
-                            <td>{{company_name}}</td>
-                            <td>{{company_jurisdiction}}</td>
-                            <td>{{company_registration}}</td>
-                            <td>{{company_hq}}</td>
-                            <td>{{company_formed}}</td>
-                            <td>{{company_address}}</td>
+                            <td>{{company_name}}{{^company_name}}<i>unknown</i>{{/company_name}}</td>
+                            <td>{{company_jurisdiction}}{{^company_jurisdiction}}<i>unknown</i>{{/company_jurisdiction}}</td>
+                            <td>{{company_registration}}{{^company_registration}}<i>unknown</i>{{/company_registration}}</td>
+                            <td>{{company_hq}}{{^company_hq}}<i>unknown</i>{{/company_hq}}</td>
+                            <td>{{company_formed}}{{^company_formed}}<i>unknown</i>{{/company_formed}}</td>
+                            <td>{{company_address}}{{^company_address}}<i>unknown</i>{{/company_address}}</td>
                         </tr>
                     {{/tableRows}}
                 </tbody>
@@ -407,13 +407,13 @@
     <script type="x-tmpl-mustache" class="hierarchy-tpl">
         <div class="col s12"><p class="Hierarchy-title">Company hierarchy</p></div>
         {{#hierarchy}}
-            <div class="col s6 m4 l2">
+            <div class="col s6 m4 l3 Hierarchy-data">
                 <div class="Block">
-                    <p class="Block-title">{{person_name}}</p>
-                    <p>Nationality: {{person_nationality}}</p>
-                    <p>Start date: {{start_date}}</p>
-                    <p>Role: {{role_title}}</p>
-                    <p class="Block-title">{{percent_interest}}%</p>
+                    <p class="Block-title">{{person_name}}{{^person_name}}<i>unknown</i>{{/person_name}}</p>
+                    <p>Nationality: {{person_nationality}}{{^person_nationality}}<i>unknown</i>{{/person_nationality}}</p>
+                    <p>Start date: {{start_date}}{{^start_date}}<i>unknown</i>{{/start_date}}</p>
+                    <p>Role: {{role_title}}{{^role_title}}<i>unknown</i>{{/role_title}}</p>
+                    <p class="Block-title">{{#percent_interest}}{{percent_interest}}%{{/percent_interest}}{{^percent_interest}}<i>unknown</i>{{/percent_interest}}</p>
                 </div>
             </div>
         {{/hierarchy}}
