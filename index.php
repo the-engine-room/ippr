@@ -271,7 +271,7 @@
                                 {{#website}}<p><strong>Website:</strong> <a href="{{website}}">{{website}}</a></p>{{/website}}
                             </li>
                         </ul>
-                        <p class="List-companyInfo" data-id="{{ title }}"><i class="material-icons">info</i></p>
+                        <p class="List-companyInfo" data-id="{{ companyId }}"><i class="material-icons">info</i></p>
                     </div>
                 </li>
             </script>

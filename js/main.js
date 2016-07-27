@@ -67,7 +67,7 @@
             tabs: {
                 0: {
                     name: 'licenses',
-                    sql: "SELECT MAX(companies.company_hq) as company_hq, MAX(companies.company_formed) as company_formed, MAX(companies.company_jurisdiction) as company_jurisdiction, MAX(companies.website) as company_website, MAX(companies.company_name) as company_name, MAX(companies.company_address) as company_address, license_number, array_to_string(array_agg(concession_number), ',') as concessions FROM hydrocarbon_licences_latest_clean JOIN companies ON (hydrocarbon_licences_latest_clean.company_id = companies.company_id) GROUP BY license_number, companies.company_id ORDER BY license_number",
+                    sql: "SELECT MAX(companies.company_id) as company_id, MAX(companies.company_hq) as company_hq, MAX(companies.company_formed) as company_formed, MAX(companies.company_jurisdiction) as company_jurisdiction, MAX(companies.website) as company_website, MAX(companies.company_name) as company_name, MAX(companies.company_address) as company_address, license_number, array_to_string(array_agg(concession_number), ',') as concessions FROM hydrocarbon_licences_latest_clean JOIN companies ON (hydrocarbon_licences_latest_clean.company_id = companies.company_id) GROUP BY license_number, companies.company_id ORDER BY license_number",
                     groupBy: 'license_number'
                 },
                 1: {
@@ -345,7 +345,7 @@
     $(document).on('click', '.List-companyInfo', function(){
         var id = $(this).data('id');
         IPPR.states.view = 'companies';
-        IPPR.dom.map.addClass(IPPR.states.hidden);
+        // IPPR.dom.map.addClass(IPPR.states.hidden);
         $('a[data-view="companies"]').click();
         $('.collection-item[data-id="'+id+'"]').click();
         var top = $('.collection-item[data-id="'+id+'"]').position().top;
@@ -631,6 +631,7 @@
                             markup[key] += Mustache.render(
                                 mustacheTpl[key], {
                                     active: key <= 2 ? true : false,
+                                    companyId: company.company_id,
                                     title: company.company_name,
                                     address: body.address,
                                     jurisdiction: body.jurisdiction,
