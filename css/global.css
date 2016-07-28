@@ -11470,6 +11470,7 @@ html.js .js-isHidden {
   -webkit-transform: translate(100%, -20px);
       -ms-transform: translate(100%, -20px);
           transform: translate(100%, -20px);
+  z-index: 100;
 }
 
 .Map-trigger.is-active {
@@ -11495,6 +11496,7 @@ html.js .js-isHidden {
 
 .Map-label.is-selected {
   color: #fff;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 .AdditionalInfo-header {

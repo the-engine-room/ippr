@@ -50,6 +50,7 @@
             additionalInfo: $('.AdditionalInfo'),
             additionalInfoTitle: $('.AdditionalInfo-title'),
             additionalInfoHeader: $('.AdditionalInfo-header'),
+            footer: $('.Footer')
         },
         states: {
             loading: 'is-loading',
@@ -294,7 +295,7 @@
                 }).setView([-23.534, 6.172], 6);
 
                 L.control.zoom({
-                     position:'bottomleft'
+                     position:'bottomright'
                 }).addTo(IPPR.map.map[key]);
 
                 L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png', {
@@ -335,7 +336,7 @@
                             IPPR.map.searchLayers(IPPR.states.view);
                         }
 
-                        if (!this.isActive){
+                        if (!this.isActive){ // jshint ignore:line
                             IPPR.dom.filters.searchRemove.click();
                         }
 
@@ -488,9 +489,13 @@
         IPPR.dom.tabs.off('click.mobile');
 
         IPPR.dom.tabs.on('click.mobile', function(){
+
+            setTimeout(function(){
+                IPPR.dom.footer.addClass(IPPR.states.hidden);
+            }, 400);
+
             IPPR.map.resetLayers();
             IPPR.dom.content.addClass(IPPR.states.active);
-
 
             setTimeout(function(){
                 IPPR.dom.content.addClass(IPPR.states.animate);
@@ -514,6 +519,7 @@
             $(value).find(IPPR.dom.lists.header).off('click');
             $(value).find(IPPR.dom.lists.header).on('click', function(){
                 if (level === 0){
+                    IPPR.dom.footer.removeClass(IPPR.states.hidden);
                     IPPR.dom.content.removeClass(IPPR.states.animate);
                     setTimeout(function(){
                         IPPR.dom.content.removeClass(IPPR.states.active);
@@ -555,6 +561,8 @@
             $(window).scrollTop(0);
         });
 
+
+
         IPPR.states.mobile = true;
     };
 
@@ -576,6 +584,10 @@
             },100);
             IPPR.states.view = $(this).data('view');
             IPPR.dom.additionalInfo.addClass(IPPR.states.hidden);
+        });
+
+        $.each(IPPR.map.map, function(k,v){
+            v.dragging.enable();
         });
 
         IPPR.states.desktop = true;
@@ -700,6 +712,11 @@
                             $.each(IPPR.map.layers[key], function(index, val) {
                                  val.off('click');
                             });
+
+                            $.each(IPPR.map.map, function(k,v){
+                                v.dragging.disable();
+                            });
+
                         }
                     }
 

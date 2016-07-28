@@ -273,6 +273,7 @@
         backface-visibility: hidden;
         transition: transform 0.3s ease;
         transform: translate(100%,-20px);
+        z-index: 100;
 
         &.is-active {
             transform: translate(-20px,-20px);
@@ -295,6 +296,7 @@
 
         &.is-selected {
             color: #fff;
+            text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
         }
     }
 }
