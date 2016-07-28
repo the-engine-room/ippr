@@ -490,6 +490,12 @@
 
         IPPR.dom.tabs.on('click.mobile', function(){
 
+            IPPR.states.filters = false;
+            IPPR.dom.filters.searchTrigger.removeClass(IPPR.states.hidden);
+            IPPR.dom.filters.searchRemove.removeClass(IPPR.states.visible);
+            IPPR.dom.filters.searchRemove.click();
+            IPPR.filters.clear();
+
             setTimeout(function(){
                 IPPR.dom.footer.addClass(IPPR.states.hidden);
             }, 400);
@@ -574,6 +580,13 @@
         $(IPPR.dom.lists.extra).removeClass(IPPR.states.hidden);
 
         IPPR.dom.tabs.on('click.desktop', function(){
+
+            IPPR.states.filters = false;
+            IPPR.dom.filters.searchTrigger.removeClass(IPPR.states.hidden);
+            IPPR.dom.filters.searchRemove.removeClass(IPPR.states.visible);
+            IPPR.dom.filters.searchRemove.click();
+            IPPR.filters.clear();
+
             IPPR.map.resetLayers();
             setTimeout(function(){
                 $.each(IPPR.map.map, function(key,value){

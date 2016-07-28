@@ -158,6 +158,9 @@
 .chip {
     cursor: pointer;
 
+    opacity: 0.5;
+    pointer-events: none;
+
    .Filters-remove {
         display: none;
     }
@@ -175,6 +178,11 @@
             display: block;
             margin-top: 8px;
         }
+    }
+
+    &.has-data {
+        opacity: 1;
+        pointer-events: all;
     }
 
 }

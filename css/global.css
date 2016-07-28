@@ -11037,6 +11037,8 @@ html.js .js-isHidden {
 
 .chip {
   cursor: pointer;
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 .chip .Filters-remove {
@@ -11057,6 +11059,11 @@ html.js .js-isHidden {
     display: block;
     margin-top: 8px;
   }
+}
+
+.chip.has-data {
+  opacity: 1;
+  pointer-events: all;
 }
 
 /* ====================================

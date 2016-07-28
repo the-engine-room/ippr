@@ -15,7 +15,7 @@
                 <div class="Filters">
                     <ul class="Filters-list">
                         <li class="Filters-item">
-                            <span class="chip Filters-itemFilter" data-filter="expiration">Soon to expire</span>
+                            <span class="chip Filters-itemFilter has-data" data-filter="expiration">Soon to expire</span>
                         </li>
                         <li class="Filters-item">
                             <span class="chip Filters-itemFilter">Without ownership</span>
