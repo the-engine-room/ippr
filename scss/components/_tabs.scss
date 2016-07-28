@@ -89,8 +89,10 @@
     .tabs a {
         transform: translate(0,5px);
     }
+    .tab-content {
+        display: none;
+    }
 }
-
 
 /* ====================================
    Filters

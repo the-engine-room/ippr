@@ -10966,6 +10966,9 @@ html.js .js-isHidden {
         -ms-transform: translate(0, 5px);
             transform: translate(0, 5px);
   }
+  .tab-content {
+    display: none;
+  }
 }
 
 /* ====================================

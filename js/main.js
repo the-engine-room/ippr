@@ -27,6 +27,7 @@
                 infoName: '.List-infoName',
                 headerActive: '.List-headerActive',
                 headerInActive: '.List-headerInactive',
+                switch: '.List-switch'
             },
             content: $('.Content'),
             tabs: $('.Header-tabs a'),
@@ -259,25 +260,24 @@
                 /*
                 ** .. run through the data, parse the templates
                 */
-                var cnt = 0; // TMP_REMOVE_ME
                 $.each(IPPR.data.data[key], function(k, value){
-                    cnt++;// TMP_REMOVE_ME
 
+                    /*
+                    ** ... set up conncession data
+                    */
                     var concessions = '';
                     $.each(value, function(k,v){
                         concessions += v.concessions;
                     });
 
+                    /*
+                    ** ... parse the template for future use
+                    */
                     Mustache.parse(mustacheTpl[key]);
 
-                    // TMP_REMOVE_ME
-                    if (cnt < 4){
-                        expiration = true;
-                    } else {
-                        expiration = false;
-                    }
-                    // TMP_REMOVE_ME
-
+                    /*
+                    ** ... assign data to templates
+                    */
                     if (tab.name === 'companies'){
                         title = value[0].company_name;
                         ownedLicenses = '[{"name": "Name", "percent": "50%", "numbers": [123,234]},{"name": "Name", "percent": "50%", "numbers": [123,234]}]';
@@ -286,6 +286,9 @@
                         table = '[{"licenceNumber": "Pel 003 - licence Number", "transferDate": "01/2012 - transferDate", "transferType": "Transfer type", "licenceSeller": "licenceSeller", "sellerStakePrior": "sellerStakePrior", "licenceBuyer": "licenceBuyer", "buyerStakeAfter": "buyerStakeAfter", "operatorPrior": "operatorPrior", "operatorAfter": "operatorAfter"}, {"licenceNumber": "Pel 003 - licence Number", "transferDate": "01/2012 - transferDate", "transferType": "Transfer type", "licenceSeller": "licenceSeller", "sellerStakePrior": "sellerStakePrior", "licenceBuyer": "licenceBuyer", "buyerStakeAfter": "buyerStakeAfter", "operatorPrior": "operatorPrior", "operatorAfter": "operatorAfter"} ]';
                     }
 
+                    /*
+                    ** ... render templates with the data
+                    */
                     markup[key] += Mustache.render(
                         mustacheTpl[key], {
                             title: title,
@@ -341,38 +344,54 @@
                 IPPR.map.layers[key] = [];
                 IPPR.map.markers[key] = [];
 
+                /*
+                ** ... init map
+                */
                 IPPR.map.map[key] = L.map($('.Map').eq(key)[0],{
                     scrollWheelZoom: false,
                     zoomControl: false
                 }).setView([-23.534, 6.172], 6);
 
+                /*
+                ** ... change zoom controls to be in the bottom right corner
+                */
                 L.control.zoom({
                      position:'bottomright'
                 }).addTo(IPPR.map.map[key]);
 
+                /*
+                ** ... base layer with the map of the world
+                */
                 L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png', {
                     maxZoom: 18
                 }).addTo(IPPR.map.map[key]);
 
-                var cnt = 0; // TMP, REMOVE ME
-                function onEachFeature(feature, layer) {
-                    cnt++; // TMP, REMOVE ME
+                /*
+                ** ... function to be executed on each layer
+                */
+                function onEachLayer(feature, layer) {
+
+                    /*
+                    ** ... append the data to each layer
+                    */
+                    $.each(feature.properties, function(index, val) {
+                        layer[index] = val;
+                    });
+
+                    /*
+                    ** ... extra data
+                    */
                     layer.ID = feature.properties.license_number;
-                    layer.concession_number = feature.properties.concession_number;
-                    layer.company_id = feature.properties.company_id;
                     layer.company_name = feature.properties.holder;
 
-
-                    // TMP, REMOVE ME
-                    if (cnt < 4){
-                        layer.expiration = true;
-                    } else {
-                        layer.expiration = false;
-                    }
-                    // TMP, REMOVE ME
-
+                    /*
+                    ** ... push the layers for later use
+                    */
                     IPPR.map.layers[key].push(layer);
 
+                    /*
+                    ** ... add labels to the polygons
+                    */
                     var marker = L.marker(layer.getBounds().getCenter(), {
                         icon: L.divIcon({
                             className: 'Map-label',
@@ -380,18 +399,33 @@
                         })
                     }).addTo(IPPR.map.map[key]);
 
+                    /*
+                    ** ... push the labels for later use
+                    */
                     IPPR.map.markers[key].push(marker);
 
+                    /*
+                    ** ... each layer AND marker/label has a click function
+                    */
                     function onClick(){
 
+                        /*
+                        ** ... if the current view is filtered (has active search or filtering) restyle the layers
+                        */
                         if (IPPR.states.filters){
                             IPPR.map.searchLayers(IPPR.states.view);
                         }
 
+                        /*
+                        ** ... If this label or marker is not active remove all active filters and reset search
+                        */
                         if (!this.isActive){ // jshint ignore:line
                             IPPR.dom.filters.searchRemove.click();
                         }
 
+                        /*
+                        ** ... click the item in the main list, scroll list to the top
+                        */
                         var elem, top;
                         if (that.is('.licenses')){
                             elem = $(IPPR.dom.lists.main).find('li[data-id="'+ feature.properties.license_number +'"]');
@@ -408,13 +442,19 @@
 
                     }
 
+                    /*
+                    ** ... assign the click events on layers and markers/labels
+                    */
                     marker.on('click',onClick);
                     layer.on('click',onClick);
                 }
 
+                /*
+                ** ... parse the geojson data and add it to the map
+                */
                 L.geoJson([data], {
                     style: IPPR.map.styles.default,
-                    onEachFeature: onEachFeature
+                    onEachFeature: onEachLayer
                 })
                 .addTo(IPPR.map.map[key]);
 
@@ -424,7 +464,11 @@
 
     };
 
-    $(document).on('click', '.List-switch', function(){
+
+    /*
+    ** Switch from licence to company and vice versa with that licence or company selected
+    */
+    $(document).on('click', IPPR.dom.lists.switch, function(){
         var id = $(this).data('id'),
             view = $(this).data('to');
 
@@ -436,9 +480,14 @@
         $(IPPR.dom.lists.main).find(IPPR.dom.lists.holder).scrollTop(top);
     });
 
-
+    /*
+    ** Display additional data for each clicked licence and compay below the main elements (lists with map)
+    */
     IPPR.displayAdditionalInfo = function(item,type){
+
         var sankeyData,tableData,title,mustacheTpl,finalTable,hierarchyTpl,finalHierarchy;
+
+
         if (type === 'licence'){
 
             $(IPPR.dom.additionalInfoTitle).html('Transaction history for Licence number <span></span>');

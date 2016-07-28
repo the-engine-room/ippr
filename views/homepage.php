@@ -164,7 +164,7 @@
 
         </div>
 
-        <div id="tab-1" class="col s12">
+        <div id="tab-1" class="col s12 tab-content">
 
             <div class="Search z-depth-1 hide-on-med-and-down brand green">
 
