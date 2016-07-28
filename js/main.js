@@ -357,6 +357,7 @@
 
                 /*
                 ** ... change zoom controls to be in the bottom right corner
+
                 */
                 L.control.zoom({
                      position:'bottomright'
