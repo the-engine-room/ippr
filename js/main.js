@@ -63,6 +63,9 @@
                 companyTable: '.companyTable-tpl',
                 ownedLicenses: '.ownedLicenses-tpl',
                 hierarchy: '.hierarchy-tpl'
+            },
+            additionalInfoStrings: {
+                licence: 'Transaction history for Licence number <span></span>'
             }
         },
         states: {
@@ -481,16 +484,19 @@
     });
 
     /*
-    ** Display additional data for each clicked licence and compay below the main elements (lists with map)
+    ** Display additional data for each clicked licence and compay below the main elements (lists with map) ...
     */
     IPPR.displayAdditionalInfo = function(item,type){
 
         var sankeyData,tableData,title,mustacheTpl,finalTable,hierarchyTpl,finalHierarchy;
 
-
+        /*
+        ** ... if this is licence
+        */
         if (type === 'licence'){
 
-            $(IPPR.dom.additionalInfoTitle).html('Transaction history for Licence number <span></span>');
+
+            $(IPPR.dom.additionalInfoTitle).html(IPPR.dom.additionalInfoStrings[type]);
             $(IPPR.dom.additionalInfoHeader).removeClass('green').addClass('blue');
 
             sankeyData = item.data('sankey');
