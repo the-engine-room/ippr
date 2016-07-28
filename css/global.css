@@ -11074,15 +11074,22 @@ html.js .js-isHidden {
   z-index: 12;
   font-size: 0;
   margin: 0;
-  padding: 20px 20px 20px 80px;
+  padding: 20px;
   min-height: 87px;
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
   transition: opacity 0.3s ease;
 }
 
+.Search.has-filters {
+  padding: 20px 20px 20px 80px;
+}
+
 @media only screen and (min-width: 993px) {
   .Search {
+    padding: 20px;
+  }
+  .Search.has-filters {
     padding: 20px;
   }
 }
@@ -11108,7 +11115,7 @@ html.js .js-isHidden {
 
 @media only screen and (min-width: 993px) {
   .Search-field {
-    width: 30%;
+    width: 24.5%;
   }
 }
 
@@ -11245,8 +11252,8 @@ html.js .js-isHidden {
 @media only screen and (min-width: 993px) {
   .Data-holder {
     position: absolute;
-    left: 60px;
-    top: 50px;
+    left: 20px;
+    top: 20px;
     z-index: 2;
     width: 50%;
   }
@@ -11337,6 +11344,7 @@ html.js .js-isHidden {
 .List-headerInactive {
   font-size: 15px;
   text-align: center;
+  padding: 10px;
 }
 
 .List .collection .is-active {
@@ -11375,8 +11383,8 @@ html.js .js-isHidden {
 
 @media only screen and (min-width: 993px) {
   .List-holder {
-    max-height: 620px;
-    height: 620px;
+    max-height: 680px;
+    height: 680px;
     overflow-y: auto;
   }
 }

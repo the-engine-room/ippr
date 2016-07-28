@@ -12,7 +12,7 @@
                     <label for="search-tab-1">Filter by licence</label>
                 </div>
 
-                <div class="Filters">
+                <!--div class="Filters">
                     <ul class="Filters-list">
                         <li class="Filters-item">
                             <span class="chip Filters-itemFilter has-data" data-filter="expiration">Soon to expire</span>
@@ -24,7 +24,7 @@
                             <span class="chip Filters-itemFilter">Recently changed ownership</span>
                         </li>
                     </ul>
-                </div>
+                </div-->
 
             </div>
 
@@ -41,7 +41,7 @@
 
                         <div class="Search Search--mobile hide-on-large-only brand blue">
 
-                            <div class="Filters Filters--mobile">
+                            <!--div class="Filters Filters--mobile">
                                 <i class="material-icons small Filters-trigger js-dropdown-trigger" data-beloworigin="true" data-activates='filters1'>filter_list</i>
                                 <ul class="Filters-list z-depth-1" id="filters1">
                                     <li class="Filters-item">
@@ -54,7 +54,7 @@
                                         <span class="chip Filters-itemFilter" data-filter="changedOwnership">Recently changed ownership <i class="material-icons Filters-remove">close</i></span>
                                     </li>
                                 </ul>
-                            </div>
+                            </div-->
 
                             <div class="Filters-active"></div>
 
@@ -175,7 +175,7 @@
                     <label for="search-tab-2">Filter by Company name</label>
                 </div>
 
-                <div class="Filters">
+                <!--div class="Filters">
                     <ul class="Filters-list">
                         <li class="Filters-item">
                             <span class="chip Filters-itemFilter" data-filter="expiration">Foreign Owned</span>
@@ -184,7 +184,7 @@
                             <span class="chip Filters-itemFilter">Namibian Owned</span>
                         </li>
                     </ul>
-                </div>
+                </div-->
 
             </div>
 
@@ -201,7 +201,7 @@
 
                         <div class="Search Search--mobile hide-on-large-only brand green">
 
-                            <div class="Filters Filters--mobile">
+                            <!--div class="Filters Filters--mobile">
                                 <i class="material-icons small Filters-trigger js-dropdown-trigger" data-beloworigin="true" data-activates='filters2'>filter_list</i>
                                 <ul class="Filters-list z-depth-1" id="filters2">
                                     <li class="Filters-item">
@@ -211,7 +211,7 @@
                                         <span class="chip Filters-itemFilter" data-filter="ownership">Namibian Owned <i class="material-icons Filters-remove">close</i></span>
                                     </li>
                                 </ul>
-                            </div>
+                            </div-->
 
                             <div class="Filters-active"></div>
 

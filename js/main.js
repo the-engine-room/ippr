@@ -7,6 +7,10 @@
         };
     }
 
+
+    /*
+    ** Main IPPR object holding all the info about the dom and data
+    */
     var IPPR = {
         dom: {
             header: $('.Header'),
@@ -50,7 +54,15 @@
             additionalInfo: $('.AdditionalInfo'),
             additionalInfoTitle: $('.AdditionalInfo-title'),
             additionalInfoHeader: $('.AdditionalInfo-header'),
-            footer: $('.Footer')
+            footer: $('.Footer'),
+            templates: {
+                main: '.main-tpl',
+                extra: '.extra-tpl',
+                licenceTable: '.licenceTable-tpl',
+                companyTable: '.companyTable-tpl',
+                ownedLicenses: '.ownedLicenses-tpl',
+                hierarchy: '.hierarchy-tpl'
+            }
         },
         states: {
             loading: 'is-loading',
@@ -66,6 +78,7 @@
             filters: false
         },
         data: {
+            apiURL: 'https://namibmap.carto.com/api/v2/sql/?q=',
             data: {},
             tabs: {
                 0: {
@@ -203,29 +216,52 @@
         }
     };
 
+
+    /*
+    ** Load the google chart sankey package
+    */
     google.charts.load('current', {'packages':['sankey']});
 
+    /*
+    ** Set / remove loading classes while the data loads
+    */
     IPPR.loading = function(){
         IPPR.dom.data.toggleClass(IPPR.states.loading);
     };
 
+
+    /*
+    ** Get the data for each tab and store it in the main IPPR object.
+    */
     IPPR.getData = function(){
 
         var markup = [],
             mustacheTpl = [],
             table,hierarchy,ownedLicenses,title,expiration = false;
 
+        /*
+        ** For each tab ...
+        */
         $.each(IPPR.data.tabs, function(key, tab){
 
             markup[key] = '';
-            mustacheTpl[key] = $('#tab-'+key).find('.main-tpl').html();
+            mustacheTpl[key] = $('#tab-'+key).find(IPPR.dom.templates.main).html();
 
-            $.getJSON('https://namibmap.carto.com/api/v2/sql/?q=' + tab.sql, function(data) {
+            /*
+            ** ... get the data from carto.com
+            */
+            $.getJSON(IPPR.data.apiURL + tab.sql, function(data) {
+                /*
+                ** ... sort data - broup by, store it the main IPPR object
+                */
                 IPPR.data.data[key] = IPPR.helpers.groupBy(data.rows, tab.groupBy);
 
-                var cnt = 0;
+                /*
+                ** .. run through the data, parse the templates
+                */
+                var cnt = 0; // TMP_REMOVE_ME
                 $.each(IPPR.data.data[key], function(k, value){
-                    cnt++;
+                    cnt++;// TMP_REMOVE_ME
 
                     var concessions = '';
                     $.each(value, function(k,v){
@@ -234,15 +270,16 @@
 
                     Mustache.parse(mustacheTpl[key]);
 
+                    // TMP_REMOVE_ME
                     if (cnt < 4){
                         expiration = true;
                     } else {
                         expiration = false;
                     }
+                    // TMP_REMOVE_ME
 
                     if (tab.name === 'companies'){
                         title = value[0].company_name;
-                        table = '[{"name": "Nameasd", "jurisdiction": "jurisdictionasdasd", "registration": "registrationasdasd", "headquarters": "headquartersasd", "dateOfFormation": "dateOfFormationasdasd", "companyInfo": "comany Infoas das"}]';
                         ownedLicenses = '[{"name": "Name", "percent": "50%", "numbers": [123,234]},{"name": "Name", "percent": "50%", "numbers": [123,234]}]';
                     } else {
                         title = k;
@@ -263,10 +300,16 @@
                     );
                 });
 
+                /*
+                ** ... append the data to the main lists in each tab
+                */
                 $('#tab-'+key).find(IPPR.dom.lists.main).find(IPPR.dom.lists.list).html(markup[key]);
                 $('#tab-'+key).find(IPPR.dom.lists.main).find(IPPR.dom.lists.count).html('(' + Object.keys(IPPR.data.data[key]).length + ')');
 
-                if (Object.keys(IPPR.data.tabs).length === parseInt(key)+1){
+                /*
+                ** ... we are done with the data, set loading to false and turn on the filtering
+                */
+                if (Object.keys(IPPR.data.tabs).length - 1 === parseInt(key)){
                     IPPR.loading();
                     IPPR.filtering();
                 }
@@ -278,10 +321,19 @@
 
     };
 
+    /*
+    ** Initialize the maps ...
+    */
     IPPR.initMap = function(){
 
+        /*
+        ** ... get the geo json data
+        */
         $.getJSON('/data/data2.json', function(data){
 
+            /*
+            ** ... for each map in the dom initialize the maps and populate with layers and markers
+            */
             $.each(IPPR.dom.map, function(key,val){
 
                 var that = $(val);

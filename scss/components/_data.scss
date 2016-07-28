@@ -65,8 +65,8 @@
 
         @media #{$large-and-up} {
             position: absolute;
-            left: 60px;
-            top: 50px;
+            left: 20px;
+            top: 20px;
             z-index: 2;
             width: 50%;
         }
@@ -137,6 +137,7 @@
     &-headerInactive {
         font-size: 15px;
         text-align: center;
+        padding: 10px;
     }
 
     .collection .is-active {
@@ -171,8 +172,8 @@
 
     &-holder {
         @media #{$large-and-up} {
-            max-height: 620px;
-            height: 620px;
+            max-height: 680px;
+            height: 680px;
             overflow-y: auto;
         }
 
