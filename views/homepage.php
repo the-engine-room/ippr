@@ -107,6 +107,7 @@
                                 <div class="Sankey-mobile"></div>
                             </div>
                             <div class="Table row"></div>
+                            <a class="waves-effect waves-light btn orange Download-button"><i class="material-icons right">file_download</i>Download data</a>
                         </div>
                     </div>
 
@@ -155,7 +156,7 @@
                                     <p><strong>Website:</strong> <a href="{{company_website}}">{{company_website}}{{^company_website}}<i>unknown</i>{{/company_website}}</a></p>
                                 </li>
                             </ul>
-                            <p class="List-companyInfo" data-id="{{ company_id }}"><i class="material-icons">info</i></p>
+                            <p class="List-switch" data-to="companies" data-id="{{ company_id }}"><i class="material-icons">info</i></p>
                         </div>
                     {{/companyInfo}}
                 </li>
@@ -248,6 +249,7 @@
                             <div class="Table row hide-on-large-only"></div>
                             <div class="OwnedLicenses row hide-on-large-only"></div>
                             <div class="Hierarchy row hide-on-large-only"></div>
+                            <a class="waves-effect waves-light btn orange hide-on-large-only Download-button"><i class="material-icons right">file_download</i>Download data</a>
                         </div>
                     </div>
 
@@ -282,6 +284,7 @@
                             {{.}}
                         {{/concessionNumbers}}
                     </span>
+                    <p class="List-switch" data-to="licenses" data-id="{{ id }}"><i class="material-icons">info</i></p>
                 </li>
             </script>
 

@@ -371,11 +371,13 @@
 
     };
 
-    $(document).on('click', '.List-companyInfo', function(){
-        var id = $(this).data('id');
-        IPPR.states.view = 'companies';
-        // IPPR.dom.map.addClass(IPPR.states.hidden);
-        $('a[data-view="companies"]').click();
+    $(document).on('click', '.List-switch', function(){
+        var id = $(this).data('id'),
+            view = $(this).data('to');
+
+        IPPR.states.view = view;
+
+        $('a[data-view="'+view+'"]').click();
         $('.collection-item[data-id="'+id+'"]').click();
         var top = $('.collection-item[data-id="'+id+'"]').position().top;
         $(IPPR.dom.lists.main).find(IPPR.dom.lists.holder).scrollTop(top);
@@ -794,6 +796,7 @@
             IPPR.states.filters = false;
             IPPR.dom.filters.searchTrigger.removeClass(IPPR.states.hidden);
             IPPR.dom.filters.searchRemove.removeClass(IPPR.states.visible);
+            $(IPPR.dom.lists.main+':visible').find('.collection-item').removeClass(IPPR.states.active);
         });
 
 

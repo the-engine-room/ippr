@@ -11337,6 +11337,7 @@ html.js .js-isHidden {
 }
 
 .List .collection-item {
+  position: relative;
   padding: 20px;
 }
 
@@ -11412,11 +11413,17 @@ html.js .js-isHidden {
   cursor: pointer;
 }
 
-.List-companyInfo {
+.List-switch {
   position: absolute;
   bottom: 5px;
   right: 5px;
   cursor: pointer;
+}
+
+.List .Download-button {
+  font-size: 15px;
+  display: block;
+  margin: 20px;
 }
 
 /* ====================================

@@ -144,6 +144,7 @@
     }
 
     .collection-item {
+        position: relative;
         padding: 20px;
     }
 
@@ -215,12 +216,20 @@
         cursor: pointer;
     }
 
-    &-companyInfo {
+    &-switch {
         position: absolute;
         bottom: 5px;
         right: 5px;
         cursor: pointer;
     }
+
+
+    .Download-button {
+        font-size: 15px;
+        display: block;
+        margin: 20px;
+    }
+
 
 }
 
