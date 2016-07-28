@@ -154,17 +154,17 @@
         <div class="row center-align Footer-logos">
             <div class="col s12 m4 l2 offset-l3">
                 <a href="#">
-                    <img src="/images/dist/ippr.png" alt="IPPR" />
+                    <img src="/images/dist/ippr.png" alt="IPPR" width="117" height="116" />
                 </a>
             </div>
             <div class="col s12 m4 l2">
                 <a href="https://www.theengineroom.org/" title="The engine room - Accelerating social change">
-                    <img src="/images/dist/engineRoom.png" alt="The engine room" />
+                    <img src="/images/dist/engineRoom.png" alt="The engine room" width="128" height="114" />
                 </a>
             </div>
             <div class="col s12 m4 l2">
                 <a href="http://web.burza.hr/" title="web.burza Digital agency">
-                    <img src="/images/dist/wb.png" alt="web.burza" />
+                    <img src="/images/dist/wb.png" alt="web.burza" width="132" height="135" />
                 </a>
             </div>
         </div>

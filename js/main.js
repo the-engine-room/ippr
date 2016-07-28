@@ -516,6 +516,10 @@
 
             if(IPPR.states.view === 'licenses'){
                 IPPR.dom.mapTrigger.addClass(IPPR.states.active);
+            } else {
+                IPPR.dom.map.removeClass(IPPR.states.visible);
+                $(IPPR.dom.lists.main).find(IPPR.dom.lists.holder).removeClass(IPPR.states.hidden);
+                IPPR.dom.mapTrigger.find('.material-icons').html('map');
             }
         });
 
@@ -853,6 +857,7 @@
             $.each(IPPR.map.map, function(key,value){
                 if(value){
                     value.invalidateSize();
+                    value.dragging.enable();
                 }
             });
 

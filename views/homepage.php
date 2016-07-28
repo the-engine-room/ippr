@@ -45,7 +45,7 @@
                                 <i class="material-icons small Filters-trigger js-dropdown-trigger" data-beloworigin="true" data-activates='filters1'>filter_list</i>
                                 <ul class="Filters-list z-depth-1" id="filters1">
                                     <li class="Filters-item">
-                                        <span class="chip Filters-itemFilter" data-filter="expiration">Soon to expire <i class="material-icons Filters-remove">close</i></span>
+                                        <span class="chip Filters-itemFilter has-data" data-filter="expiration">Soon to expire <i class="material-icons Filters-remove">close</i></span>
                                     </li>
                                     <li class="Filters-item">
                                         <span class="chip Filters-itemFilter" data-filter="ownership">Without ownership <i class="material-icons Filters-remove">close</i></span>
