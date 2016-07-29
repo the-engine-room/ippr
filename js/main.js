@@ -192,6 +192,10 @@
                         IPPR.map.markers[key][k].isActive = true;
                     }
                 });
+
+                var size = $(IPPR.dom.lists.main+':visible').find('.collection-item').size();
+                $(IPPR.dom.lists.main).find(IPPR.dom.lists.count).html('('+size+')');
+
             }
         },
         filters: {
