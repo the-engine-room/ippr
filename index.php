@@ -79,6 +79,7 @@
     <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- build:css /css/min.css -->
     <link rel="stylesheet" href="/css/global.css" />
@@ -173,15 +174,13 @@
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.2.0/list.min.js"></script>
-
-
     <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
     <script src="https://npmcdn.com/leaflet@0.7.7/dist/leaflet.js"></script>
 
     <!-- build:js /js/min.js -->
     <script src="/js/vendor/burza/utils.js"></script>
     <script src="/js/vendor/materialize.js"></script>
-    <script src="/js/main.js"></script>
+    <script src="/js/main.plain.js"></script>
     <!-- endbuild -->
 
 

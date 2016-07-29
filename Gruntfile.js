@@ -19,7 +19,7 @@ module.exports = function (grunt) {
             },
             js: {
                 files: ['js/{,*/}*.js'],
-                tasks: ['newer:jshint:all']
+                tasks: ['newer:jshint:all', 'babel:dist']
             },
             css: {
                 files: 'scss/**/*.scss',
@@ -43,6 +43,17 @@ module.exports = function (grunt) {
             }
         },
 
+        babel: {
+            options: {
+                sourceMap: true,
+                presets: ['es2015']
+            },
+            dist: {
+                files: {
+                    'js/main.plain.js': 'js/main.js'
+                }
+            }
+        },
 
         // Make sure code styles are up to par and there are no obvious mistakes
         jshint: {
@@ -159,17 +170,10 @@ module.exports = function (grunt) {
 
         usemin:{
             html: ['dist/index.php'],
-            // css: ['dist/css/**/*.css'],
-            // js: ['dist/js/**/*.js'],
             options: {
                 assetsDirs: [
                     'dist'
                 ],
-                // patterns: {
-                //     js: [
-                //         [/(\/css\/icons.+?(?=.css))/gm, 'Replacing reference to image.png']
-                //     ]
-                // }
             }
         },
 
@@ -229,6 +233,12 @@ module.exports = function (grunt) {
                     {
                         src: 'index.php',
                         dest: 'dist/',
+                    },
+                    {
+                        expand: true,
+                        cwd: 'views/',
+                        src: ['**'],
+                        dest: 'dist/views',
                     },
                     {
                         expand: true,
