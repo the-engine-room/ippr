@@ -8,7 +8,6 @@
 
     $router->map('GET','/', 'views/homepage.php', 'homepage');
     $router->map('GET','/about/', 'views/about.php', 'about');
-    $router->map('GET','/faq/', 'views/faq.php', 'faq');
 
 
     $match = $router->match();
@@ -107,7 +106,6 @@
 
             <ul class="Header-navigation">
                 <li><a href="/about/"<?php if($match[name] == 'about'){ echo ' class="is-active"'; } ?>>About</a></li>
-                <li><a href="/faq/"<?php if($match[name] == 'faq'){ echo ' class="is-active"'; } ?>>FAQ</a></li>
             </ul>
 
 
