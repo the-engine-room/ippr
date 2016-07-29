@@ -187,7 +187,6 @@
                     } else {
                         $(IPPR.map.markers[key][k]._icon).removeClass(IPPR.states.selected);
                         IPPR.map.layers[key][k].setStyle(IPPR.map.styles.default);
-                        $(IPPR.map.markers[key][k]._icon).addClass(IPPR.states.active);
                         IPPR.map.layers[key][k].isActive = true;
                         IPPR.map.markers[key][k].isActive = true;
                     }
