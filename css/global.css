@@ -11504,6 +11504,10 @@ html.js .js-isHidden {
   }
 }
 
+.Map-label {
+  display: none;
+}
+
 .Map-label span {
   position: absolute;
   top: 50%;
@@ -11514,8 +11518,13 @@ html.js .js-isHidden {
 }
 
 .Map-label.is-selected {
+  display: block;
   color: #fff;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+.Map-label.is-active {
+  display: block;
 }
 
 .AdditionalInfo-header {

@@ -65,8 +65,11 @@
                 hierarchy: '.hierarchy-tpl'
             },
             additionalInfoStrings: {
-                licence: 'Transaction history for Licence number <span></span>'
-            }
+                licence: 'Transaction history for Licence number <span></span>',
+                company: 'Additional information'
+            },
+            ownedLicenses: '.OwnedLicenses',
+            'hierarchy': '.Hierarchy'
         },
         states: {
             loading: 'is-loading',
@@ -106,7 +109,7 @@
                     weight: 1,
                     color: '#256A9A',
                     dashArray: '',
-                    fillOpacity: 0.75,
+                    fillOpacity: 0.5,
                 },
                 active: {
                     weight: 2,
@@ -118,7 +121,7 @@
                     weight: 3,
                     color: '#256A9A',
                     dashArray: '',
-                    fillOpacity: 0.5
+                    fillOpacity: 0.2
                 }
             },
             highlightLayer: function(key,id){
@@ -357,7 +360,6 @@
 
                 /*
                 ** ... change zoom controls to be in the bottom right corner
-
                 */
                 L.control.zoom({
                      position:'bottomright'
@@ -497,14 +499,23 @@
         if (type === 'licence'){
 
 
+            /*
+            ** ... append the title, change the background color
+            */
             $(IPPR.dom.additionalInfoTitle).html(IPPR.dom.additionalInfoStrings[type]);
             $(IPPR.dom.additionalInfoHeader).removeClass('green').addClass('blue');
 
+            /*
+            ** ... get the data from data attributes
+            */
             sankeyData = item.data('sankey');
             tableData = item.data('table');
             title = item.find(IPPR.dom.lists.title).html();
-            mustacheTpl = $('.licenceTable-tpl').html();
 
+            /*
+            ** ... get and parse the template for the table
+            */
+            mustacheTpl = $(IPPR.dom.templates.licenceTable).html();
             Mustache.parse(mustacheTpl);
 
             finalTable = Mustache.render(
@@ -513,12 +524,25 @@
                 }
             );
 
-            IPPR.dom.additionalInfo.find('.OwnedLicenses').addClass(IPPR.states.hidden);
-            IPPR.dom.additionalInfo.find('.Hierarchy').addClass(IPPR.states.hidden);
+            /*
+            ** ... hide the company addition info because we are on licences
+            */
+            IPPR.dom.additionalInfo.find(IPPR.dom.ownedLicenses).addClass(IPPR.states.hidden);
+            IPPR.dom.additionalInfo.find(IPPR.dom.hierarchy).addClass(IPPR.states.hidden);
 
+
+            /*
+            ** ... append data to the DOM
+            */
             if (IPPR.states.mobile){
                 $(IPPR.dom.lists.info).find(IPPR.dom.lists.infoName).html(title);
+
+                /*
+                ** ... draw sankey graph
+                */
                 IPPR.sankey(sankeyData, IPPR.dom.sankey.mobile);
+
+
                 $(IPPR.dom.lists.info).find('.Table').html(finalTable);
                 IPPR.dom.additionalInfo.addClass(IPPR.states.hidden);
             } else {
@@ -529,8 +553,10 @@
                 IPPR.dom.additionalInfo.find('.Table').html(finalTable);
             }
         } else {
+
+            $(IPPR.dom.additionalInfoTitle).html(IPPR.dom.additionalInfoStrings[type]);
             $(IPPR.dom.additionalInfoHeader).removeClass('blue').addClass('green');
-            $(IPPR.dom.additionalInfoTitle).html('Additional information');
+
 
             $(IPPR.dom.sankey.desktop).addClass(IPPR.states.hidden);
             IPPR.dom.additionalInfo.removeClass(IPPR.states.hidden);
