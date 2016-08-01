@@ -69,7 +69,8 @@
                 company: 'Additional information'
             },
             ownedLicenses: '.OwnedLicenses',
-            'hierarchy': '.Hierarchy'
+            hierarchy: '.Hierarchy',
+            table: '.Table'
         },
         states: {
             loading: 'is-loading',
@@ -544,18 +545,19 @@
                 ** ... draw sankey graph
                 */
                 IPPR.sankey(sankeyData, IPPR.dom.sankey.mobile);
-
-
-                $(IPPR.dom.lists.info).find('.Table').html(finalTable);
+                $(IPPR.dom.lists.info).find(IPPR.dom.table).html(finalTable);
                 IPPR.dom.additionalInfo.addClass(IPPR.states.hidden);
             } else {
                 IPPR.dom.additionalInfo.removeClass(IPPR.states.hidden);
                 IPPR.dom.additionalInfo.find('.AdditionalInfo-title span').html(title);
                 $(IPPR.dom.sankey.desktop).removeClass(IPPR.states.hidden);
                 IPPR.sankey(sankeyData, IPPR.dom.sankey.desktop);
-                IPPR.dom.additionalInfo.find('.Table').html(finalTable);
+                IPPR.dom.additionalInfo.find(IPPR.dom.table).html(finalTable);
             }
         } else {
+            /*
+            ** ... if this is company, get the data and append to the DOM
+            */
 
             $(IPPR.dom.additionalInfoTitle).html(IPPR.dom.additionalInfoStrings[type]);
             $(IPPR.dom.additionalInfoHeader).removeClass('blue').addClass('green');
@@ -567,9 +569,9 @@
             tableData = IPPR.data.data[1][item.data('id')][0];
             // ownedLicenses = item.data('ownedlicenses');
 
-            mustacheTpl = $('.companyTable-tpl').html();
+            mustacheTpl = $(IPPR.dom.templates.companyTable).html();
             // ownedLicensesTpl = $('.ownedLicenses-tpl').html();
-            hierarchyTpl = $('.hierarchy-tpl').html();
+            hierarchyTpl = $(IPPR.dom.templates.hierarchy).html();
 
             Mustache.parse(mustacheTpl);
             // Mustache.parse(ownedLicensesTpl);
@@ -587,7 +589,9 @@
             //     }
             // );
 
-
+            /*
+            ** ... get the company info
+            */
             $.getJSON('https://namibmap.carto.com/api/v2/sql/?q=SELECT * FROM companies_people WHERE company_id = ' + item.data('id'), function(data) {
 
                 finalHierarchy = Mustache.render(
@@ -597,19 +601,19 @@
                 );
 
                 if (IPPR.states.mobile){
-                    $(IPPR.dom.lists.extra).find('.Hierarchy').html(finalHierarchy);
+                    $(IPPR.dom.lists.extra).find(IPPR.dom.hierarchy).html(finalHierarchy);
                 } else {
-                    IPPR.dom.additionalInfo.find('.Hierarchy').html(finalHierarchy).removeClass(IPPR.states.hidden);
+                    IPPR.dom.additionalInfo.find(IPPR.dom.hierarchy).html(finalHierarchy).removeClass(IPPR.states.hidden);
                 }
             });
 
             if (IPPR.states.mobile){
-                $(IPPR.dom.lists.extra).find('.Table').html(finalTable);
+                $(IPPR.dom.lists.extra).find(IPPR.dom.table).html(finalTable);
                 // $(IPPR.dom.lists.extra).find('.OwnedLicenses').html(finalownedLicenses);
                 IPPR.dom.additionalInfo.addClass(IPPR.states.hidden);
             } else {
                 IPPR.dom.additionalInfo.removeClass(IPPR.states.hidden);
-                IPPR.dom.additionalInfo.find('.Table').html(finalTable).removeClass(IPPR.states.hidden);
+                IPPR.dom.additionalInfo.find(IPPR.dom.table).html(finalTable).removeClass(IPPR.states.hidden);
                 // IPPR.dom.additionalInfo.find('.OwnedLicenses').html(finalownedLicenses).removeClass(IPPR.states.hidden);
 
 
@@ -621,8 +625,14 @@
 
     // Mobile behaviour of the app
     IPPR.mobile = function(){
+        /*
+        ** ... Set the desktop to false
+        */
         IPPR.states.desktop = false;
 
+        /*
+        ** ... unbind the click event
+        */
         IPPR.dom.tabs.off('click.mobile');
 
         IPPR.dom.tabs.on('click.mobile', function(){
