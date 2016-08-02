@@ -346,15 +346,15 @@
                 <tbody>
                     {{#tableRows}}
                         <tr>
-                            <td>{{number}}{{^number}}<i>unknown</i>{{/number}}</td>
+                            <td>{{license_number}}{{^license_number}}<i>unknown</i>{{/license_number}}</td>
                             <td>{{transfer_date}}{{^transfer_date}}<i>unknown</i>{{/transfer_date}}</td>
                             <td>{{transfer_type}}{{^transfer_type}}<i>unknown</i>{{/transfer_type}}</td>
-                            <td>{{licenceSeller}}{{^licenceSeller}}<i>unknown</i>{{/licenceSeller}}</td>
+                            <td>{{seller}}{{^seller}}<i>unknown</i>{{/seller}}</td>
                             <td>{{seller_stake_prior}}{{^seller_stake_prior}}<i>unknown</i>{{/seller_stake_prior}}</td>
-                            <td>{{licenceBuyer}}{{^licenceBuyer}}<i>unknown</i>{{/licenceBuyer}}</td>
+                            <td>{{buyer}}{{^buyer}}<i>unknown</i>{{/buyer}}</td>
                             <td>{{buyer_stake_after}}{{^buyer_stake_after}}<i>unknown</i>{{/buyer_stake_after}}</td>
-                            <td>{{operatorPrior}}{{^operatorPrior}}<i>unknown</i>{{/operatorPrior}}</td>
-                            <td>{{operatorAfter}}{{^operatorAfter}}<i>unknown</i>{{/operatorAfter}}</td>
+                            <td>{{operator_prior}}{{^operator_prior}}<i>unknown</i>{{/operator_prior}}</td>
+                            <td>{{operator_after}}{{^operator_after}}<i>unknown</i>{{/operator_after}}</td>
                         </tr>
                     {{/tableRows}}
                 </tbody>

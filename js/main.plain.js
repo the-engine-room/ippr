@@ -127,9 +127,7 @@
                 }
             },
             highlightLayer: function highlightLayer(key, id) {
-                console.log(key);
-                console.log(id);
-                console.log(IPPR.states.highlight);
+
                 $.each(IPPR.map.layers[key], function (k, value) {
 
                     if (!IPPR.states.filters) {
@@ -510,7 +508,7 @@
             mustacheTpl = $(IPPR.dom.templates.licenceTable).html();
             Mustache.parse(mustacheTpl);
 
-            $.getJSON(IPPR.data.apiURL + "SELECT * FROM na_license_transfers WHERE license_id = " + item.data('id'), function (data) {
+            $.getJSON(IPPR.data.apiURL + "SELECT * FROM na_detailed_license_transfers WHERE license_id = " + item.data('id') + '&api_key=1393ddb863ac0c21094ec217476256a394c52444', function (data) {
 
                 finalTable = Mustache.render(mustacheTpl, {
                     tableRows: Array.from(data.rows)
