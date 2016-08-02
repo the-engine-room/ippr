@@ -243,7 +243,6 @@
 
         var markup = [],
             mustacheTpl = [],
-            table,
             hierarchy,
             ownedLicenses,
             title,
@@ -509,6 +508,7 @@
             Mustache.parse(mustacheTpl);
 
             $.getJSON(IPPR.data.apiURL + "SELECT * FROM na_license_transfers WHERE license_id = " + item.data('id'), function (data) {
+                console.log(data.rows);
                 finalTable = Mustache.render(mustacheTpl, {
                     tableRows: Array.from(data.rows)
                 });

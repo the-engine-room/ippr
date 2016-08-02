@@ -150,7 +150,7 @@ module.exports = function (grunt) {
         browserSync: {
             dev: {
                 bsFiles: {
-                    src: ['*.html', 'css/**/*.css', 'js/**/*.js', '*.php']
+                    src: ['*.html', 'css/**/*.css', 'js/**/*.js', '!js/main.js', '*.php']
                 },
                 options: {
                     proxy: '0.0.0.0:9000', //our PHP server

@@ -156,7 +156,7 @@
                                     <p><strong>Website:</strong> <a href="{{company_website}}">{{company_website}}{{^company_website}}<i>unknown</i>{{/company_website}}</a></p>
                                 </li>
                             </ul>
-                            <p class="List-switch" data-to="companies" data-id="{{ CHANGEME }}"><i class="material-icons">info</i></p>
+                            <p class="List-switch" data-to="companies" data-id="{{ company_id }}"><i class="material-icons">info</i></p>
                         </div>
                     {{/companyInfo}}
                 </li>
@@ -346,7 +346,7 @@
                 <tbody>
                     {{#tableRows}}
                         <tr>
-                            <td>{{licenceNumber}}{{^licenceNumber}}<i>unknown</i>{{/licenceNumber}}</td>
+                            <td>{{number}}{{^number}}<i>unknown</i>{{/number}}</td>
                             <td>{{transfer_date}}{{^transfer_date}}<i>unknown</i>{{/transfer_date}}</td>
                             <td>{{transfer_type}}{{^transfer_type}}<i>unknown</i>{{/transfer_type}}</td>
                             <td>{{licenceSeller}}{{^licenceSeller}}<i>unknown</i>{{/licenceSeller}}</td>
