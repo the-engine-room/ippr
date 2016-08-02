@@ -82,6 +82,7 @@
             mobile: false,
             desktop: false,
             view: 'licenses',
+            hightlight: 'licenses',
             map: false,
             filters: false
         },
@@ -96,8 +97,8 @@
                 },
                 1: {
                     name: 'companies',
-                    sql: "SELECT c.* FROM na_companies c, na_license_ownerships lo WHERE c.cartodb_id = lo.company_id AND lo.is_operator = TRUE ORDER BY c.name ASC&api_key=1393ddb863ac0c21094ec217476256a394c52444",
-                    groupBy: 'cartodb_id'
+                    sql: "SELECT * FROM na_license_operators",
+                    groupBy: 'company_id'
                 }
             }
         },
@@ -126,7 +127,9 @@
                 }
             },
             highlightLayer: function highlightLayer(key, id) {
-
+                console.log(key);
+                console.log(id);
+                console.log(IPPR.states.highlight);
                 $.each(IPPR.map.layers[key], function (k, value) {
 
                     if (!IPPR.states.filters) {
@@ -137,7 +140,7 @@
                         IPPR.map.markers[key][k].isActive = false;
                     }
 
-                    if (value.ID === id || value.company_id === id) {
+                    if (IPPR.states.highlight === 'licenses' && value.ID === id || IPPR.states.highlight === 'companies' && value.company_id === id) {
                         IPPR.map.layers[key][k].setStyle(IPPR.map.styles.active);
                         IPPR.map.layers[key][k].isActive = true;
                         IPPR.map.markers[key][k].isActive = true;
@@ -177,7 +180,7 @@
                 });
 
                 $.each(IPPR.map.layers[key], function (k, v) {
-                    if ($.inArray(v.ID, ids) < 0 && $.inArray(v.company_id, ids) < 0) {
+                    if (IPPR.states.view === 'licenses' && $.inArray(v.ID, ids) < 0 || IPPR.states.view === 'companies' && $.inArray(v.company_id, ids) < 0) {
                         IPPR.map.layers[key][k].setStyle(IPPR.map.styles.filtered);
                         $(IPPR.map.markers[key][k]._icon).removeClass(IPPR.states.active);
                         $(IPPR.map.markers[key][k]._icon).removeClass(IPPR.states.selected);
@@ -288,7 +291,7 @@
                     ** ... assign data to templates
                     */
                     if (tab.name === 'companies') {
-                        title = value[0].name;
+                        title = value[0].company_name;
                         ownedLicenses = '[{"name": "Name", "percent": "50%", "numbers": [123,234]},{"name": "Name", "percent": "50%", "numbers": [123,234]}]';
                         id = k;
                     } else {
@@ -385,7 +388,7 @@
                     ** ... extra data
                     */
                     layer.ID = feature.properties.license_id;
-                    layer.company_name = feature.properties.holder;
+                    layer.company_id = feature.properties.operator_id;
 
                     /*
                     ** ... push the layers for later use
@@ -508,7 +511,7 @@
             Mustache.parse(mustacheTpl);
 
             $.getJSON(IPPR.data.apiURL + "SELECT * FROM na_license_transfers WHERE license_id = " + item.data('id'), function (data) {
-                console.log(data.rows);
+
                 finalTable = Mustache.render(mustacheTpl, {
                     tableRows: Array.from(data.rows)
                 });
@@ -774,17 +777,13 @@
                 var id = $(this).data('id'),
                     size = 0;
 
-                if (IPPR.states.desktop) {
-                    if (key === '1') {
-                        IPPR.map.highlightLayer('2', id);
-                    } else {
-                        IPPR.map.highlightLayer(key, id);
-                    }
-                } else {
-                    IPPR.map.highlightLayer(key, id);
-                }
-
                 if (!$(this).closest(IPPR.dom.lists.extra).size()) {
+
+                    if (IPPR.states.view === 'companies') {
+                        IPPR.states.highlight = 'companies';
+                    } else {
+                        IPPR.states.highlight = 'licenses';
+                    }
 
                     if (IPPR.states.desktop) {
 
@@ -823,18 +822,18 @@
                         size = 0;
 
                         $.each(IPPR.helpers.groupBy(companies, 'license_number'), function (k, value) {
-                            var concessions = [];
 
+                            var concessions = '';
                             $.each(value, function (k, v) {
-                                concessions.push(v.concession_number);
+                                concessions += v.concessions;
                             });
 
                             Mustache.parse(mustacheTpl[key]);
 
                             markup[key] += Mustache.render(mustacheTpl[key], {
                                 title: k,
-                                id: k,
-                                concessionNumbers: concessions ? concessions : false
+                                id: value[0].license_id,
+                                concessionNumbers: concessions ? concessions.split(',') : false
                             });
 
                             size++;
@@ -867,6 +866,18 @@
                     $('.collapsible').collapsible({
                         accordion: true
                     });
+                } else {
+                    IPPR.states.highlight = 'licenses';
+                }
+
+                if (IPPR.states.desktop) {
+                    if (key === '1') {
+                        IPPR.map.highlightLayer('2', id);
+                    } else {
+                        IPPR.map.highlightLayer(key, id);
+                    }
+                } else {
+                    IPPR.map.highlightLayer(key, id);
                 }
             });
         });

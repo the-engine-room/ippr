@@ -380,12 +380,12 @@
                 <tbody>
                     {{#tableRows}}
                         <tr>
-                            <td>{{name}}{{^name}}<i>unknown</i>{{/name}}</td>
-                            <td>{{jurisdiction}}{{^jurisdiction}}<i>unknown</i>{{/jurisdiction}}</td>
-                            <td>{{registration}}{{^registration}}<i>unknown</i>{{/registration}}</td>
-                            <td>{{hq}}{{^hq}}<i>unknown</i>{{/hq}}</td>
-                            <td>{{formed}}{{^formed}}<i>unknown</i>{{/formed}}</td>
-                            <td>{{address}}{{^address}}<i>unknown</i>{{/address}}</td>
+                            <td>{{company_name}}{{^company_name}}<i>unknown</i>{{/company_name}}</td>
+                            <td>{{company_jurisdiction}}{{^company_jurisdiction}}<i>unknown</i>{{/company_jurisdiction}}</td>
+                            <td>{{company_registration}}{{^company_registration}}<i>unknown</i>{{/company_registration}}</td>
+                            <td>{{company_hq}}{{^company_hq}}<i>unknown</i>{{/company_hq}}</td>
+                            <td>{{company_formed}}{{^company_formed}}<i>unknown</i>{{/company_formed}}</td>
+                            <td>{{company_address}}{{^company_address}}<i>unknown</i>{{/company_address}}</td>
                         </tr>
                     {{/tableRows}}
                 </tbody>
