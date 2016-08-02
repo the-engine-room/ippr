@@ -445,7 +445,7 @@
                             top = elem.position().top;
                             $(IPPR.dom.lists.main).find(IPPR.dom.lists.holder).scrollTop(top);
                         } else if (that.is('.companies')){
-                            elem = $(IPPR.dom.lists.main).find('li[data-id="'+ feature.properties.company_id +'"]');
+                            elem = $(IPPR.dom.lists.main).find('li[data-id="'+ feature.properties.operator_id +'"]');
                             elem.click();
                             top = elem.position().top;
                             $(IPPR.dom.lists.main).find(IPPR.dom.lists.holder).scrollTop(top);
