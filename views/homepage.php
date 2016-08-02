@@ -156,7 +156,7 @@
                                     <p><strong>Website:</strong> <a href="{{company_website}}">{{company_website}}{{^company_website}}<i>unknown</i>{{/company_website}}</a></p>
                                 </li>
                             </ul>
-                            <p class="List-switch" data-to="companies" data-id="{{ company_id }}"><i class="material-icons">info</i></p>
+                            <p class="List-switch" data-to="companies" data-id="{{ CHANGEME }}"><i class="material-icons">info</i></p>
                         </div>
                     {{/companyInfo}}
                 </li>
@@ -347,12 +347,12 @@
                     {{#tableRows}}
                         <tr>
                             <td>{{licenceNumber}}{{^licenceNumber}}<i>unknown</i>{{/licenceNumber}}</td>
-                            <td>{{transferDate}}{{^transferDate}}<i>unknown</i>{{/transferDate}}</td>
-                            <td>{{transferType}}{{^transferType}}<i>unknown</i>{{/transferType}}</td>
+                            <td>{{transfer_date}}{{^transfer_date}}<i>unknown</i>{{/transfer_date}}</td>
+                            <td>{{transfer_type}}{{^transfer_type}}<i>unknown</i>{{/transfer_type}}</td>
                             <td>{{licenceSeller}}{{^licenceSeller}}<i>unknown</i>{{/licenceSeller}}</td>
-                            <td>{{sellerStakePrior}}{{^sellerStakePrior}}<i>unknown</i>{{/sellerStakePrior}}</td>
+                            <td>{{seller_stake_prior}}{{^seller_stake_prior}}<i>unknown</i>{{/seller_stake_prior}}</td>
                             <td>{{licenceBuyer}}{{^licenceBuyer}}<i>unknown</i>{{/licenceBuyer}}</td>
-                            <td>{{buyerStakeAfter}}{{^buyerStakeAfter}}<i>unknown</i>{{/buyerStakeAfter}}</td>
+                            <td>{{buyer_stake_after}}{{^buyer_stake_after}}<i>unknown</i>{{/buyer_stake_after}}</td>
                             <td>{{operatorPrior}}{{^operatorPrior}}<i>unknown</i>{{/operatorPrior}}</td>
                             <td>{{operatorAfter}}{{^operatorAfter}}<i>unknown</i>{{/operatorAfter}}</td>
                         </tr>
@@ -380,12 +380,12 @@
                 <tbody>
                     {{#tableRows}}
                         <tr>
-                            <td>{{company_name}}{{^company_name}}<i>unknown</i>{{/company_name}}</td>
-                            <td>{{company_jurisdiction}}{{^company_jurisdiction}}<i>unknown</i>{{/company_jurisdiction}}</td>
-                            <td>{{company_registration}}{{^company_registration}}<i>unknown</i>{{/company_registration}}</td>
-                            <td>{{company_hq}}{{^company_hq}}<i>unknown</i>{{/company_hq}}</td>
-                            <td>{{company_formed}}{{^company_formed}}<i>unknown</i>{{/company_formed}}</td>
-                            <td>{{company_address}}{{^company_address}}<i>unknown</i>{{/company_address}}</td>
+                            <td>{{name}}{{^name}}<i>unknown</i>{{/name}}</td>
+                            <td>{{jurisdiction}}{{^jurisdiction}}<i>unknown</i>{{/jurisdiction}}</td>
+                            <td>{{registration}}{{^registration}}<i>unknown</i>{{/registration}}</td>
+                            <td>{{hq}}{{^hq}}<i>unknown</i>{{/hq}}</td>
+                            <td>{{formed}}{{^formed}}<i>unknown</i>{{/formed}}</td>
+                            <td>{{address}}{{^address}}<i>unknown</i>{{/address}}</td>
                         </tr>
                     {{/tableRows}}
                 </tbody>
@@ -412,10 +412,10 @@
         {{#hierarchy}}
             <div class="col s6 m4 l3 Hierarchy-data">
                 <div class="Block">
-                    <p class="Block-title">{{person_name}}{{^person_name}}<i>unknown</i>{{/person_name}}</p>
-                    <p>Nationality: {{person_nationality}}{{^person_nationality}}<i>unknown</i>{{/person_nationality}}</p>
+                    <p class="Block-title">{{name}}{{^name}}<i>unknown</i>{{/name}}</p>
+                    <p>Nationality: {{nationality}}{{^nationality}}<i>unknown</i>{{/nationality}}</p>
                     <p>Start date: {{start_date}}{{^start_date}}<i>unknown</i>{{/start_date}}</p>
-                    <p>Role: {{role_title}}{{^role_title}}<i>unknown</i>{{/role_title}}</p>
+                    <p>Role: {{role}}{{^role}}<i>unknown</i>{{/role}}</p>
                     <p class="Block-title">{{#percent_interest}}{{percent_interest}}%{{/percent_interest}}{{^percent_interest}}<i>unknown</i>{{/percent_interest}}</p>
                 </div>
             </div>

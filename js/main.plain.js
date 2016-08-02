@@ -69,7 +69,8 @@
                 company: 'Additional information'
             },
             ownedLicenses: '.OwnedLicenses',
-            'hierarchy': '.Hierarchy'
+            hierarchy: '.Hierarchy',
+            table: '.Table'
         },
         states: {
             loading: 'is-loading',
@@ -90,13 +91,13 @@
             tabs: {
                 0: {
                     name: 'licenses',
-                    sql: "SELECT MAX(companies.company_id) as company_id, MAX(companies.company_hq) as company_hq, MAX(companies.company_formed) as company_formed, MAX(companies.company_jurisdiction) as company_jurisdiction, MAX(companies.website) as company_website, MAX(companies.company_name) as company_name, MAX(companies.company_address) as company_address, license_number, array_to_string(array_agg(concession_number), ',') as concessions FROM hydrocarbon_licences_latest_clean JOIN companies ON (hydrocarbon_licences_latest_clean.company_id = companies.company_id) GROUP BY license_number, companies.company_id ORDER BY license_number",
-                    groupBy: 'license_number'
+                    sql: "SELECT * FROM na_licenses_operators_concessions",
+                    groupBy: 'license_id'
                 },
                 1: {
                     name: 'companies',
-                    sql: "SELECT * FROM companies JOIN hydrocarbon_licences_latest_clean ON (companies.company_id = hydrocarbon_licences_latest_clean.company_id) ORDER BY company_name",
-                    groupBy: 'company_id'
+                    sql: "SELECT c.* FROM na_companies c, na_license_ownerships lo WHERE c.cartodb_id = lo.company_id AND lo.is_operator = TRUE ORDER BY c.name ASC&api_key=1393ddb863ac0c21094ec217476256a394c52444",
+                    groupBy: 'cartodb_id'
                 }
             }
         },
@@ -246,6 +247,7 @@
             hierarchy,
             ownedLicenses,
             title,
+            id,
             expiration = false;
 
         /*
@@ -287,11 +289,12 @@
                     ** ... assign data to templates
                     */
                     if (tab.name === 'companies') {
-                        title = value[0].company_name;
+                        title = value[0].name;
                         ownedLicenses = '[{"name": "Name", "percent": "50%", "numbers": [123,234]},{"name": "Name", "percent": "50%", "numbers": [123,234]}]';
+                        id = k;
                     } else {
-                        title = k;
-                        table = '[{"licenceNumber": "Pel 003 - licence Number", "transferDate": "01/2012 - transferDate", "transferType": "Transfer type", "licenceSeller": "licenceSeller", "sellerStakePrior": "sellerStakePrior", "licenceBuyer": "licenceBuyer", "buyerStakeAfter": "buyerStakeAfter", "operatorPrior": "operatorPrior", "operatorAfter": "operatorAfter"}, {"licenceNumber": "Pel 003 - licence Number", "transferDate": "01/2012 - transferDate", "transferType": "Transfer type", "licenceSeller": "licenceSeller", "sellerStakePrior": "sellerStakePrior", "licenceBuyer": "licenceBuyer", "buyerStakeAfter": "buyerStakeAfter", "operatorPrior": "operatorPrior", "operatorAfter": "operatorAfter"} ]';
+                        title = value[0].license_number;
+                        id = value[0].license_id;
                     }
 
                     /*
@@ -299,9 +302,8 @@
                     */
                     markup[key] += Mustache.render(mustacheTpl[key], {
                         title: title,
-                        id: k,
+                        id: id,
                         sankey: '[[ "Goverment of Namibia 100%", "Eco oil and gas 20%", 10, "20%"],[ "Eco oil and gas 20%", "Eco oil and gas 10%", 5, "10%" ],[ "Eco oil and gas 20%", "New Buyer 10%", 5, "10%" ],[ "Goverment of Namibia 100%", "Goverment of Namibia 80%", 8, "80%"]]', // TODO
-                        table: table, // TODO
                         ownedLicenses: ownedLicenses,
                         hierarchy: hierarchy,
                         expiration: expiration,
@@ -334,7 +336,7 @@
         /*
         ** ... get the geo json data
         */
-        $.getJSON('/data/data2.json', function (data) {
+        $.getJSON('/data/na_license_concessions.geojson', function (data) {
 
             /*
             ** ... for each map in the dom initialize the maps and populate with layers and markers
@@ -383,7 +385,7 @@
                     /*
                     ** ... extra data
                     */
-                    layer.ID = feature.properties.license_number;
+                    layer.ID = feature.properties.license_id;
                     layer.company_name = feature.properties.holder;
 
                     /*
@@ -397,7 +399,7 @@
                     var marker = L.marker(layer.getBounds().getCenter(), {
                         icon: L.divIcon({
                             className: 'Map-label',
-                            html: '<span>' + layer.concession_number + '</span>'
+                            html: '<span>' + layer.number + '</span>'
                         })
                     }).addTo(IPPR.map.map[key]);
 
@@ -431,7 +433,7 @@
                         */
                         var elem, top;
                         if (that.is('.licenses')) {
-                            elem = $(IPPR.dom.lists.main).find('li[data-id="' + feature.properties.license_number + '"]');
+                            elem = $(IPPR.dom.lists.main).find('li[data-id="' + feature.properties.license_id + '"]');
                             elem.click();
                             top = elem.position().top;
                             $(IPPR.dom.lists.main).find(IPPR.dom.lists.holder).scrollTop(top);
@@ -498,7 +500,6 @@
             ** ... get the data from data attributes
             */
             sankeyData = item.data('sankey');
-            tableData = item.data('table');
             title = item.find(IPPR.dom.lists.title).html();
 
             /*
@@ -507,8 +508,24 @@
             mustacheTpl = $(IPPR.dom.templates.licenceTable).html();
             Mustache.parse(mustacheTpl);
 
-            finalTable = Mustache.render(mustacheTpl, {
-                tableRows: Array.from(tableData)
+            $.getJSON(IPPR.data.apiURL + "SELECT * FROM na_license_transfers WHERE license_id = " + item.data('id'), function (data) {
+                finalTable = Mustache.render(mustacheTpl, {
+                    tableRows: Array.from(data.rows)
+                });
+
+                if (IPPR.states.mobile) {
+
+                    /*
+                    ** ... draw sankey graph
+                    */
+                    //IPPR.sankey(sankeyData, IPPR.dom.sankey.mobile);
+                    $(IPPR.dom.lists.info).find(IPPR.dom.table).html(finalTable);
+                    IPPR.dom.additionalInfo.addClass(IPPR.states.hidden);
+                } else {
+                    $(IPPR.dom.sankey.desktop).removeClass(IPPR.states.hidden);
+                    //IPPR.sankey(sankeyData, IPPR.dom.sankey.desktop);
+                    IPPR.dom.additionalInfo.find(IPPR.dom.table).html(finalTable);
+                }
             });
 
             /*
@@ -522,22 +539,16 @@
             */
             if (IPPR.states.mobile) {
                 $(IPPR.dom.lists.info).find(IPPR.dom.lists.infoName).html(title);
-
-                /*
-                ** ... draw sankey graph
-                */
-                IPPR.sankey(sankeyData, IPPR.dom.sankey.mobile);
-
-                $(IPPR.dom.lists.info).find('.Table').html(finalTable);
                 IPPR.dom.additionalInfo.addClass(IPPR.states.hidden);
             } else {
                 IPPR.dom.additionalInfo.removeClass(IPPR.states.hidden);
                 IPPR.dom.additionalInfo.find('.AdditionalInfo-title span').html(title);
                 $(IPPR.dom.sankey.desktop).removeClass(IPPR.states.hidden);
-                IPPR.sankey(sankeyData, IPPR.dom.sankey.desktop);
-                IPPR.dom.additionalInfo.find('.Table').html(finalTable);
             }
         } else {
+            /*
+            ** ... if this is company, get the data and append to the DOM
+            */
 
             $(IPPR.dom.additionalInfoTitle).html(IPPR.dom.additionalInfoStrings[type]);
             $(IPPR.dom.additionalInfoHeader).removeClass('blue').addClass('green');
@@ -548,9 +559,9 @@
             tableData = IPPR.data.data[1][item.data('id')][0];
             // ownedLicenses = item.data('ownedlicenses');
 
-            mustacheTpl = $('.companyTable-tpl').html();
+            mustacheTpl = $(IPPR.dom.templates.companyTable).html();
             // ownedLicensesTpl = $('.ownedLicenses-tpl').html();
-            hierarchyTpl = $('.hierarchy-tpl').html();
+            hierarchyTpl = $(IPPR.dom.templates.hierarchy).html();
 
             Mustache.parse(mustacheTpl);
             // Mustache.parse(ownedLicensesTpl);
@@ -566,37 +577,46 @@
             //     }
             // );
 
+            /*
+            ** ... get the company info
+            ** SELECT * FROM na_people WHERE company_id = 6 ORDER BY name ASC
+            */
 
-            $.getJSON('https://namibmap.carto.com/api/v2/sql/?q=SELECT * FROM companies_people WHERE company_id = ' + item.data('id'), function (data) {
+            $.getJSON('https://namibmap.carto.com/api/v2/sql/?q=SELECT * FROM na_people WHERE company_id = ' + item.data('id'), function (data) {
 
                 finalHierarchy = Mustache.render(hierarchyTpl, {
                     hierarchy: data.rows
                 });
 
                 if (IPPR.states.mobile) {
-                    $(IPPR.dom.lists.extra).find('.Hierarchy').html(finalHierarchy);
+                    $(IPPR.dom.lists.extra).find(IPPR.dom.hierarchy).html(finalHierarchy);
                 } else {
-                    IPPR.dom.additionalInfo.find('.Hierarchy').html(finalHierarchy).removeClass(IPPR.states.hidden);
+                    IPPR.dom.additionalInfo.find(IPPR.dom.hierarchy).html(finalHierarchy).removeClass(IPPR.states.hidden);
                 }
             });
 
             if (IPPR.states.mobile) {
-                $(IPPR.dom.lists.extra).find('.Table').html(finalTable);
+                $(IPPR.dom.lists.extra).find(IPPR.dom.table).html(finalTable);
                 // $(IPPR.dom.lists.extra).find('.OwnedLicenses').html(finalownedLicenses);
                 IPPR.dom.additionalInfo.addClass(IPPR.states.hidden);
             } else {
                 IPPR.dom.additionalInfo.removeClass(IPPR.states.hidden);
-                IPPR.dom.additionalInfo.find('.Table').html(finalTable).removeClass(IPPR.states.hidden);
+                IPPR.dom.additionalInfo.find(IPPR.dom.table).html(finalTable).removeClass(IPPR.states.hidden);
                 // IPPR.dom.additionalInfo.find('.OwnedLicenses').html(finalownedLicenses).removeClass(IPPR.states.hidden);
-
             }
         }
     };
 
     // Mobile behaviour of the app
     IPPR.mobile = function () {
+        /*
+        ** ... Set the desktop to false
+        */
         IPPR.states.desktop = false;
 
+        /*
+        ** ... unbind the click event
+        */
         IPPR.dom.tabs.off('click.mobile');
 
         IPPR.dom.tabs.on('click.mobile', function () {
@@ -801,8 +821,8 @@
 
                     if (IPPR.states.view === 'companies') {
                         size = 0;
-                        $.each(IPPR.helpers.groupBy(companies, 'license_number'), function (k, value) {
 
+                        $.each(IPPR.helpers.groupBy(companies, 'license_number'), function (k, value) {
                             var concessions = [];
 
                             $.each(value, function (k, v) {

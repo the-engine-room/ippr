@@ -11245,6 +11245,7 @@ html.js .js-isHidden {
 .Data-holder .collapsible-body {
   word-break: break-word;
   padding: 2rem;
+  position: relative;
 }
 
 .Data-holder .collapsible-body p {

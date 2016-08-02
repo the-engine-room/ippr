@@ -19,7 +19,7 @@ module.exports = function (grunt) {
             },
             js: {
                 files: ['js/{,*/}*.js'],
-                tasks: ['newer:jshint:all', 'babel:dist']
+                tasks: ['babel:dist','newer:jshint:all']
             },
             css: {
                 files: 'scss/**/*.scss',
@@ -66,7 +66,8 @@ module.exports = function (grunt) {
                     'js/{,*/}*.js',
                     '!js/production.js',
                     '!js/production.min.js',
-                    '!js/vendor/**/*.js'
+                    '!js/vendor/**/*.js',
+                    '!js/main.plain.js'
                 ]
             }
         },
