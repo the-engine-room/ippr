@@ -5,7 +5,7 @@ env:
   global:
   - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
 addons:
-  ssh_known_hosts: transparentoil.theengineroom.org
+  ssh_known_hosts: transparentoil.engnroom.org
 before_install:
 - bash scripts/install.sh
 before_script:
