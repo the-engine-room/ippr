@@ -328,7 +328,9 @@
                 */
                 if (Object.keys(IPPR.data.tabs).length - 1 === parseInt(key)){
                     IPPR.loading();
-                    IPPR.filtering();
+                    setTimeout(function(){
+                        IPPR.filtering();
+                    },300);
                 }
 
             });
