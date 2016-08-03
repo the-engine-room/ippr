@@ -109,21 +109,27 @@
             styles: {
                 default: {
                     weight: 1,
-                    color: '#256A9A',
+                    fill: true,
+                    fillColor: '#5E8FB1',
                     dashArray: '',
-                    fillOpacity: 0.5,
+                    color: '#000',
+                    fillOpacity: 1,
                 },
                 active: {
                     weight: 2,
-                    color: '#256A9A',
+                    fill: true,
+                    fillColor: '#256A9A',
                     dashArray: '',
+                    color: '#000',
                     fillOpacity: 1
                 },
                 filtered: {
                     weight: 3,
-                    color: '#256A9A',
+                    fill: true,
+                    fillColor: '#93B4CB',
                     dashArray: '',
-                    fillOpacity: 0.2
+                    color: 'transparent',
+                    fillOpacity: 1
                 }
             },
             highlightLayer: function(key,id){
