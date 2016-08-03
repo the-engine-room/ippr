@@ -244,8 +244,6 @@
 
         var markup = [],
             mustacheTpl = [],
-            hierarchy,
-            ownedLicenses,
             title,
             id,
             expiration = false;
@@ -290,7 +288,6 @@
                     */
                     if (tab.name === 'companies') {
                         title = value[0].company_name;
-                        ownedLicenses = '[{"name": "Name", "percent": "50%", "numbers": [123,234]},{"name": "Name", "percent": "50%", "numbers": [123,234]}]';
                         id = k;
                     } else {
                         title = value[0].license_number;
@@ -303,9 +300,6 @@
                     markup[key] += Mustache.render(mustacheTpl[key], {
                         title: title,
                         id: id,
-                        sankey: '[[ "Goverment of Namibia 100%", "Eco oil and gas 20%", 10, "20%"],[ "Eco oil and gas 20%", "Eco oil and gas 10%", 5, "10%" ],[ "Eco oil and gas 20%", "New Buyer 10%", 5, "10%" ],[ "Goverment of Namibia 100%", "Goverment of Namibia 80%", 8, "80%"]]', // TODO
-                        ownedLicenses: ownedLicenses,
-                        hierarchy: hierarchy,
                         expiration: expiration,
                         concessionNumbers: concessions ? concessions.split(',') : false
                     });
@@ -483,7 +477,7 @@
     */
     IPPR.displayAdditionalInfo = function (item, type) {
 
-        var sankeyData, tableData, title, mustacheTpl, finalTable, hierarchyTpl, finalHierarchy;
+        var tableData, title, mustacheTpl, finalTable, hierarchyTpl, finalHierarchy;
 
         /*
         ** ... if this is licence
@@ -499,7 +493,6 @@
             /*
             ** ... get the data from data attributes
             */
-            sankeyData = item.data('sankey');
             title = item.find(IPPR.dom.lists.title).html();
 
             /*
@@ -508,10 +501,18 @@
             mustacheTpl = $(IPPR.dom.templates.licenceTable).html();
             Mustache.parse(mustacheTpl);
 
-            $.getJSON(IPPR.data.apiURL + "SELECT * FROM na_detailed_license_transfers WHERE license_id = " + item.data('id') + '&api_key=1393ddb863ac0c21094ec217476256a394c52444', function (data) {
+            $.getJSON(IPPR.data.apiURL + "SELECT * FROM na_detailed_license_transfers WHERE license_id = " + item.data('id') + ' ORDER BY transfer_date&api_key=1393ddb863ac0c21094ec217476256a394c52444', function (data) {
+
+                var sankeyData = [];
+                // [[ "Goverment of Namibia 100%", "Eco oil and gas 20%", 10, "20%"],[ "Eco oil and gas 20%", "Eco oil and gas 10%", 5, "10%" ],[ "Eco oil and gas 20%", "New Buyer 10%", 5, "10%" ],[ "Goverment of Namibia 100%", "Goverment of Namibia 80%", 8, "80%"]]
+
 
                 finalTable = Mustache.render(mustacheTpl, {
                     tableRows: Array.from(data.rows)
+                });
+
+                $.each(data.rows, function (index, val) {
+                    sankeyData.push([val.seller, val.buyer, Math.ceil(val.buyer_stake_after || 100), val.seller_stake_prior + '% ->' + val.buyer_stake_after + '%']);
                 });
 
                 if (IPPR.states.mobile) {
@@ -519,12 +520,12 @@
                     /*
                     ** ... draw sankey graph
                     */
-                    //IPPR.sankey(sankeyData, IPPR.dom.sankey.mobile);
+                    IPPR.sankey(sankeyData, IPPR.dom.sankey.mobile);
                     $(IPPR.dom.lists.info).find(IPPR.dom.table).html(finalTable);
                     IPPR.dom.additionalInfo.addClass(IPPR.states.hidden);
                 } else {
                     $(IPPR.dom.sankey.desktop).removeClass(IPPR.states.hidden);
-                    //IPPR.sankey(sankeyData, IPPR.dom.sankey.desktop);
+                    IPPR.sankey(sankeyData, IPPR.dom.sankey.desktop);
                     IPPR.dom.additionalInfo.find(IPPR.dom.table).html(finalTable);
                 }
             });
