@@ -17,7 +17,7 @@ function init {
 	cd _site
 	git init
 	#add remote with newly created user for travis and point to public folder
-	git remote add deploy "deploy@@engineroom0.koumbit.net:/var/www/alternc/a/admin/www/transparencyoil.engnroom.org/"
+	git remote add deploy "deploy@engineroom0.koumbit.net:/var/www/alternc/a/admin/www/transparencyoil.engnroom.org/"
 	git config user.name "Travis CI"
 	git config user.email "mayarichman@gmail.com"
 	echo "Fetching from remote"
