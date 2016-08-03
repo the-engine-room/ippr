@@ -11,11 +11,12 @@ Requirements:
 
 ```shell
 git clone THIS-REPO.git
+cd THIS-REPO
 npm install
-awesome-project "Do something!"  # prints "Nah."
+grunt
 ```
 
-Here you should say what actually happens when you execute the code above.
+At this point your default browser will open [http://localhost:9011/](http://localhost:9011/).
 
 ## Developing
 

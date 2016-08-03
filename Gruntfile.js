@@ -232,7 +232,7 @@ module.exports = function (grunt) {
             build: {
                 files: [
                     {
-                        src: 'index.php',
+                        src: ['index.php', 'AltoRouter.php', '.htaccess', 'robots.txt'],
                         dest: 'dist/',
                     },
                     {
@@ -252,12 +252,6 @@ module.exports = function (grunt) {
                         cwd: 'fonts/',
                         src: ['**'],
                         dest: 'dist/fonts',
-                    },
-                    {
-                        expand: true,
-                        cwd: 'css/',
-                        src: ['icons.data.png.css', 'icons.data.svg.css', 'icons.fallback.css'],
-                        dest: 'dist/css/',
                     }
                 ]
             }
