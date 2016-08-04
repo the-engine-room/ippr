@@ -21,7 +21,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Transparent Oil Namibia</title>
-    <meta name="description" content="CHANGEME">
+    <meta name="description" content="The Transparent Oil Namibia platform maps the details, trends and connections in the allocation of Petroleum Exploration Licences in Namibia.">
 
     <script>
         (function () {
@@ -63,12 +63,19 @@
     <meta property="og:site_name" content="Transparent Oil Namibia" />
     <meta property="og:title" content="Transparent Oil Namibia" />
 
-    <meta property="og:description" content="CHANGEME" />
+    <meta property="og:description" content="The Transparent Oil Namibia platform maps the details, trends and connections in the allocation of Petroleum Exploration Licences in Namibia." />
     <meta property="og:url" content="<?php echo $URL ?>" />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="" />
+    <meta property="og:image" content="/favicons/ogMain.png" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/favicons/manifest.json">
+    <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="theme-color" content="#ffffff">
 
     <link rel="dns-prefetch" href="//gstatic.com">
     <link rel="dns-prefetch" href="//code.jquery.com">
