@@ -20,6 +20,7 @@ before_install:
 # - ssh-add ~/.ssh/id_rsa
 - cat ~/.ssh/id_rsa
 - cat ~/.ssh/known_hosts
+- bash scripts/install.sh
 before_script:
 - bash scripts/install.sh
 - npm install grunt-cli -g
