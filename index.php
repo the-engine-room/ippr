@@ -62,6 +62,7 @@
 
     <meta property="og:site_name" content="Transparent Oil Namibia" />
     <meta property="og:title" content="Transparent Oil Namibia" />
+
     <meta property="og:description" content="CHANGEME" />
     <meta property="og:url" content="<?php echo $URL ?>" />
     <meta property="og:type" content="website" />
@@ -88,7 +89,7 @@
 </head>
 <body<?php if($match[name] == 'homepage'){ echo ' class="App"'; } ?>>
 
-    <header class="Header center-align">
+    <header class="Header center-align<?php if($match[name] == 'about'){ ?> Header--plain<?php } ?>">
         <div class="Header-inner">
 
             <div class="row">
@@ -109,21 +110,22 @@
                 <li><a href="/about/"<?php if($match[name] == 'about'){ echo ' class="is-active"'; } ?>>About</a></li>
             </ul>
 
-
-            <ul class="<?php if($match[name] == 'homepage'){ ?>tabs<?php } ?> Header-tabs">
-                <li class="tab col">
-                    <a href="/#tab-0" class="brand blue" data-view="licenses">
-                        <span>Browse by licence</span>
-                        <i class="material-icons">keyboard_arrow_right</i>
-                    </a>
-                </li>
-                <li class="tab col">
-                    <a href="/#tab-1" class="brand green" data-view="companies">
-                        <span>Browse by company</span>
-                        <i class="material-icons">keyboard_arrow_right</i>
-                    </a>
-                </li>
-            </ul>
+            <?php if($match[name] == 'homepage'){ ?>
+                <ul class="tabs Header-tabs">
+                    <li class="tab col">
+                        <a href="/#tab-0" class="brand blue" data-view="licenses">
+                            <span>Browse by licence</span>
+                            <i class="material-icons">keyboard_arrow_right</i>
+                        </a>
+                    </li>
+                    <li class="tab col">
+                        <a href="/#tab-1" class="brand green" data-view="companies">
+                            <span>Browse by company</span>
+                            <i class="material-icons">keyboard_arrow_right</i>
+                        </a>
+                    </li>
+                </ul>
+            <?php } ?>
 
         </div>
     </header>
