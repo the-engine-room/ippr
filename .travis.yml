@@ -7,8 +7,8 @@ env:
 addons:
   ssh_known_hosts: engineroom0.koumbit.net
 before_install:
-- openssl aes-256-cbc -K $encrypted_1ad92656603a_key -iv $encrypted_1ad92656603a_iv
-  -in deploy-key.enc -out ~\/deploy-key -d
+- openssl aes-256-cbc -K $encrypted_d2c98c274801_key -iv $encrypted_d2c98c274801_iv
+  -in deploy-key.enc -out deploy-key -d
 - bash scripts/install.sh
 before_script:
 - npm install grunt-cli -g
