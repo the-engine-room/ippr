@@ -10484,6 +10484,10 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
   box-sizing: border-box;
 }
 
+html {
+  font-family: 'Open Sans', sans-serif;
+}
+
 html,
 body {
   height: 100%;
@@ -10785,7 +10789,7 @@ html.js .js-isHidden {
 }
 
 .Header-description {
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Roboto Slab', serif;
   margin: 0;
 }
 
@@ -11294,7 +11298,7 @@ html.js .js-isHidden {
   border-bottom: #e0e0e0 1px solid;
   color: #fff;
   cursor: pointer;
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Roboto Slab', serif;
 }
 
 .List-header {
