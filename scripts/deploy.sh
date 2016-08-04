@@ -24,10 +24,12 @@ if [ "$TRAVIS_BRANCH" = "master" ] ; then
 
   git config user.name "Travis CI"
   git config user.email "mayarichman+travisCI@gmail.com"
+  ls -la
   git add -A
   git status
   git commit -m "Deploy"
-  git push -f deploy compiled-travis
+  #git push -f deploy compiled-travis
+  git branch
 else
   echo "Not deploying, since this branch isn't master."
 fi
