@@ -1,8 +1,6 @@
 #!/bin/bash
 if [ $TRAVIS_BRANCH == 'compiled-travis' ] ; then
 	echo "Deploying to remote"
-	eval `ssh-agent -s` #start shh agent
-	ssh-add ~/.ssh/id_rsa
 	cd _site
 	git add .
 	git commit -m "Deploy build #$TRAVIS_BUILD_NUMBER"
@@ -10,3 +8,6 @@ if [ $TRAVIS_BRANCH == 'compiled-travis' ] ; then
 else
 	echo "Not deploying, since this branch isn't compiled-travis."
 fi
+
+eval `ssh-agent -s` #start shh agent
+ssh-add ~/.ssh/id_rsa
