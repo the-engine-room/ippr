@@ -154,29 +154,20 @@
     ?>
 
     <footer class="Footer">
-        <div class="row center-align">
-            <div class="col s12">
-                <p class="Header-title">
-                    <span class="Header-title--secondary">Transparent Oil</span>
-                    <span class="Header-title--primary">Namibia</span>
-                </p>
-            </div>
-        </div>
-        <div class="row center-align Footer-logos">
-            <div class="col s12 m4 l2 offset-l3">
-                <a href="#">
-                    <img src="/images/dist/ippr.png" alt="IPPR" width="117" height="116" />
-                </a>
-            </div>
-            <div class="col s12 m4 l2">
-                <a href="https://www.theengineroom.org/" title="The engine room - Accelerating social change">
-                    <img src="/images/dist/engineRoom.png" alt="The engine room" width="128" height="114" />
-                </a>
-            </div>
-            <div class="col s12 m4 l2">
-                <a href="http://web.burza.hr/" title="web.burza Digital agency">
-                    <img src="/images/dist/wb.png" alt="web.burza" width="132" height="135" />
-                </a>
+        <div class="Footer-inner">
+            <div class="row center-align Footer-logos">
+                <div class="col s12 m10 offset-m1">
+                    <a href="http://www.ippr.org.na/">
+                        <img src="/images/dist/ippr.png" alt="IPPR" width="1841" height="156" class="Footer--ippr" />
+                        <img src="/images/dist/ippr-small.png" alt="IPPR" width="707" height="273" class="Footer--ipprSmall" />
+                    </a>
+                </div>
+                <div class="col s11 m4 offset-m4">
+                    <p class="Footer-poweredBy">powered by</p>
+                    <a href="https://www.theengineroom.org/" title="The engine room - Accelerating social change">
+                        <img src="/images/dist/matchbox.png" alt="The engine room" width="844" height="261" class="Footer--matchbox" />
+                    </a>
+                </div>
             </div>
         </div>
     </footer>

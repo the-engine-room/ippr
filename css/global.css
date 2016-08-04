@@ -11266,7 +11266,7 @@ html.js .js-isHidden {
     left: 20px;
     top: 20px;
     z-index: 2;
-    width: 50%;
+    width: 55%;
   }
 }
 
@@ -11642,14 +11642,22 @@ table th, table td {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center bottom;
-  padding: 80px 0 30px 0;
   color: #fff;
 }
 
-.Footer .Header-title {
-  -webkit-transform: scale(0.6);
-      -ms-transform: scale(0.6);
-          transform: scale(0.6);
+.Footer-inner {
+  padding: 80px 0 30px 0;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.Footer-logos {
+  padding: 0 20px;
+}
+
+@media only screen and (min-width: 601px) {
+  .Footer-logos {
+    padding: 0;
+  }
 }
 
 .Footer-logos > div {
@@ -11668,6 +11676,25 @@ table th, table td {
   -webkit-transform: scale(1.1);
       -ms-transform: scale(1.1);
           transform: scale(1.1);
+}
+
+.Footer--ippr {
+  display: none;
+}
+
+@media only screen and (min-width: 601px) {
+  .Footer--ippr {
+    display: inline-block;
+  }
+  .Footer--ipprSmall {
+    display: none;
+  }
+}
+
+.Footer-poweredBy {
+  color: #1E2D3A;
+  font-weight: bold;
+  font-size: 24px;
 }
 
 /* ====================================

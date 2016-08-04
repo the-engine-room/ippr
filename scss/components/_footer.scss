@@ -7,14 +7,20 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center bottom;
-    padding: 80px 0 30px 0;
     color: #fff;
 
-    .Header-title {
-        transform: scale(0.6);
+    &-inner {
+        padding: 80px 0 30px 0;
+        background: rgba(255,255,255,0.6);
     }
 
     &-logos {
+        padding: 0 20px;
+
+        @media #{$medium-and-up} {
+            padding: 0;
+        }
+
         > div {
             margin-bottom: 50px;
         }
@@ -29,4 +35,25 @@
             }
         }
     }
+
+    &--ippr {
+        display: none;
+    }
+
+    @media #{$medium-and-up} {
+        &--ippr {
+            display: inline-block;
+        }
+        &--ipprSmall {
+            display: none;
+        }
+    }
+
+
+    &-poweredBy {
+        color: #1E2D3A;
+        font-weight: bold;
+        font-size: 24px;
+    }
+
 }
