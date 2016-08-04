@@ -24,7 +24,7 @@ if [ "$TRAVIS_BRANCH" = "master" ] ; then
   git remote -v
 
   git config user.name "Travis CI"
-  git config user.email "mayarichman+travisCI@gmail.com"
+  git config user.email "mayarichman@gmail.com"
   cd ..
   ls -la
   git add -A
