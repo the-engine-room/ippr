@@ -8,6 +8,7 @@
         color: #fff;
         margin: 0;
         @include fluid-type(font-size, 320px, 1200px, 20px, 24px);
+        font-family: 'Roboto Slab', serif;
     }
 
     &-download {
