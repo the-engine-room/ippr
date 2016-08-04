@@ -1,7 +1,6 @@
 language: node_js
 node_js:
 - 5.10.1
-sudo: false
 env:
   global:
   - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
@@ -28,6 +27,3 @@ script:
 - bash scripts/build.sh
 after_success:
 - bash scripts/deploy.sh
-branches:
-  only:
-  - compiled-travis
