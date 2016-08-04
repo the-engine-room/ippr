@@ -27,7 +27,6 @@ function init {
 
 function build {
 	echo "Building..."
-<<<<<<< HEAD
 	grunt build # Build with Grunt; see Gruntfile.js for more details.
 	echo "Committing the build"
 	cd dist
