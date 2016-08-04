@@ -147,6 +147,8 @@
 
                     if (IPPR.states.highlight === 'licenses' && value.ID === id || IPPR.states.highlight === 'companies' && value.company_id === id){
                         IPPR.map.layers[key][k].setStyle(IPPR.map.styles.active);
+                        // IPPR.map.layers[key][k].setZIndex(1);
+                        IPPR.map.layers[key][k].bringToFront();
                         IPPR.map.layers[key][k].isActive = true;
                         IPPR.map.markers[key][k].isActive = true;
                         $(IPPR.map.markers[key][k]._icon).addClass(IPPR.states.selected);
@@ -283,9 +285,15 @@
                     /*
                     ** ... set up conncession data
                     */
-                    var concessions = '';
+                    var concessions = '',
+                        comma = '';
                     $.each(value, function(k,v){
-                        concessions += v.concessions;
+                        if (k + 1 < value.length){
+                            comma = ',';
+                        } else {
+                            comma = '';
+                        }
+                        concessions += v.concessions + comma;
                     });
 
                     /*
@@ -871,9 +879,15 @@
 
                         $.each(IPPR.helpers.groupBy(companies, 'license_number'), function(k, value){
 
-                            var concessions = '';
+                            var concessions = '',
+                                comma = '';
                             $.each(value, function(k,v){
-                                concessions += v.concessions;
+                                if (k < value.length){
+                                    comma = ',';
+                                } else {
+                                    comma = '';
+                                }
+                                concessions += v.concessions + comma;
                             });
 
                             Mustache.parse(mustacheTpl[key]);
