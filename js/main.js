@@ -147,7 +147,6 @@
 
                     if (IPPR.states.highlight === 'licenses' && value.ID === id || IPPR.states.highlight === 'companies' && value.company_id === id){
                         IPPR.map.layers[key][k].setStyle(IPPR.map.styles.active);
-                        // IPPR.map.layers[key][k].setZIndex(1);
                         IPPR.map.layers[key][k].bringToFront();
                         IPPR.map.layers[key][k].isActive = true;
                         IPPR.map.markers[key][k].isActive = true;

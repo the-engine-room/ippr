@@ -155,17 +155,36 @@
 
     <footer class="Footer">
         <div class="Footer-inner">
+
+            <div class="row center-align">
+                <div class="col s12">
+                    <p class="Header-title">
+                        <span class="Header-title--secondary">Transparent Oil</span>
+                        <span class="Header-title--primary">Namibia</span>
+                    </p>
+                </div>
+            </div>
+
             <div class="row center-align Footer-logos">
                 <div class="col s12 m10 offset-m1">
+                    <p class="Footer-poweredBy">a project by</p>
                     <a href="http://www.ippr.org.na/">
                         <img src="/images/dist/ippr.png" alt="IPPR" width="1841" height="156" class="Footer--ippr" />
                         <img src="/images/dist/ippr-small.png" alt="IPPR" width="707" height="273" class="Footer--ipprSmall" />
                     </a>
                 </div>
-                <div class="col s11 m4 offset-m4">
+                <div class="col s12 m10 offset-m1">
                     <p class="Footer-poweredBy">powered by</p>
                     <a href="https://www.theengineroom.org/" title="The engine room - Accelerating social change">
                         <img src="/images/dist/matchbox.png" alt="The engine room" width="844" height="261" class="Footer--matchbox" />
+                    </a>
+                </div>
+                <div class="col s12 m10 offset-m1 Footer-info">
+                    <a href="https://creativecommons.org/licenses/by-sa/4.0/" title="">
+                        <img src="/images/dist/cc.png" alt="" width="117" height="33" class="Footer--cc" />
+                    </a>
+                    <a href="#" title="">
+                        <img src="/images/dist/github.png" alt="" width="126" height="32" class="Footer--github" />
                     </a>
                 </div>
             </div>
