@@ -26,7 +26,7 @@ function build {
 	ls .
 	pwd
 	git add -A
-	git commit -q -m "Build #$TRAVIS_BUILD_NUMBER"
+	git commit -m "Build #$TRAVIS_BUILD_NUMBER"
 }
 
 function compare {

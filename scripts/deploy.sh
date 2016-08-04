@@ -16,7 +16,7 @@ set -x
 
 if [ "$TRAVIS_BRANCH" = "master" ] ; then
   cd _site
-  git init;
+  git init
 
   git remote add deploy "deploy@45.55.35.212:/var/www/html"
 
@@ -29,9 +29,7 @@ if [ "$TRAVIS_BRANCH" = "master" ] ; then
   git add -A
   git status
   git commit -m "Deploy"
-  git checkout compiled-travis
-  git push -f deploy compiled-travis
-  git branch
+  git push --force deploy master
 else
   echo "Not deploying, since this branch isn't master."
 fi
