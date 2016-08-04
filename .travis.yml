@@ -5,12 +5,11 @@ sudo: false
 env:
   global:
   - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
-  - secure: mDPDo6XrTeEWGKSfDqtqbsa3lKcPV7Kl3s5tOv0GPw14c8i+RLQ/TPaPCF/8XCnOetpXTwGzBPtFPyVq35P5fCTF2JU4vE08AKtykF1M/ssxw+ZV/WNJZCY9O3Ju8q94qHvZ8gS4Nek+3WBO9hUuuwW/OdsSFRuAWPeOLEd9dIOH6HXVKvPa5Y57BqCfccGWPXFkcpWIa4gIdXrtklJa7jDBz4PN0xRj6k40/XkqJJRM/sck0tTiaLik8l2swWSy07KI0AvE6d6s00biVUu96wCK6j1Dq9ZJT96jovkdYNPc3xUqnM/OcXSvw6Z5HQMYIryZEQkSohgI+jwUn9n6JegaYJMZpgJYEy7bhYWChCG3U0UwlHJqYPYlw4aZ+D2j07uCNsYaIcAmuCy0nmqOoTp40K8bstZQEgvvV3m4444QZ0duePFowTziGVoaiuXho4bA+LhcuFLtOcIcCNXixh5z5FsLI/9Q1QdBDLKeyIK1WjWNPOxHW7A9ip2BHC/fVdnQJYjdBvMYrKkOtdLrPn2XirOFLO3YELUdqqV9H0l/Dt6bXtlie+NKfwzrX9J5bAHpVVKCNp0KzykcuNZrO9mMtQb9E5tgNMw8bnb5d5lsBidkb2RTWb/WegyWsjyrnFF1s6HHqNGbZIDmY4ruL3Yzjb48ZiJStdJn8vWgJwg=
 addons:
   ssh_known_hosts: 45.55.35.212
 before_install:
 - openssl aes-256-cbc -K $encrypted_d2c98c274801_key -iv $encrypted_d2c98c274801_iv
-  -in deploy-key.enc -out ~/.ssh/deploy-key -d
+  -in deploy-key.enc -out deploy-key -d
 - bash scripts/install.sh
 before_script:
 - npm install grunt-cli -g
