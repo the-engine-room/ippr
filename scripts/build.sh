@@ -1,15 +1,5 @@
 #!/bin/bash
 
-# Settings
-img_ext="\.png$\|\.gif$\|.jpg$"
-zopfli_ext="\.html$\|\.css$\|\.js$\|\.xml$"
-gzip_ext="\.gz$"
-
-# Global variable declaration
-modfiles=""
-modimg=""
-modzopfli=""
-
 # Functions
 function init {
 	echo "Initializing git"
@@ -30,11 +20,13 @@ function build {
 	grunt build # Build with Grunt; see Gruntfile.js for more details.
 	echo "Committing the build"
 	cd dist
-	cp * ../_site/
+	ls .
+	cp -r * ../_site/
 	cd ../_site
-	git add .
+	ls .
+	pwd
+	git add -A
 	git commit -q -m "Build #$TRAVIS_BUILD_NUMBER"
-	cd ..
 }
 
 function compare {
@@ -53,10 +45,10 @@ function compare {
 
 init
 build
-compare
+#compare
 
 # Compress assets with Zopfli (should always be the last command)
-echo "Compressing the following assets using Zopfli: $modfiles"
-cd _site
-../zopfli/zopfli --i1000 $modzopfli
-cd ..
+#echo "Compressing the following assets using Zopfli: $modfiles"
+#cd _site
+#../zopfli/zopfli --i1000 $modzopfli
+#cd ..
