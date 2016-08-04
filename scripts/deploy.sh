@@ -16,7 +16,7 @@ set -x
 
 if [ "$TRAVIS_BRANCH" = "master" ] ; then
   cd _site
-  git init
+#  git init
 
   git remote add deploy "deploy@45.55.35.212:/var/www/html"
 
