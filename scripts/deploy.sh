@@ -25,6 +25,7 @@ if [ "$TRAVIS_BRANCH" = "master" ] ; then
 
   git config user.name "Travis CI"
   git config user.email "mayarichman+travisCI@gmail.com"
+  cd ..
   ls -la
   git add -A
   git status
