@@ -2,6 +2,8 @@
         <div class="row">
             <div class="col s12 m6 offset-m3">
                 <h1>About</h1>
+
+                <!--
                 <p>Respect; challenges of our times safety immunize foster local achieve billionaire philanthropy. Storytelling; social impact, amplify rights-based approach long-term. Human rights, combat poverty resourceful; economic development peaceful focus on impact outcomes pride. Deep engagement, care committed policymakers beneficiaries, reproductive rights Kony 2012 social responsibility. Pursue these aspirations Angelina Jolie network emergency response raise awareness. Policy medical change catalyze turmoil human potential. Accessibility, liberal United Nations efficient necessities employment. Global network support, improving quality design thinking economic security honor communities organization. Affiliate our grantees and partners participatory monitoring underprivileged diversification. Capacity building; voice legal aid save lives effectiveness activist meaningful work.</p>
 
                 <p>Respect; challenges of our times safety immunize foster local achieve billionaire philanthropy. Storytelling; social impact, amplify rights-based approach long-term. Human rights, combat poverty resourceful; economic development peaceful focus on impact outcomes pride. Deep engagement, care committed policymakers beneficiaries, reproductive rights Kony 2012 social responsibility. Pursue these aspirations Angelina Jolie network emergency response raise awareness.</p>
@@ -25,6 +27,22 @@
                 <blockquote>
                     This is an example quotation that uses the blockquote tag. Capacity building; voice legal aid save lives effectiveness activist meaningful work.
                 </blockquote>
+                -->
+
+                <h2>Site by</h2>
+
+                <div class="row">
+                    <div class="col s12 m6">
+                        <a href="http://web.burza.hr/" title="web.burza">
+                            <img src="" alt="">
+                        </a>
+                    </div>
+                    <div class="col s12 m6">
+                        <a href="http://web.burza.hr/" title="web.burza">
+                            <img src="" alt="">
+                        </a>
+                    </div>
+                </div>
 
 
             </div>
