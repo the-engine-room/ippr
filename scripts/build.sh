@@ -30,8 +30,10 @@ function build {
 	grunt build # Build with Grunt; see Gruntfile.js for more details.
 	echo "Committing the build"
 	cd dist
+	ls .
 	cp -r * ../_site/
 	cd ../_site
+	ls .
 	git add .
 	git commit -q -m "Build #$TRAVIS_BUILD_NUMBER"
 	cd ..
