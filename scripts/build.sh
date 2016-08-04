@@ -27,8 +27,6 @@ function build {
 	pwd
 	git add -A
 	git commit -m "Build #$TRAVIS_BUILD_NUMBER"
-	git commit -m "Deploy"
-	git push --force deploy master
 }
 
 function compare {

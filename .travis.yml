@@ -26,6 +26,8 @@ before_script:
 - npm install grunt-cli -g
 script:
 - bash scripts/build.sh
+after_success:
+- bash scripts/deploy.sh
 branches:
   only:
   - master
