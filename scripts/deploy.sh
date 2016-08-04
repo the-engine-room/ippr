@@ -14,7 +14,7 @@
 
 set -x
 
-if [ "$TRAVIS_BRANCH" = "compiled-travis" ] ; then
+if [ "$TRAVIS_BRANCH" = "master" ] ; then
 #  git init;
 
 #  git remote add deploy "deploy@45.55.35.212:/var/www/html"
@@ -25,8 +25,9 @@ if [ "$TRAVIS_BRANCH" = "compiled-travis" ] ; then
   git config user.name "Travis CI"
   git config user.email "mayarichman+travisCI@gmail.com"
   git add -A
+  git status
   git commit -m "Deploy"
   git push -f deploy compiled-travis
 else
-  echo "Not deploying, since this branch isn't compiled-travis."
+  echo "Not deploying, since this branch isn't master."
 fi
