@@ -15,16 +15,15 @@
 set -x
 
 if [ "$TRAVIS_BRANCH" = "compiled-travis" ] ; then
-  git init;
+#  git init;
 
-  git remote add deploy "deploy@45.55.35.212:/var/www/html"
+#  git remote add deploy "deploy@45.55.35.212:/var/www/html"
 
   # verify remote
   git remote -v
 
   git config user.name "Travis CI"
   git config user.email "mayarichman+travisCI@gmail.com"
-
   git add -A
   git commit -m "Deploy"
   git push -f deploy compiled-travis
