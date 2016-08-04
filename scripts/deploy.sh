@@ -25,7 +25,7 @@ if [ "$TRAVIS_BRANCH" = "compiled-travis" ] ; then
   git config user.name "Travis CI"
   git config user.email "mayarichman+travisCI@gmail.com"
 
-  git add .
+  git add -A
   git commit -m "Deploy"
   git push -f deploy compiled-travis
 else
