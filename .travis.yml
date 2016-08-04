@@ -10,8 +10,19 @@ addons:
 before_install:
 - openssl aes-256-cbc -K $encrypted_d2c98c274801_key -iv $encrypted_d2c98c274801_iv
   -in deploy-key.enc -out deploy-key -d
-- bash scripts/install.sh
+- chmod 600 ~/.ssh/config
+- chmod 600 deploy-key
+- mv deploy-key ~/.ssh/id_rsa
+- rm deploy-key.enc
+- echo -e "Host 45.55.35.212" >> ~/.ssh/config
+- echo -e "IdentityFile ~/.ssh/id_rsa" >> ~/.ssh/config
+#- ssh-add ~/.ssh/id_rsa
+# - eval `ssh-agent -s`
+# - ssh-add ~/.ssh/id_rsa
+- cat ~/.ssh/id_rsa
+- cat ~/.ssh/known_hosts
 before_script:
+- bash scripts/install.sh
 - npm install grunt-cli -g
 script:
 - bash scripts/build.sh
