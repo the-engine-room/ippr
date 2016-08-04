@@ -29,17 +29,17 @@
                 </blockquote>
                 -->
 
-                <h2>Site by</h2>
+                <h3>Site by</h3>
 
                 <div class="row">
                     <div class="col s12 m6">
-                        <a href="http://web.burza.hr/" title="web.burza">
-                            <img src="" alt="">
+                        <a href="http://web.burza.hr/" title="web.burza, Digital Agency">
+
                         </a>
                     </div>
                     <div class="col s12 m6">
-                        <a href="http://web.burza.hr/" title="web.burza">
-                            <img src="" alt="">
+                        <a href="http://opendatakosovo.org/" title="Open Data Kosovo">
+                            <img src="/images/dist/odk-color.png" alt="Open Data Kosovo" />
                         </a>
                     </div>
                 </div>
