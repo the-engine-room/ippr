@@ -28,3 +28,6 @@ script:
 - bash scripts/build.sh
 after_success:
 - bash scripts/deploy.sh
+branches:
+  only:
+  - master
