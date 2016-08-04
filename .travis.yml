@@ -1,14 +1,16 @@
 language: node_js
 node_js:
 - 5.10.1
+sudo: false
 env:
   global:
   - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
+  - secure: YVM3a6XwTYIWC4xnmhExj4zG2qHVdWyqJjIJHwRGVImMYqALciENEEsyi5mni5NmMBF4kB7oXeGLrxaxTTyILaO0ZiNysCRitQo9GSR25p4iL7pdT/yy2N+NizDCXjf0p8Fxdwi53/b2BqVSviGy4mxuzk4EmMlzokKBcZ4U6T+uMo6LhHEsmRbMEhcl7XiNeT0qSFQmvw7P0BxDdj0tczifg39KSGu/RzxcWA9V474A0B+PaiGQG8Df4jP0PqMvSo/1DqyOCtQ3uy5/yXmqy6ACavFuE2ZAOlRtGPAXndM3hHLyGLYt3sFtm8i0sjg2ptKhZitBwFlJZNLbrXM0L4QDjAfz3ztrEi1JDFlz8xoHP22dOLyzPkexhgwgfCO581ACZb/UshAvY0Jn3h4PKsI4wqNINLwCZ1dPhw/xYjFW8ycs9Ai4J0lKhHA52YdUXbNA/IL4ZRB7Jnkxbs4mtoSYow2qAd9vU7tYfDV0q4gE1KHE83ZhtL7xUkOOUvRQ+YeoVHFGrOberK3M291ijj1AJ6vrBCu9PQ2oVH1Az7zqOSyBJcD8R8H99L2ASwWqnyjdrJyaqI60IWhakeudwBkPqkh14aZAKq/fQXWpnEdHFYxuBdxIzVk0mMeZ1bFXVaoobda8IwylNUEv6Qr0IrwTYp6rX9DA9Je2nBlmlTU=
 addons:
   ssh_known_hosts: 45.55.35.212
 before_install:
 - openssl aes-256-cbc -K $encrypted_d2c98c274801_key -iv $encrypted_d2c98c274801_iv
-  -in deploy-key.enc -out deploy-key -d
+  -in deploy-key.enc -out ~/.ssh/deploy-key -d
 - bash scripts/install.sh
 before_script:
 - npm install grunt-cli -g
@@ -16,3 +18,6 @@ script:
 - bash scripts/build.sh
 after_success:
 - bash scripts/deploy.sh
+branches:
+  only:
+  - compiled-travis
