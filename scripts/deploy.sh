@@ -23,12 +23,13 @@ if [ "$TRAVIS_BRANCH" = "master" ] ; then
   # verify remote
   git remote -v
 
-  git config user.name "Travis CI"
-  git config user.email "mayarichman@gmail.com"
+  git config --global user.name "Travis CI"
+  git config --global user.email "mayarichman@gmail.com"
   cd ..
   ls -la
   git add -A
   git status
+  git remote show origin
   git commit -m "Deploy"
   git push --force deploy master
 else
