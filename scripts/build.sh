@@ -53,7 +53,7 @@ function compare {
 
 init
 build
-compare
+#compare
 
 # Compress assets with Zopfli (should always be the last command)
 echo "Compressing the following assets using Zopfli: $modfiles"
