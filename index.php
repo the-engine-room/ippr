@@ -130,6 +130,9 @@
         </div>
     </header>
 
+    <?php if($match[name] == 'about'){ ?>
+        <div class="Search brand blue"></div>
+    <?php } ?>
 
     <?php
 
