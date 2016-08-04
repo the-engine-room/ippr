@@ -7,12 +7,5 @@ rm deploy-key.enc # Don't need it anymore
 chmod 600 deploy-key
 mv deploy-key ~/.ssh/id_rsa
 
-echo "Installing zopfli"
-git clone https://github.com/google/zopfli.git
-cd zopfli
-make
-chmod +x zopfli
-cd ..
-
 echo "Installing npm dependencies"
 npm install
