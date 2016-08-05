@@ -198,14 +198,12 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.2.0/list.min.js"></script>
     <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
     <script src="https://npmcdn.com/leaflet@0.7.7/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
 
     <!-- build:js /js/min.js -->
     <script src="/js/vendor/burza/utils.js"></script>
-    <script src="/js/vendor/materialize.js"></script>
     <script src="/js/main.plain.js"></script>
     <!-- endbuild -->
-
-
 
     <script>
         (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=

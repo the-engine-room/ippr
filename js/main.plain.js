@@ -840,7 +840,7 @@
                             var concessions = '',
                                 comma = '';
                             $.each(value, function (k, v) {
-                                if (k < value.length) {
+                                if (k + 1 < value.length) {
                                     comma = ',';
                                 } else {
                                     comma = '';
@@ -882,10 +882,6 @@
                     $('#tab-' + key).find(IPPR.dom.lists.headerInActive).addClass(IPPR.states.hidden);
 
                     IPPR.map.map[key].invalidateSize();
-
-                    $('.collapsible').collapsible({
-                        accordion: true
-                    });
                 } else {
                     IPPR.states.highlight = 'licenses';
                 }
@@ -899,6 +895,10 @@
                 } else {
                     IPPR.map.highlightLayer(key, id);
                 }
+
+                $('.collapsible').collapsible({
+                    accordion: true
+                });
             });
         });
     };

@@ -170,7 +170,7 @@ module.exports = function (grunt) {
         },
 
         usemin:{
-            html: ['dist/index.php'],
+            html: ['dist/index.php', 'dist/views/**/*.php'],
             options: {
                 assetsDirs: [
                     'dist'
