@@ -11,7 +11,7 @@ function init {
 	git config user.email "mayarichman@gmail.com"
 	echo "Fetching from remote"
 	git fetch deploy
-	git checkout -b build
+	git checkout -b master
 	cd ..
 }
 
