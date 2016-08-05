@@ -1,12 +1,12 @@
 #!/bin/bash
-if [ $TRAVIS_BRANCH == 'compiled-travis' ] ; then
+if [ $TRAVIS_BRANCH == 'master' ] ; then
 	echo "Deploying to remote"
   pwd
-	git add -A
-	git commit -m "Deploy build #$TRAVIS_BUILD_NUMBER"
-	git push deploy compiled-travis
+#	git add -A
+#	git commit -m "Deploy build #$TRAVIS_BUILD_NUMBER"
+	git push deploy master
 else
-	echo "Not deploying, since this branch isn't compiled-travis."
+	echo "Not deploying, since this branch isn't master."
 fi
 
 #eval `ssh-agent -s` #start shh agent
