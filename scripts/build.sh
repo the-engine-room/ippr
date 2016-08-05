@@ -19,7 +19,6 @@ function build {
 	echo "Building..."
 	grunt build # Build with Grunt; see Gruntfile.js for more details.
 	echo "Committing the build"
-	ls .
 	cp -r dist/* _site/
 	cd _site
 	ls .
