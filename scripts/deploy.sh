@@ -2,6 +2,7 @@
 if [ $TRAVIS_BRANCH == 'master' ] ; then
 	echo "Deploying to remote"
   pwd
+  cd _site
 #	git add -A
 #	git commit -m "Deploy build #$TRAVIS_BUILD_NUMBER"
 	git push deploy master
