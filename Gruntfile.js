@@ -198,18 +198,18 @@ module.exports = function (grunt) {
 
         // Parse html and generates above the fold css
         critical: {
-            test: {
+            dist: {
                 options: {
                     base: './',
                     css: [
                         'css/global.css'
                     ],
-                    width: 3000,
-                    height: 10000,
+                    width: 1024,
+                    height: 300,
                     minify: true
                 },
-                src: 'critical.html',
-                dest: 'css/critical.css'
+                src: 'dist/index.php',
+                dest: 'dist/index.php'
             }
         },
 
@@ -275,7 +275,8 @@ module.exports = function (grunt) {
         'uglify:generated',
         'copy:build',
         'filerev',
-        'usemin'
+        'usemin',
+        // 'critical:dist'
     ]);
 
     grunt.registerTask('default', [
