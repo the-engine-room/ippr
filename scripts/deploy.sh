@@ -6,8 +6,9 @@ if [ $TRAVIS_BRANCH == 'master' ] ; then
   pwd
 	# git add -A
 	# git commit -m "Deploy build #$TRAVIS_BUILD_NUMBER"
-
-	git push deploy build
+  git status
+  git branch
+  git push deploy build
 else
 	echo "Not deploying, since this branch isn't master."
 fi
