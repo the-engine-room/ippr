@@ -1,14 +1,26 @@
 #!/bin/bash
+
 if [ $TRAVIS_BRANCH == 'master' ] ; then
 	echo "Deploying to remote"
+	cd _site
   pwd
-  cd _site
-#	git add -A
-#	git commit -m "Deploy build #$TRAVIS_BUILD_NUMBER"
+	git add -A
+	git commit -m "Deploy build #$TRAVIS_BUILD_NUMBER"
 	git push deploy master
 else
 	echo "Not deploying, since this branch isn't master."
 fi
+
+# if [ $TRAVIS_BRANCH == 'master' ] ; then
+# 	echo "Deploying to remote"
+#   pwd
+#   cd _site
+# #	git add -A
+# #	git commit -m "Deploy build #$TRAVIS_BUILD_NUMBER"
+# 	git push deploy master
+# else
+# 	echo "Not deploying, since this branch isn't master."
+# fi
 
 #eval `ssh-agent -s` #start shh agent
 #ssh-add ~/.ssh/id_rsa

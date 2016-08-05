@@ -19,14 +19,13 @@ function build {
 	echo "Building..."
 	grunt build # Build with Grunt; see Gruntfile.js for more details.
 	echo "Committing the build"
-	cd dist
 	ls .
-	cp -r * ../_site/
-	cd ../_site
+	cp -r dist/* _site/
+	cd _site
 	ls .
-	pwd
 	git add -A
 	git commit -m "Build #$TRAVIS_BUILD_NUMBER"
+	cd ..
 }
 
 function compare {
