@@ -619,7 +619,7 @@
             // );
 
             /*
-            ** ... get the company info
+            ** ... get the company info and append to the DOM
             ** SELECT * FROM na_people WHERE company_id = 6 ORDER BY name ASC
             */
 
@@ -662,10 +662,13 @@
         IPPR.states.desktop = false;
 
         /*
-        ** ... unbind the click event
+        ** ... unbind the click event on the tabs
         */
         IPPR.dom.tabs.off('click.mobile');
 
+        /*
+        ** ... bind the click event on the tabs
+        */
         IPPR.dom.tabs.on('click.mobile', function(){
 
             IPPR.states.filters = false;
@@ -674,11 +677,18 @@
             IPPR.dom.filters.searchRemove.click();
             IPPR.filters.clear();
 
+            /*
+            ** ... hide the footer when on mobile view
+            */
             setTimeout(function(){
                 IPPR.dom.footer.addClass(IPPR.states.hidden);
             }, 400);
 
             IPPR.map.resetLayers();
+
+            /*
+            ** ... set the content to be visible and slide in the content
+            */
             IPPR.dom.content.addClass(IPPR.states.active);
 
             setTimeout(function(){
@@ -701,12 +711,15 @@
             }
         });
 
+        /*
+        ** ... levels are the main header links (licence<->info), so we check and slide the content to left or right depending on the current level
+        */
         $.each(IPPR.dom.levels, function(key, value){
             var level = $(this).data('level');
 
             $(value).find(IPPR.dom.lists.header).off('click');
             $(value).find(IPPR.dom.lists.header).on('click', function(){
-                if (level === 0){
+                if (level === 0){ // Inital non selected view
                     IPPR.dom.footer.removeClass(IPPR.states.hidden);
                     IPPR.dom.content.removeClass(IPPR.states.animate);
                     setTimeout(function(){
@@ -714,7 +727,7 @@
                     }, 100);
                     IPPR.dom.mapTrigger.removeClass(IPPR.states.active);
 
-                } else if (level === 1){
+                } else if (level === 1){ // 1st list
                     IPPR.dom.dataHolder.css({transform: 'translate(0,0)'});
                     if(IPPR.states.view === 'licenses'){
                         IPPR.dom.mapTrigger.addClass(IPPR.states.active);
@@ -732,12 +745,15 @@
                         $(IPPR.dom.lists.main).find(IPPR.dom.lists.holder).removeClass(IPPR.states.hidden);
                     }
 
-                } else if (level === 2){
+                } else if (level === 2){ // second list
                     IPPR.dom.dataHolder.css({transform: 'translate(-33.3333%,0)'});
                 }
             });
         });
 
+        /*
+        ** ... show license additional info (orange button)
+        */
         $(document).on('click', IPPR.dom.showInfo, function(e){
             e.preventDefault();
 
@@ -770,6 +786,10 @@
             IPPR.filters.clear();
 
             IPPR.map.resetLayers();
+
+            /*
+            ** ... we need to reset the leaflet state so it repositions the map view
+            */
             setTimeout(function(){
                 $.each(IPPR.map.map, function(key,value){
                     if(value){
@@ -781,6 +801,9 @@
             IPPR.dom.additionalInfo.addClass(IPPR.states.hidden);
         });
 
+        /*
+        ** ... enable the map to be draggable
+        */
         $.each(IPPR.map.map, function(k,v){
             v.dragging.enable();
         });
@@ -788,7 +811,9 @@
         IPPR.states.desktop = true;
     };
 
-
+    /*
+    ** On each clicked item in the lists do something ...
+    */
     IPPR.listDetails = function(){
 
         var markup = [],
