@@ -20,6 +20,7 @@ function build {
 	grunt build # Build with Grunt; see Gruntfile.js for more details.
 	echo "Committing the build"
 	cp -r dist/* _site/
+	cp .htaccess _site/
 	cd _site
 	ls .
 	git add -A
