@@ -21,6 +21,7 @@ function build {
 	echo "Committing the build"
 	cp -r dist/* _site/
 	cp .htaccess _site/
+	cp data/  _site/
 	cd _site
 	ls .
 	git add -A
