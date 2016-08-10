@@ -31,18 +31,18 @@
 
                 <h3>Site by</h3>
 
-                <div class="row">
-                    <div class="col s12 m6">
+                <ul class="SiteBy">
+                    <li>
                         <a href="http://web.burza.hr/" title="web.burza, Digital Agency">
-
+                            <img src="/images/dist/wb-color.png" alt="web.burza, Digital Agency" />
                         </a>
-                    </div>
-                    <div class="col s12 m6">
+                    </li>
+                    <li>
                         <a href="http://opendatakosovo.org/" title="Open Data Kosovo">
                             <img src="/images/dist/odk-color.png" alt="Open Data Kosovo" />
                         </a>
-                    </div>
-                </div>
+                    </li>
+                </ul>
 
 
             </div>

@@ -11744,7 +11744,31 @@ table th, table td {
   list-style-type: decimal;
 }
 
-/* ====================================
-   Faq
-   ==================================== */
+.About .SiteBy {
+  font-size: 0;
+}
+
+.About .SiteBy li {
+  width: 100%;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.About .SiteBy li img {
+  max-width: 60%;
+}
+
+@media only screen and (min-width: 601px) {
+  .About .SiteBy li {
+    width: 45%;
+    margin-right: 5%;
+  }
+  .About .SiteBy li:last-child {
+    margin-right: 0;
+  }
+  .About .SiteBy li img {
+    max-width: 100%;
+  }
+}
 /*# sourceMappingURL=global.css.map */

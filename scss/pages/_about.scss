@@ -19,4 +19,29 @@
         list-style-type: decimal;
     }
 
+    .SiteBy {
+        font-size: 0;
+        li {
+            width: 100%;
+            display: inline-block;
+            vertical-align: middle;
+            text-align: center;
+
+            img {
+                max-width: 60%;
+            }
+
+            @media #{$medium-and-up} {
+                width: 45%;
+                margin-right: 5%;
+                &:last-child {
+                    margin-right: 0;
+                }
+
+                img {
+                    max-width: 100%;
+                }
+            }
+        }
+    }
 }
