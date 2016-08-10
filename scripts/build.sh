@@ -17,7 +17,7 @@ function init {
 
 function build {
 	echo "Building..."
-	grunt build # Build with Grunt; see Gruntfile.js for more details.
+	grunt build --verbose # Build with Grunt; see Gruntfile.js for more details.
 	echo "Committing the build"
 	cp -r dist/* _site/
 	cp .htaccess _site/
