@@ -89,17 +89,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto+Slab" rel="stylesheet">
 
-    <!-- build:css /css/min2.css -->
-    <script>
-        function loadCSS(n,e,o,d){"use strict";var t=window.document.createElement("link"),i=e||window.document.getElementsByTagName("script")[0],l=window.document.styleSheets;return t.rel="stylesheet",t.href=n,t.media="only x",d&&(t.onload=d),i.parentNode.insertBefore(t,i),t.onloadcssdefined=function(e){for(var o,d=0;d<l.length;d++)l[d].href&&l[d].href.indexOf(n)>-1&&(o=!0);o?e():setTimeout(function(){t.onloadcssdefined(e)})},t.onloadcssdefined(function(){t.media=o||"all"}),t}
-        loadCss('/css/global.css');
-    </script>
-    <noscript>
-        <link rel="stylesheet" href="/css/global.css" />
-    </noscript>
-    <!-- endbuild -->
-
-
     <!-- build:css /css/min.css -->
     <link rel="stylesheet" href="/css/global.css" />
     <!-- endbuild -->

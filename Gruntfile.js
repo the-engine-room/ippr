@@ -171,9 +171,10 @@ module.exports = function (grunt) {
 
         usemin:{
             html: ['dist/index.php', 'dist/views/**/*.php'],
+            css: ['dist/css/{,*/}*.css'],
             options: {
                 assetsDirs: [
-                    'dist'
+                    'dist', 'dist/images/dist'
                 ],
             }
         },
@@ -185,7 +186,7 @@ module.exports = function (grunt) {
             },
             dist: {
                 src: [
-                    'dist/images/dist/**/*',
+                    'dist/images/dist/**/*.{png,jpg,jpeg,gif,webp,svg}',
                     'dist/js/**/*.js',
                     'dist/css/**/*.css'
                 ]
