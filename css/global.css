@@ -11709,8 +11709,10 @@ table th, table td {
 .Footer-poweredBy {
   color: #1E2D3A;
   font-weight: bold;
-  font-size: 20px;
   margin-bottom: 10px;
+  text-transform: uppercase;
+  font-size: 20px;
+  letter-spacing: 4px;
 }
 
 .Footer-info {
@@ -11742,6 +11744,44 @@ table th, table td {
 
 .About ol li {
   list-style-type: decimal;
+}
+
+.About h1, .About h2 {
+  text-transform: uppercase;
+  font-family: 'robotoblack';
+  opacity: 0.8;
+}
+
+.About h1 {
+  font-size: 2.2rem;
+}
+
+.About h2 {
+  font-size: 1.5rem;
+}
+
+.About blockquote {
+  font-family: 'Roboto Slab', serif;
+  font-size: 1.1rem;
+  border-left: 5px solid #E7B51F;
+}
+
+.About .matchbox-box {
+  margin: 2.5rem 0;
+  padding: 1rem 0;
+  border-bottom: 5px solid #E7B51F;
+  border-top: 5px solid #E7B51F;
+}
+
+.About .matchbox-box .row {
+  margin: 30px 0;
+}
+
+.About strong {
+  text-transform: uppercase;
+  font-family: 'robotoblack';
+  opacity: 0.8;
+  font-size: 1rem;
 }
 
 .About .SiteBy {

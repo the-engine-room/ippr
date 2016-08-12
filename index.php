@@ -63,7 +63,7 @@
     <meta property="og:site_name" content="Transparent Oil Namibia" />
     <meta property="og:title" content="Transparent Oil Namibia" />
 
-    <meta property="og:description" content="Mapping license details, connections, and trends to the allocation of Petroleum Exploration Licences in Namibia." />
+    <meta property="og:description" content="Mapping license details, connections, and trends in the allocation of Petroleum Exploration Licences in Namibia." />
     <meta property="og:url" content="<?php echo $URL ?>" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="/favicons/ogMain.png" />
@@ -109,7 +109,7 @@
                     </h1>
                 </div>
                 <div class="col s12 m6 offset-m3">
-                    <p class="light Header-description">Mapping license details, connections, and trends to the allocation of Petroleum Exploration Licences in Namibia.</p>
+                    <p class="light Header-description">Mapping license details, connections, and trends in the allocation of Petroleum Exploration Licences in Namibia.</p>
                 </div>
             </div>
 
