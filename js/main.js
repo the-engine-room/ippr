@@ -93,11 +93,13 @@
                 0: {
                     name: 'licenses',
                     sql: "SELECT * FROM na_licenses_operators_concessions",
+                    // sql: "SELECT l.cartodb_id AS license_id, l.number AS license_number, c.cartodb_id as company_id, c.name as company_name, c.address as company_address, c.hq as company_hq, c.date_formed as company_formed, c.jurisdiction as company_jurisdiction, c.website as company_website,array_to_string(ARRAY_AGG(lc.number), ',') AS concessions FROM na_licenses l, na_license_concessions lc, na_companies c WHERE l.cartodb_id = lc.license_id and lc.operator_id = c.cartodb_id GROUP BY l.cartodb_id, c.cartodb_id&api_key=1393ddb863ac0c21094ec217476256a394c52444",
                     groupBy: 'license_id'
                 },
                 1: {
                     name: 'companies',
                     sql: "SELECT * FROM na_license_operators",
+                    // sql: "SELECT l.cartodb_id AS license_id, l.number AS license_number, c.cartodb_id as company_id, c.name as company_name, c.address as company_address, c.hq as company_hq, c.date_formed as company_formed, c.jurisdiction as company_jurisdiction, c.website as company_website,array_to_string(ARRAY_AGG(lc.number), ',') AS concessions FROM na_licenses l, na_license_concessions lc, na_companies c, na_license_ownerships lo WHERE l.cartodb_id = lc.license_id AND lc.operator_id = c.cartodb_id AND lo.license_id = l.cartodb_id AND lo.is_operator = TRUE GROUP BY l.cartodb_id, c.cartodb_id ORDER BY company_name ASC&api_key=1393ddb863ac0c21094ec217476256a394c52444",
                     groupBy: 'company_id'
                 }
             },
@@ -533,7 +535,8 @@
             mustacheTpl = $(IPPR.dom.templates.licenceTable).html();
             Mustache.parse(mustacheTpl);
 
-            $.getJSON(IPPR.data.apiURL + "SELECT * FROM na_detailed_license_transfers WHERE license_id = " + item.data('id') + ' ORDER BY transfer_date&api_key=1393ddb863ac0c21094ec217476256a394c52444', function(data) {
+            $.getJSON(IPPR.data.apiURL + "SELECT * FROM na_license_transfers_without_operator_prior WHERE license_id = " + item.data('id') + ' ORDER BY transfer_date&api_key=1393ddb863ac0c21094ec217476256a394c52444', function(data) {
+            // $.getJSON(IPPR.data.apiURL + "SELECT lt.license_id, l.number AS license_number, lt.transfer_date, lt.transfer_type, lt.license_seller_id AS seller_id, c1.name AS seller, lt.seller_stake_prior, lt.seller_stake_after, lt.license_buyer_id AS buyer_id, c2.name AS buyer, lt.buyer_stake_after, lt.operator_prior_id, c3.name AS operator_prior, lt.operator_after_id, c4.name AS operator_after FROM na_license_transfers lt, na_companies c1, na_companies c2, na_companies c3, na_companies c4, na_licenses l WHERE lt.license_seller_id = c1.cartodb_id AND lt.license_buyer_id = c2.cartodb_id AND lt.operator_prior_id = c3.cartodb_id AND lt.operator_after_id = c4.cartodb_id AND lt.license_id = l.cartodb_id ORDER BY license_id ASC&api_key=1393ddb863ac0c21094ec217476256a394c52444", function(data) {
 
                 var sankeyData = [];
                 // [[ "Goverment of Namibia 100%", "Eco oil and gas 20%", 10, "20%"],[ "Eco oil and gas 20%", "Eco oil and gas 10%", 5, "10%" ],[ "Eco oil and gas 20%", "New Buyer 10%", 5, "10%" ],[ "Goverment of Namibia 100%", "Goverment of Namibia 80%", 8, "80%"]]
@@ -546,7 +549,15 @@
                 );
 
                 $.each(data.rows, function(index, val) {
-                    sankeyData.push([val.seller,val.buyer, Math.ceil(val.buyer_stake_after || 100), val.seller_stake_prior + '% ->' + val.buyer_stake_after + '%']);
+                    var stakeAfter = Math.ceil(val.buyer_stake_after || 100);
+                    if (stakeAfter < 50){
+                        stakeAfter = 50;
+                    }
+
+                    if (val.seller === val.buyer){
+                        val.buyer = val.buyer + ' ';
+                    }
+                    sankeyData.push([val.seller,val.buyer, stakeAfter, val.seller_stake_prior + '% ->' + val.buyer_stake_after + '%']);
                 });
 
                 if (IPPR.states.mobile){
@@ -1134,8 +1145,9 @@
                     sankey: {
                         node: {
                             colors: colors,
-                            width: 5,
-                            nodePadding: 150
+                            width: 150,
+                            nodePadding: 100,
+                            labelPadding: 0
                         },
                         link: {
                             colorMode: 'gradient',
