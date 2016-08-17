@@ -4,9 +4,9 @@
             <h1>An investigative platform for advocacy</h1>
 
 
-            <p>Transparent Oil Namibia enables you to map, find, browse, and search petroleum exploration licenses. You can find which companies hold licenses, who owns and manages these companies, where they’re registered, and how ownership has changed over time. You can also access licence and company information by clicking on the map.</p>
+            <p>Transparent Oil Namibia enables you to map, find, browse, and search petroleum exploration licences. You can find which companies hold licences, who owns and manages these companies, where they’re registered, and how ownership has changed over time. You can also access licence and company information by clicking on the map.</p>
 
-            <p>The information on this platform is publicly available, but it was previously hard to access and use for advocacy without exhausting resources. Tracking license history in Namibia has often required sorting through hundreds of hardcopy pages of text. With improved accessibility to this data, you can more easily combat industry corruption and advocate for policy changes in Namibia.</p>
+            <p>The information on this platform is publicly available, but it was previously hard to access and use for advocacy without exhausting resources. Tracking licence history in Namibia has often required sorting through hundreds of hardcopy pages of text. With improved accessibility to this data, you can more easily combat industry corruption and advocate for policy changes in Namibia.</p>
 
             <blockquote>
                 “Such negative outcomes of resource extraction, commonly known as the resource curse.. can be countered by strong and unambiguous policies, accompanied by effective institutional structures.“ <a href="http://www.namibian.com.na/index.php?id=139106&page=archive-read">- The Namibian</a>
@@ -84,7 +84,7 @@
               </div>
               <div class="col s8">
               <p class="Block-title"><a href="http://www.res4dev.com/">Res4Dev</a> - data modelling and sector specific expertise</p>
-              <p>Res4Dev is a policy research firm assisting citizens in resource-rich developing countries.</p>
+              <p>Res4Dev is a policy research firm assisting citizens in resource-rich developing countries in securing a fair share of extractive sector wealth.</p>
               </div>
             </div>
 
