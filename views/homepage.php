@@ -35,7 +35,7 @@
                     <div class="List List--main z-depth-1" data-level="0">
                         <div class="List-header brand blue">
                             <span class="hide-on-large-only List-back"><i class="material-icons">keyboard_arrow_left</i></span>
-                            <span>Licenses <span class="List-count"></span></span>
+                            <span>Licences <span class="List-count"></span></span>
                         </div>
 
 
@@ -87,7 +87,7 @@
 
                         <div class="List-holder">
                             <p class="List-headerInactive">
-                                Select a license on the left to see ownership information
+                                Select a licence on the left to see ownership information
                             </p>
                             <ul class="collection collapsible" data-collapsible="accordion">
                             </ul>
@@ -235,13 +235,13 @@
                         <div class="List-header brand blue">
                             <div class="List-headerActive">
                                 <span class="hide-on-large-only List-back"><i class="material-icons">keyboard_arrow_left</i></span>
-                                <span>Licenses in ownership <span class="List-count"></span></span>
+                                <span>Licences in ownership <span class="List-count"></span></span>
                             </div>
                         </div>
 
                         <div class="List-holder is-filterable">
                             <p class="List-headerInactive">
-                                Select a company on the left to see licenses information
+                                Select a company on the left to see licences information
                             </p>
                             <ul class="collection collapsible" data-collapsible="accordion">
                             </ul>
@@ -395,7 +395,7 @@
 
     <script type="x-tmpl-mustache" class="ownedLicenses-tpl">
 
-        <div class="col s12"><p class="OwnedLicenses-title">Company owned licenses</p></div>
+        <div class="col s12"><p class="OwnedLicenses-title">Company owned licences</p></div>
         {{#licence}}
             <div class="col s6 m4 l2">
                 <div class="Block">

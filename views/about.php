@@ -14,7 +14,7 @@
 
             <p>With a small group of public officials exercising discretionary decision-making powers, the current way petroleum exploration licences in Namibia are issued is opaque and open to abuse. Politically-connected owners receive concession rights which they can then sell at a higher price for their financial gain.</p>
 
-            <p>IPPR developed this platform to identify licensing patterns, red-flag corruption, and advocate for policy reform.</p>
+            <p>IPPR developed this platform to identify licencing patterns, red-flag corruption, and advocate for policy reform.</p>
 
             <div class="matchbox-box">
               <p><strong>Transparent Oil Namibia is a project by the Institute for Public Policy Research (IPPR) with support from Matchbox by The Engine Room.</strong></p>
