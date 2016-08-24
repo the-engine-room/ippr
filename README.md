@@ -42,7 +42,7 @@ And again you'd need to tell what the previous code actually does.
 ### Data Model
 The data is stored in [carto.com](http://carto.com) and fetched via [CARTO's SQL API](https://carto.com/docs/carto-engine/sql-api/).
 
-![The data model](https://github.com/the-engine-room/ippr/blob/readme-data-model/images/data-model.png)
+![alt tag](images/data-model.png "The data model.")
 
 
 ## Licensing
