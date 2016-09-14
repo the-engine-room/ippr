@@ -167,7 +167,7 @@
 
             <div class="row center-align Footer-logos">
                 <div class="col s12 m10 offset-m1">
-                    <p class="Footer-poweredBy">a <a href="diig.io">diig.io</a> project by</p>
+                    <p class="Footer-poweredBy">a <a href="http://diig.io">diig.io</a> project by</p>
                     <a href="http://www.ippr.org.na/">
                         <img src="/images/dist/ippr.png" alt="IPPR" width="1841" height="156" class="Footer--ippr" />
                         <img src="/images/dist/ippr-small.png" alt="IPPR" width="707" height="273" class="Footer--ipprSmall" />
