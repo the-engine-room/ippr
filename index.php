@@ -21,7 +21,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Transparent Oil Namibia</title>
-    <meta name="description" content="The Transparent Oil Namibia platform maps the details, trends and connections in the allocation of Petroleum Exploration Licences in Namibia.">
+    <meta name="description" content="The Namibia Transparent Oil platform maps the details, trends and connections in the allocation of Petroleum Exploration Licences in Namibia.">
 
     <script>
         (function () {
@@ -60,8 +60,8 @@
         }());
     </script>
 
-    <meta property="og:site_name" content="Transparent Oil Namibia" />
-    <meta property="og:title" content="Transparent Oil Namibia" />
+    <meta property="og:site_name" content="Namibia Transparent Oil" />
+    <meta property="og:title" content="Namibia Transparent Oil" />
 
     <meta property="og:description" content="Mapping licence details, connections, and trends in the allocation of Petroleum Exploration Licences in Namibia." />
     <meta property="og:url" content="<?php echo $URL ?>" />
@@ -103,8 +103,8 @@
                 <div class="col s12">
                     <h1 class="Header-title">
                         <a href="/">
-                            <span class="Header-title--secondary">Transparent Oil</span>
-                            <span class="Header-title--primary">Namibia</span>
+                            <span class="Header-title--secondary">Namibia</span>
+                            <span class="Header-title--primary">Transparent Oil</span>
                         </a>
                     </h1>
                 </div>
@@ -159,15 +159,15 @@
             <div class="row center-align">
                 <div class="col s12">
                     <p class="Header-title">
-                        <span class="Header-title--secondary">Transparent Oil</span>
-                        <span class="Header-title--primary">Namibia</span>
+                        <span class="Header-title--secondary">Namibia</span>
+                        <span class="Header-title--primary">Transparent Oil</span>
                     </p>
                 </div>
             </div>
 
             <div class="row center-align Footer-logos">
                 <div class="col s12 m10 offset-m1">
-                    <p class="Footer-poweredBy">a project by</p>
+                    <p class="Footer-poweredBy">a <a href="diig.io">diig.io</a> project by</p>
                     <a href="http://www.ippr.org.na/">
                         <img src="/images/dist/ippr.png" alt="IPPR" width="1841" height="156" class="Footer--ippr" />
                         <img src="/images/dist/ippr-small.png" alt="IPPR" width="707" height="273" class="Footer--ipprSmall" />
