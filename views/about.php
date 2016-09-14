@@ -4,7 +4,7 @@
             <h1>An investigative platform for advocacy</h1>
 
 
-            <p>Transparent Oil Namibia enables you to map, find, browse, and search petroleum exploration licences. You can find which companies hold licences, who owns and manages these companies, where they’re registered, and how ownership has changed over time. You can also access licence and company information by clicking on the map.</p>
+            <p>Namibia Transparent Oil enables you to map, find, browse, and search petroleum exploration licences. You can find which companies hold licences, who owns and manages these companies, where they’re registered, and how ownership has changed over time. You can also access licence and company information by clicking on the map.</p>
 
             <p>The information on this platform is publicly available, but it was previously hard to access and use for advocacy without exhausting resources. Tracking licence history in Namibia has often required sorting through hundreds of hardcopy pages of text. With improved accessibility to this data, you can more easily combat industry corruption and advocate for policy changes in Namibia.</p>
 
@@ -17,7 +17,7 @@
             <p>IPPR developed this platform to identify licencing patterns, red-flag corruption, and advocate for policy reform.</p>
 
             <div class="matchbox-box">
-              <p><strong>Transparent Oil Namibia is a project by the Institute for Public Policy Research (IPPR) with support from Matchbox by The Engine Room.</strong></p>
+              <p><strong>Namibia Transparent Oil is a project by the Institute for Public Policy Research (IPPR) with support from Matchbox by The Engine Room.</strong></p>
 
               <div class="Block row">
                 <div class="col s4">
