@@ -94,7 +94,7 @@
     <!-- endbuild -->
 
 </head>
-<body<?php if($match[name] == 'homepage'){ echo ' class="App"'; } ?>>
+<body<?php if($match['name'] == 'homepage'){ echo ' class="App"'; } ?>>
 
     <header class="Header center-align<?php if($match[name] == 'about'){ ?> Header--plain<?php } ?>">
         <div class="Header-inner">
@@ -114,10 +114,10 @@
             </div>
 
             <ul class="Header-navigation">
-                <li><a href="/about/"<?php if($match[name] == 'about'){ echo ' class="is-active"'; } ?>>About</a></li>
+                <li><a href="/about/"<?php if($match['name'] == 'about'){ echo ' class="is-active"'; } ?>>About</a></li>
             </ul>
 
-            <?php if($match[name] == 'homepage'){ ?>
+            <?php if($match['name'] == 'homepage'){ ?>
                 <ul class="tabs Header-tabs">
                     <li class="tab col">
                         <a href="/#tab-0" class="brand blue" data-view="licenses">
@@ -137,7 +137,7 @@
         </div>
     </header>
 
-    <?php if($match[name] == 'about'){ ?>
+    <?php if($match['name'] == 'about'){ ?>
         <div class="Search brand blue"></div>
     <?php } ?>
 

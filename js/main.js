@@ -357,7 +357,7 @@
         /*
         ** ... get the geo json data
         */
-        $.getJSON('/data/na_license_concessions.geojson', function(data){
+        $.getJSON('https://namibmap.carto.com/api/v2/sql/?format=GeoJSON&q=SELECT lc.* FROM na_license_concessions lc', function(data){
 
             /*
             ** ... for each map in the dom initialize the maps and populate with layers and markers
