@@ -98,8 +98,8 @@
                 },
                 1: {
                     name: 'companies',
-                    sql: "SELECT * FROM na_license_operators",
-                    // sql: "SELECT l.cartodb_id AS license_id, l.number AS license_number, c.cartodb_id as company_id, c.name as company_name, c.address as company_address, c.hq as company_hq, c.date_formed as company_formed, c.jurisdiction as company_jurisdiction, c.website as company_website,array_to_string(ARRAY_AGG(lc.number), ',') AS concessions FROM na_licenses l, na_license_concessions lc, na_companies c, na_license_ownerships lo WHERE l.cartodb_id = lc.license_id AND lc.operator_id = c.cartodb_id AND lo.license_id = l.cartodb_id AND lo.is_operator = TRUE GROUP BY l.cartodb_id, c.cartodb_id ORDER BY company_name ASC&api_key=1393ddb863ac0c21094ec217476256a394c52444",
+                    // sql: "SELECT * FROM na_license_operators",
+                    sql: "SELECT l.cartodb_id AS license_id, l.number AS license_number, c.cartodb_id as company_id, c.name as company_name, c.address as company_address, c.hq as company_hq, c.date_formed as company_formed, c.jurisdiction as company_jurisdiction, c.website as company_website,array_to_string(ARRAY_AGG(lc.number), ',') AS concessions FROM na_licenses l, na_license_concessions lc, na_companies c, na_license_ownerships lo WHERE l.cartodb_id = lc.license_id AND lc.operator_id = c.cartodb_id AND lo.license_id = l.cartodb_id AND lo.is_operator = TRUE GROUP BY l.cartodb_id, c.cartodb_id ORDER BY company_name ASC&api_key=1393ddb863ac0c21094ec217476256a394c52444",
                     groupBy: 'company_id'
                 }
             },
