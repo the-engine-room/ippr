@@ -5,18 +5,16 @@ env:
   global:
   - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
 addons:
-  ssh_known_hosts: 104.236.101.175
+  ssh_known_hosts: engineroom1.koumbit.net
 before_install:
 - openssl aes-256-cbc -K $encrypted_fd2069f7bce4_key -iv $encrypted_fd2069f7bce4_iv
   -in deploy-key-ippr.enc -out deploy-key-ippr -d
 - chmod 600 ~/.ssh/config
-- chmod 600 deploy-key
-- mv deploy-key ~/.ssh/id_rsa
-- rm deploy-key.enc
-- echo -e "Host 45.55.35.212" >> ~/.ssh/config
+- chmod 600 deploy-key-ippr
+- mv deploy-key-ippr ~/.ssh/id_rsa
+- rm deploy-key-ippr.enc
+- echo -e "Host engineroom1.koumbit.net" >> ~/.ssh/config
 - echo -e "IdentityFile ~/.ssh/id_rsa" >> ~/.ssh/config
-- cat ~/.ssh/id_rsa
-- cat ~/.ssh/known_hosts
 - bash scripts/install.sh
 before_script:
 - bash scripts/install.sh
