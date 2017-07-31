@@ -1,13 +1,13 @@
 language: node_js
 cache:
-    directories:
-    - node_modules
+  directories:
+  - node_modules
 node_js:
 - 5.10.1
 addons:
   ssh_known_hosts: engineroom1.koumbit.net
 before_install:
-- openssl aes-256-cbc -K $encrypted_fd2069f7bce4_key -iv $encrypted_fd2069f7bce4_iv
+- openssl aes-256-cbc -K $encrypted_1ad92656603a_key -iv $encrypted_1ad92656603a_iv
   -in deploy-key-ippr.enc -out deploy-key-ippr -d
 - chmod 600 ~/.ssh/config
 - chmod 600 deploy-key-ippr
