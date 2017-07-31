@@ -29,7 +29,7 @@ This will compile everything for production in the `dist` folder.
 
 ### Deploying / Publishing - TODO
 
-This repo deploys upon push to a managed VPS.
+This repo deploys upon push to a managed VPS. 
 
 ### Data Model
 The data is stored in [carto.com](http://carto.com) and fetched via [CARTO's SQL API](https://carto.com/docs/carto-engine/sql-api/).
